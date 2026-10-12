@@ -71,6 +71,10 @@ Interactions are events (`lesson_viewed`, `lesson_swiped`, `answer_correct`, `wo
 
 Onboarding marks concepts well below the learner's stated level as "assumed known" and schedules light check-in reviews for them.
 
+### Learning path
+
+New content is gated into five stages: Foundations, A1, A2, B1, and B2 and beyond (`src/lib/learner/stages.ts`). A learner's stage isn't stored. It's computed as the first stage where fewer than 70% of the stage's core concepts are learned, so it can't drift from their real progress. A concept counts as learned once it's answered correctly, met across 3 cards, or assumed at onboarding. Onboarding sets the starting point: "I can read Hangul" and "Beginner" start in Foundations with nothing assumed. Three "Too easy" taps skip ahead a stage, which is stored as `profiles.min_stage`. Inside a stage, cards carry a module number (greetings before numbers), and the feed stays within one module of the first unfinished one. If everything open on the path has been seen, the next stage spills over instead of cards repeating. The Progress page shows the path and how many concepts remain before the next stage.
+
 ### Feed algorithm
 
 `src/lib/feed/engine.ts`. Each slot is filled in two steps.

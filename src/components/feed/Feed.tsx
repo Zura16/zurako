@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { catalog } from "@/content";
 import { nextCards, type FeedPick } from "@/lib/feed/engine";
+import { STAGES, currentStage } from "@/lib/learner/stages";
 import { QUICK_SWIPE_MS } from "@/lib/learner/events";
 import { useLearner } from "@/components/providers/LearnerProvider";
 import { CardBody } from "@/components/cards/CardBody";
@@ -73,6 +74,20 @@ export function Feed() {
     activeSince.current = now;
   }, [active, picks, track]);
 
+  // Celebrate a newly opened stage, whether earned or skipped to.
+  const stage = currentStage(catalog, learner);
+  const lastStage = useRef(stage);
+  const [banner, setBanner] = useState<string | null>(null);
+  useEffect(() => {
+    if (stage > lastStage.current) setBanner(`${STAGES[stage].name} is open. New cards from it start now.`);
+    lastStage.current = stage;
+  }, [stage]);
+  useEffect(() => {
+    if (!banner) return;
+    const t = setTimeout(() => setBanner(null), 5000);
+    return () => clearTimeout(t);
+  }, [banner]);
+
   const goTo = useCallback((index: number) => {
     const el = container.current?.querySelector<HTMLElement>(`[data-index="${index}"]`);
     el?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
@@ -125,6 +140,14 @@ export function Feed() {
           </section>
         );
       })}
+      {banner && (
+        <div
+          role="status"
+          className="rise fixed inset-x-4 top-[max(env(safe-area-inset-top),0.75rem)] z-40 mx-auto max-w-md rounded-2xl bg-accent px-4 py-3 text-center text-sm font-semibold text-accent-ink shadow-xl"
+        >
+          {banner}
+        </div>
+      )}
       {active === 0 && (
         <p className="pointer-events-none fixed inset-x-0 bottom-[8.5rem] text-center text-xs text-faint" aria-hidden>
           Swipe up · ↑↓ keys

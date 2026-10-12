@@ -1,6 +1,7 @@
 import type { Card, Catalog } from "@/content/catalog";
 import { SKILLS, levelValue, type Skill } from "@/content/schema";
 import { DEFAULT_VOICE } from "@/lib/audio/voices";
+import { STAGES, currentStage } from "./stages";
 import { QUICK_SWIPE_MS, type AppEvent, type SpeakingGrade } from "./events";
 import { DAY, review, type Grade } from "./srs";
 import type { CardState, Changes, ConceptState, Goal, LearnerState, Profile, SelfLevel, SkillState } from "./types";
@@ -8,7 +9,7 @@ import type { CardState, Changes, ConceptState, Goal, LearnerState, Profile, Sel
 /** Starting ability for each onboarding answer, on the 0–6 level scale. */
 const SELF_LEVEL_ABILITY: Record<SelfLevel, number> = {
   hangul: 0.3,
-  beginner: 1,
+  beginner: 0.7, // knows greetings, but starts in Foundations with nothing assumed
   elementary: 2,
   intermediate: 3,
   advanced: 4.3,
@@ -61,6 +62,7 @@ export function initLearner(answers: OnboardingAnswers, catalog: Catalog, now: n
     profile: {
       ...answers,
       voice: answers.voice ?? DEFAULT_VOICE,
+      minStage: 0,
       difficultyOffset: 0,
       topicAffinity: {},
       typeAffinity: {},
@@ -71,6 +73,9 @@ export function initLearner(answers: OnboardingAnswers, catalog: Catalog, now: n
     skills,
   };
 }
+
+/** "Too easy" taps that move the learner up a stage. */
+export const EASY_TAPS_TO_SKIP = 3;
 
 /** Correct answers on this many different days take a card off the To learn list. */
 export const TO_LEARN_DAYS = 2;
@@ -207,8 +212,14 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       updateSkills(next, card, 1, now, changes, 0.5);
       break;
     }
-    case "marked_easy":
-      nudgeProfile((p) => ({ difficultyOffset: clamp(p.difficultyOffset + 0.3, -1.5, 1.5) }));
+    case "marked_easy": {
+      // Three "too easy" taps in a stage skip ahead to the next one.
+      const stage = currentStage(catalog, next);
+      nudgeProfile((p) =>
+        p.difficultyOffset + 0.3 >= EASY_TAPS_TO_SKIP * 0.3 - 1e-9 && stage < STAGES.length - 1
+          ? { difficultyOffset: 0, minStage: stage + 1 }
+          : { difficultyOffset: clamp(p.difficultyOffset + 0.3, -1.5, 1.5) },
+      );
       for (const id of teach) {
         touchConcept(id, (prev) => {
           const stability = Math.max(10, prev?.stability ?? 0);
@@ -218,6 +229,7 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       shiftSkill(next, card.skills[0], 0.25, now, changes);
       affinity(-0.05);
       break;
+    }
     case "marked_difficult":
       nudgeProfile((p) => ({ difficultyOffset: clamp(p.difficultyOffset - 0.3, -1.5, 1.5) }));
       grade(teach, "hard");

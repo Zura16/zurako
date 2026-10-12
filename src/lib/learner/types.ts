@@ -58,6 +58,8 @@ export type Profile = {
   voice: VoiceId;
   /** Learned from "too easy" / "too hard": shifts the target level. */
   difficultyOffset: number;
+  /** Stage the learner skipped ahead to with "Too easy"; the path never drops below it. */
+  minStage: number;
   topicAffinity: Record<string, number>;
   typeAffinity: Record<string, number>;
   updatedAt: number;

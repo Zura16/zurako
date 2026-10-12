@@ -9,11 +9,15 @@ const fresh = () => initLearner({ selfLevel: "beginner", goals: ["conversation"]
 const apply = (state: ReturnType<typeof fresh>, e: AppEvent) => applyEvent(state, e, catalog).state;
 
 describe("initLearner", () => {
-  it("assumes beginner-level concepts are known for an A1 learner, but nothing above", () => {
-    const s = fresh();
+  it("assumes the basics for an elementary learner, but nothing at their level", () => {
+    const s = initLearner({ selfLevel: "elementary", goals: [], casualComfort: 1 }, catalog, T0);
     expect(s.concepts["v.오늘"]?.assumed).toBe(true);
     expect(s.concepts["g.progressive"]).toBeUndefined();
-    expect(s.skills.grammar?.ability).toBe(1);
+  });
+
+  it("starts a self-described beginner from scratch in Foundations", () => {
+    const s = fresh();
+    expect(Object.values(s.concepts).filter((c) => c.assumed)).toHaveLength(0);
   });
 
   it("assumes nothing for someone who only reads Hangul", () => {

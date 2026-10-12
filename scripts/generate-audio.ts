@@ -33,7 +33,7 @@ async function synthesize(text: string, voice: VoiceId): Promise<Buffer> {
       }),
     });
     if (res.ok) return Buffer.from(((await res.json()) as { audioContent: string }).audioContent, "base64");
-    if (attempt >= 4 || (res.status !== 429 && res.status < 500)) throw new Error(`${res.status} ${await res.text()}`);
+    if (attempt >= 7 || (res.status !== 429 && res.status < 500)) throw new Error(`${res.status} ${await res.text()}`);
     await new Promise((r) => setTimeout(r, 1000 * 2 ** attempt));
   }
 }

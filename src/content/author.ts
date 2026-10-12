@@ -130,6 +130,7 @@ type CardInput<T extends CardType> = {
   teaches?: string[];
   interest?: number;
   story?: { id: string; part: number };
+  module?: number;
   payload: PayloadInput<T>;
 };
 

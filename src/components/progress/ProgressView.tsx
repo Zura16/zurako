@@ -7,6 +7,7 @@ import type { Concept } from "@/content/schema";
 import { conceptGroups, overview, skillSummaries, type ConceptGroup } from "@/lib/learner/progress";
 import type { ConceptStatus } from "@/lib/learner/srs";
 import { useLearner } from "@/components/providers/LearnerProvider";
+import { PathSection } from "./PathSection";
 
 const SKILL_LABEL: Record<string, string> = {
   vocabulary: "Vocabulary",
@@ -47,7 +48,9 @@ export function ProgressView() {
     <div className="mx-auto max-w-xl px-5 pt-[max(env(safe-area-inset-top),1.5rem)] pb-28">
       <h1 className="text-2xl font-bold">Progress</h1>
 
-      <dl className="mt-5 grid grid-cols-3 gap-2.5">
+      <PathSection learner={learner} />
+
+      <dl className="mt-8 grid grid-cols-3 gap-2.5">
         <Stat label="Concepts met" value={stats.introduced} />
         <Stat label="Mastered" value={stats.mastered} />
         <Stat label="To review" value={stats.due} accent={stats.due > 0} />

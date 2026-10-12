@@ -403,4 +403,42 @@ const CULTURE: Concept[] = [
   culture("ppalli", "빨리빨리", "the 'hurry hurry' culture", "A2"),
 ];
 
-export const CONCEPTS: Concept[] = [...GRAMMAR, ...VOCAB, ...EXPRESSIONS, ...CULTURE];
+/** Foundations: the very first things a learner meets. */
+const FOUNDATIONS: Concept[] = [
+  expression("annyeong", "안녕하세요 / 안녕히 가세요 / 안녕히 계세요", "hello and the two goodbyes", "BEGINNER", "Greetings & courtesy"),
+  expression("sorry", "죄송합니다 / 미안해요", "I'm sorry", "BEGINNER", "Greetings & courtesy"),
+  expression("ne-aniyo", "네 / 아니요", "yes / no", "BEGINNER", "Yes, no & reactions"),
+  expression("geulsse", "글쎄요", "well… (hesitating)", "BEGINNER", "Yes, no & reactions"),
+  grammar("ida", "N + 이에요/예요", "is, am, are (with a noun)", "BEGINNER", "Is & isn't", {
+    pattern: "N + 이에요 (after consonant) / 예요 (after vowel)",
+    explanation: "Joins a noun to the subject: 학생이에요 'I'm a student', 커피예요 'it's coffee'.",
+    examples: [["저는 학생이에요.", "I'm a student."]],
+  }),
+  grammar("anida", "N + 이/가 아니에요", "is not (with a noun)", "BEGINNER", "Is & isn't", {
+    pre: ["g.ida"],
+    pattern: "N + 이/가 아니에요",
+    explanation: "The negative of 이에요/예요. Use 아니에요, never 안: 학생이 아니에요.",
+  }),
+  grammar("itda-eopda", "있어요 / 없어요", "there is, I have / there isn't, I don't have", "BEGINNER", "Have & there is", {
+    explanation: "One verb covers 'have' and 'there is': 시간 있어요? 'Do you have time?', 물 있어요? 'Is there water?'",
+  }),
+  grammar("demonstratives", "이거 / 그거 / 저거", "this / that (near you) / that (over there)", "BEGINNER", "This, that & where", {
+    explanation: "이 is near me, 그 is near you (or already mentioned), 저 is away from both of us. Same for 여기/거기/저기.",
+  }),
+  vocab("여기", "here", "BEGINNER", "Places", "pronoun", { frequency: "core" }),
+  vocab("거기", "there (near you)", "BEGINNER", "Places", "pronoun", { frequency: "core" }),
+  vocab("저기", "over there", "BEGINNER", "Places", "pronoun", { frequency: "core" }),
+  vocab("선생님", "teacher", "BEGINNER", "People", "noun", { frequency: "common" }),
+  vocab("회사원", "office worker", "BEGINNER", "People", "noun", { frequency: "common" }),
+  vocab("나라", "country", "BEGINNER", "Everyday nouns", "noun", { frequency: "core" }),
+  vocab("차", "tea; car", "BEGINNER", "Food & drink", "noun", { frequency: "core" }),
+  vocab("빵", "bread", "BEGINNER", "Food & drink", "noun", { frequency: "common" }),
+  vocab("떡", "rice cake", "BEGINNER", "Food & drink", "noun", { frequency: "common" }),
+  vocab("김밥", "gimbap (seaweed rice roll)", "BEGINNER", "Food & drink", "noun", { frequency: "less-common" }),
+  vocab("가방", "bag", "BEGINNER", "Everyday nouns", "noun", { frequency: "common" }),
+  vocab("좋아하다", "to like", "BEGINNER", "Everyday verbs", "verb", { frequency: "core" }),
+  vocab("맞다", "to be right, correct", "BEGINNER", "Descriptions", "adjective", { frequency: "core" }),
+  vocab("아니면", "or (else)", "BEGINNER", "Adverbs", "adverb", { frequency: "core" }),
+];
+
+export const CONCEPTS: Concept[] = [...GRAMMAR, ...VOCAB, ...EXPRESSIONS, ...CULTURE, ...FOUNDATIONS];

@@ -225,6 +225,8 @@ const CardBaseSchema = z.object({
   teaches: z.array(id).default([]),
   interest: z.number().min(0).max(1).default(0.5),
   story: z.object({ id: z.string(), part: z.number().int().positive() }).optional(),
+  /** Order within a stage's path, e.g. Foundations module 1 (greetings) before module 12 (numbers). */
+  module: z.number().int().positive().optional(),
   payload: z.unknown(),
 });
 type CardBase = Omit<z.infer<typeof CardBaseSchema>, "type" | "payload">;

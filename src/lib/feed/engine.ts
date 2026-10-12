@@ -1,6 +1,7 @@
 import type { Card, Catalog } from "@/content/catalog";
 import { GOAL_MATCH } from "@/lib/learner/model";
 import { DAY, recall } from "@/lib/learner/srs";
+import { STAGES, currentModule, currentStage, stageOf } from "@/lib/learner/stages";
 import type { CardOutcome, LearnerState } from "@/lib/learner/types";
 
 /**
@@ -14,6 +15,10 @@ import type { CardOutcome, LearnerState } from "@/lib/learner/types";
  *   2. Pick the best-scoring card in that bucket. The score combines level
  *      fit, review urgency, goals, learned topic/type affinity, editorial
  *      interest, and variety penalties against the last few cards.
+ *
+ * New content is gated by the learning path (see stages.ts): only cards from
+ * the learner's current stage or earlier, and within a stage, at most one
+ * module ahead of the first unfinished one. Reviews ignore the gate.
  *
  * Cards the learner marked "too hard" return as reviews until learnt.
  *
@@ -54,6 +59,8 @@ type Candidate = {
   card: Card;
   buckets: Map<Bucket, string>; // bucket -> reason
   urgency: number;
+  /** Modules ahead of the learner's current module within the card's stage (0 if not ahead). */
+  moduleAhead: number;
 };
 
 export function nextCards(ctx: FeedContext, count: number): FeedPick[] {
@@ -89,9 +96,31 @@ function pickOne(ctx: FeedContext): FeedPick | null {
   return fallback ? { cardId: fallback.id, bucket: "familiar", reason: "Another look", score: 0 } : null;
 }
 
+/** Where the learner is on the path, computed once per pick. */
+type Path = { stage: number; module: number | null };
+
+/** Whether a card is on the open part of the path (gates new, familiar and explore picks). */
+function onPath(card: Card, path: Path): boolean {
+  const stage = stageOf(card);
+  if (stage > path.stage) return false;
+  if (stage === path.stage && card.module !== undefined && path.module !== null) return card.module <= path.module + 1;
+  return true;
+}
+
 function classify(ctx: FeedContext): Candidate[] {
-  const { catalog, learner, now, session } = ctx;
+  const { catalog, learner, session } = ctx;
   const shownThisSession = new Set(session.map((e) => e.cardId));
+  const stage = currentStage(catalog, learner);
+  const path: Path = { stage, module: currentModule(catalog, learner, stage) };
+  const candidates = classifyOnPath(ctx, path, shownThisSession);
+  // Everything open on the path has been seen: let the next stage in rather than repeat cards.
+  const fresh = candidates.some((c) => c.buckets.has("new") || c.buckets.has("familiar") || c.buckets.has("explore"));
+  if (fresh || stage >= STAGES.length - 1) return candidates;
+  return classifyOnPath(ctx, { stage: stage + 1, module: null }, shownThisSession);
+}
+
+function classifyOnPath(ctx: FeedContext, path: Path, shownThisSession: Set<string>): Candidate[] {
+  const { catalog, learner, now } = ctx;
   const out: Candidate[] = [];
 
   for (const card of catalog.cards.values()) {
@@ -125,7 +154,7 @@ function classify(ctx: FeedContext): Candidate[] {
     }
 
     const seen = (cs?.views ?? 0) > 0;
-    if (!coolingDown && !cs?.known) {
+    if (!coolingDown && !cs?.known && onPath(card, path)) {
       // Story continuation: the previous part is done and this one isn't.
       if (card.story && card.story.part > 1 && !seen && storyPartSeen(ctx, card.story.id, card.story.part - 1)) {
         buckets.set("story", "Story continues");
@@ -141,7 +170,10 @@ function classify(ctx: FeedContext): Candidate[] {
           buckets.set("familiar", teach.length ? `Practice: ${catalog.concepts.get(teach[0].id)?.label}` : "Practice");
         }
         const offGoal = !matchesGoals(ctx, card);
-        if (card.interest >= 0.8 || (offGoal && card.interest >= 0.6)) buckets.set("explore", "Something different");
+        const introducesByPractice = PRACTICE_TYPES.has(card.type) && fresh.length > 0;
+        if (!introducesByPractice && (card.interest >= 0.8 || (offGoal && card.interest >= 0.6))) {
+          buckets.set("explore", "Something different");
+        }
       } else if (seen && !card.story && gap <= MAX_STRETCH && cs?.lastOutcome !== "correct") {
         // Seen before but not yet nailed: fair game for consolidation.
         buckets.set("familiar", "Another look");
@@ -149,7 +181,9 @@ function classify(ctx: FeedContext): Candidate[] {
     }
 
     if (cs?.toLearn) for (const b of [...buckets.keys()]) if (b !== "review") buckets.delete(b);
-    if (buckets.size > 0) out.push({ card, buckets, urgency });
+    const moduleAhead =
+      card.module !== undefined && stageOf(card) === path.stage && path.module !== null ? Math.max(0, card.module - path.module) : 0;
+    if (buckets.size > 0) out.push({ card, buckets, urgency, moduleAhead });
   }
   return out;
 }
@@ -227,6 +261,9 @@ export function scoreCard(c: Candidate, bucket: Bucket, ctx: FeedContext): numbe
 
   if (bucket === "review") score += c.urgency;
   if (bucket === "story") score += 1;
+
+  // Within a stage, prefer the current module over the one after it.
+  if (bucket !== "review") score -= 0.5 * c.moduleAhead;
 
   if (matchesGoals(ctx, card)) score += 0.3;
   score += 0.3 * (profile?.topicAffinity[card.topic] ?? 0);

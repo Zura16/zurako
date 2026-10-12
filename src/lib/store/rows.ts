@@ -15,6 +15,7 @@ export type ProfileRow = {
   casual_comfort: Profile["casualComfort"];
   voice: string | null;
   difficulty_offset: number;
+  min_stage: number;
   topic_affinity: Record<string, number>;
   type_affinity: Record<string, number>;
   updated_at: string;
@@ -60,6 +61,7 @@ export const profileToRow = (userId: string, p: Profile): ProfileRow => ({
   casual_comfort: p.casualComfort,
   voice: p.voice,
   difficulty_offset: p.difficultyOffset,
+  min_stage: p.minStage,
   topic_affinity: p.topicAffinity,
   type_affinity: p.typeAffinity,
   updated_at: iso(p.updatedAt),
@@ -70,6 +72,7 @@ export const profileFromRow = (r: ProfileRow): Profile => ({
   casualComfort: r.casual_comfort,
   voice: isVoiceId(r.voice) ? r.voice : DEFAULT_VOICE,
   difficultyOffset: r.difficulty_offset,
+  minStage: r.min_stage ?? 0,
   topicAffinity: r.topic_affinity ?? {},
   typeAffinity: r.type_affinity ?? {},
   updatedAt: ms(r.updated_at),

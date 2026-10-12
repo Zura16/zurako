@@ -3,6 +3,8 @@ import { CONCEPTS } from "./concepts";
 import { cultureUnit } from "./units/culture";
 import { daily } from "./units/daily";
 import { food } from "./units/food";
+import { foundations1 } from "./units/foundations-1";
+import { foundations2 } from "./units/foundations-2";
 import { natural } from "./units/natural";
 import { pronunciation } from "./units/pronunciation";
 import { shopping } from "./units/shopping";
@@ -14,7 +16,23 @@ import { transport } from "./units/transport";
 import { words } from "./units/words";
 import { work } from "./units/work";
 
-export const UNITS = [daily, speech, natural, food, transport, social, work, slang, cultureUnit, pronunciation, stories, shopping, words];
+export const UNITS = [
+  foundations1,
+  foundations2,
+  daily,
+  speech,
+  natural,
+  food,
+  transport,
+  social,
+  work,
+  slang,
+  cultureUnit,
+  pronunciation,
+  stories,
+  shopping,
+  words,
+];
 
 /** The full curriculum, parsed and cross-linked once per page load. */
 export const catalog = buildCatalog(CONCEPTS, UNITS);
