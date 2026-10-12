@@ -110,6 +110,8 @@ export const SentenceSchema = z.object({
   context: z.string().optional(),
   variantGroup: z.string().optional(),
   segments: z.array(SegmentSchema).min(1),
+  /** What text-to-speech should read when it differs from the written form, e.g. "2시" read as "두 시". */
+  spoken: z.string().optional(),
   audioUrl: z.string().optional(),
 });
 export type Sentence = z.infer<typeof SentenceSchema>;

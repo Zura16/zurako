@@ -17,7 +17,7 @@ import { Choices, Heading, Translation } from "./shared";
 export function ListeningCard({ card, active }: { card: Card; active: boolean }) {
   const p = payloadOf("LISTENING", card.payload);
   const s = catalog.sentences.get(p.sentence)!;
-  const { play, playing, status } = useAudio();
+  const { play, playing } = useAudio();
   const { track } = useLearner();
   const elapsed = useActiveSince(active);
   const [plays, setPlays] = useState(0);
@@ -45,12 +45,6 @@ export function ListeningCard({ card, active }: { card: Card; active: boolean })
             <Volume2 size={38} className={playing === key ? "pop" : ""} />
           </button>
           <p className="text-sm text-muted">{plays === 0 ? "Tap to listen" : "Tap to hear it again"}</p>
-          {status === "no-korean-voice" && (
-            <p className="text-center text-sm text-bad">
-              This device has no Korean voice installed, so audio may not play. On a Mac, add one under System Settings → Accessibility →
-              Spoken Content.
-            </p>
-          )}
         </div>
       )}
 

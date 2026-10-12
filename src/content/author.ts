@@ -40,6 +40,7 @@ type SentenceOpts = {
   ctx?: string;
   group?: string;
   rom?: string;
+  spoken?: string;
 };
 
 export function s(id: string, korean: string, translation: string, opts: SentenceOpts, segments: Segment[]): Sentence {
@@ -54,6 +55,7 @@ export function s(id: string, korean: string, translation: string, opts: Sentenc
     naturalness: opts.nat ?? "NATURAL",
     context: opts.ctx,
     variantGroup: opts.group,
+    spoken: opts.spoken,
     segments,
   };
 }

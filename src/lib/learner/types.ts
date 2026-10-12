@@ -1,4 +1,5 @@
 import type { Skill } from "@/content/schema";
+import type { VoiceId } from "@/lib/audio/voices";
 
 /** All timestamps are epoch milliseconds in memory; the store maps them to timestamptz. */
 
@@ -53,6 +54,8 @@ export type Profile = {
   goals: Goal[];
   /** 0 = not comfortable with 반말, 1 = somewhat, 2 = comfortable. */
   casualComfort: 0 | 1 | 2;
+  /** Audio voice for sentences; dialogues pair it with a voice of the other gender. */
+  voice: VoiceId;
   /** Learned from "too easy" / "too hard": shifts the target level. */
   difficultyOffset: number;
   topicAffinity: Record<string, number>;

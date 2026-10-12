@@ -1,4 +1,5 @@
 import type { Skill } from "@/content/schema";
+import { DEFAULT_VOICE, isVoiceId } from "@/lib/audio/voices";
 import type { AppEvent } from "@/lib/learner/events";
 import type { CardState, ConceptState, LearnerState, Profile, SkillState } from "@/lib/learner/types";
 
@@ -12,6 +13,7 @@ export type ProfileRow = {
   self_level: Profile["selfLevel"];
   goals: Profile["goals"];
   casual_comfort: Profile["casualComfort"];
+  voice: string | null;
   difficulty_offset: number;
   topic_affinity: Record<string, number>;
   type_affinity: Record<string, number>;
@@ -56,6 +58,7 @@ export const profileToRow = (userId: string, p: Profile): ProfileRow => ({
   self_level: p.selfLevel,
   goals: p.goals,
   casual_comfort: p.casualComfort,
+  voice: p.voice,
   difficulty_offset: p.difficultyOffset,
   topic_affinity: p.topicAffinity,
   type_affinity: p.typeAffinity,
@@ -65,6 +68,7 @@ export const profileFromRow = (r: ProfileRow): Profile => ({
   selfLevel: r.self_level,
   goals: r.goals,
   casualComfort: r.casual_comfort,
+  voice: isVoiceId(r.voice) ? r.voice : DEFAULT_VOICE,
   difficultyOffset: r.difficulty_offset,
   topicAffinity: r.topic_affinity ?? {},
   typeAffinity: r.type_affinity ?? {},

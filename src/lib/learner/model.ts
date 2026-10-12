@@ -1,5 +1,6 @@
 import type { Card, Catalog } from "@/content/catalog";
 import { SKILLS, levelValue, type Skill } from "@/content/schema";
+import { DEFAULT_VOICE } from "@/lib/audio/voices";
 import { QUICK_SWIPE_MS, type AppEvent, type SpeakingGrade } from "./events";
 import { DAY, review, type Grade } from "./srs";
 import type { CardState, Changes, ConceptState, Goal, LearnerState, Profile, SelfLevel, SkillState } from "./types";
@@ -25,7 +26,7 @@ export const GOAL_MATCH: Record<Goal, { skills: Skill[]; topics: string[] }> = {
   topik: { skills: ["grammar", "reading", "vocabulary"], topics: ["Particles", "Connectors"] },
 };
 
-export type OnboardingAnswers = Pick<Profile, "selfLevel" | "goals" | "casualComfort">;
+export type OnboardingAnswers = Pick<Profile, "selfLevel" | "goals" | "casualComfort"> & { voice?: Profile["voice"] };
 
 /**
  * Initial learner state from onboarding. Per-skill abilities start from the
@@ -57,7 +58,14 @@ export function initLearner(answers: OnboardingAnswers, catalog: Catalog, now: n
   }
 
   return {
-    profile: { ...answers, difficultyOffset: 0, topicAffinity: {}, typeAffinity: {}, updatedAt: now },
+    profile: {
+      ...answers,
+      voice: answers.voice ?? DEFAULT_VOICE,
+      difficultyOffset: 0,
+      topicAffinity: {},
+      typeAffinity: {},
+      updatedAt: now,
+    },
     concepts,
     cards: {},
     skills,

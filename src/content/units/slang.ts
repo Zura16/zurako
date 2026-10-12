@@ -56,12 +56,18 @@ const sentences = [
     w("혼밥", "eating alone", { note: "혼자 (alone) + 밥 (meal). Also 혼술, drinking alone.", c: ["e.honbap"] }),
     w("할래", "I'll do", { base: "하다", c: ["v.하다", "g.will-eullae"] }),
   ]),
-  s("jmt", "여기 떡볶이 진짜 JMT야.", "The tteokbokki here is insanely good.", { level: "B2", sp: "CASUAL", nat: "SLANG" }, [
-    w("여기", "here"),
-    w("떡볶이", "tteokbokki", { c: ["v.떡볶이"] }),
-    w("진짜", "really", { c: ["v.진짜"] }),
-    w("JMT야", "is JMT", { note: "JMT = 존맛탱, a crude intensifier + 맛. Fine with friends, never at work.", c: ["e.jonmat"] }),
-  ]),
+  s(
+    "jmt",
+    "여기 떡볶이 진짜 JMT야.",
+    "The tteokbokki here is insanely good.",
+    { level: "B2", sp: "CASUAL", nat: "SLANG", spoken: "여기 떡볶이 진짜 제이엠티야." },
+    [
+      w("여기", "here"),
+      w("떡볶이", "tteokbokki", { c: ["v.떡볶이"] }),
+      w("진짜", "really", { c: ["v.진짜"] }),
+      w("JMT야", "is JMT", { note: "JMT = 존맛탱, a crude intensifier + 맛. Fine with friends, never at work.", c: ["e.jonmat"] }),
+    ],
+  ),
   s("gabunssa", "갑자기 분위기 싸해졌어.", "The mood suddenly went cold.", { level: "B2", sp: "CASUAL", nat: "COLLOQUIAL" }, [
     w("갑자기", "suddenly"),
     w("분위기", "mood, atmosphere"),

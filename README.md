@@ -41,7 +41,9 @@ src/content/          curriculum: typed, validated, shipped with the site
 src/lib/learner/      events, spaced repetition, learner-state reducer, progress summaries
 src/lib/feed/         the recommender
 src/lib/speech/       answer evaluation (speaking, typed, tile building) and recognition
-src/lib/audio/        audio provider: recordings first, browser TTS otherwise
+src/lib/audio/        voices, spoken-text rules, and playback: recording, then Google clip, then device TTS
+scripts/              generate-audio.ts: Google Cloud TTS clips for every sentence and voice
+public/audio/         generated clips, public/audio/<voice>/<hash>.mp3
 src/lib/store/        Supabase client, auth, row mapping, batched sync with local cache
 src/lib/generation/   constrained-generation request, prompt, and validator (not wired to an LLM)
 src/components/       feed, cards, sentence X-ray, progress, account
@@ -82,6 +84,10 @@ Hard rules: no card repeats within a session; nothing more than 1.6 levels above
 
 Speech level is a first-class field on every sentence and drives a fixed color system: mint for 반말, sky blue for 해요체, lilac for 하십시오체. Speech-level cards show the same idea at each level with when each fits. Natural-vs-textbook cards explain particle dropping, subject dropping and contraction without calling textbook forms wrong. The speaking evaluator detects the speech level of an answer and won't mark a 반말 answer as fully correct when the prompt asked for 해요체.
 
+### Audio
+
+Every sentence is pre-generated with Google Cloud Text-to-Speech in 5 Chirp 3 HD voices (Erinome, Laomedeia, Leda, Alnilam, Achird) and served as static files, so playback is instant and no API key reaches the browser. Learners pick a voice during onboarding and can change it in Me → Settings; the choice is saved to their profile. Dialogues pair the chosen voice with one of the other gender. Clips are named by a hash of the spoken text, so `npm run audio` only generates new or edited sentences and deletes stale clips. A sentence's optional `spoken` field fixes misreadings (`2시` is read `두 시`), and texting shorthand is spoken the way people say it (`ㅋㅋ` as 크크). If a clip is missing, playback falls back to the device's speech engine.
+
 ### Speaking
 
 Browser speech recognition (Chrome, Edge, Safari) transcribes the answer, keeping up to 3 alternatives. Each is compared against every accepted answer, and required forms such as past tense 갔 are checked separately. Without recognition, the learner can type the answer or say it aloud and self-rate. Pronunciation is not scored, because a transcript can't measure it.
@@ -111,7 +117,7 @@ Every visitor gets an anonymous Supabase account, so progress saves from the fir
 ## Known limitations
 
 - No native speaker has reviewed the content.
-- Audio is the device's text-to-speech. Quality varies by device, and a machine without a Korean voice plays nothing (the app says so). There are no native recordings yet, though `audioUrl` on a sentence takes priority when present.
+- Audio is synthetic speech (Google Chirp 3 HD), not native recordings. A sentence's `audioUrl` takes priority when present.
 - Romanization isn't shown. The schema has a field for it, but automatic romanization gets sound changes wrong, and learners are assumed to read Hangul.
 - Pronunciation isn't scored.
 - Email confirmation uses links. On iOS, a link opened from the Mail app opens Safari, so it confirms the account there rather than in a home-screen web app.

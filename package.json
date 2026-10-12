@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "format": "prettier --write .",
-    "check": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "audio": "tsx --env-file=.env.local scripts/generate-audio.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

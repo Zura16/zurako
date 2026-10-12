@@ -3,7 +3,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { catalog } from "@/content";
 import type { AppEvent, EventInput } from "@/lib/learner/events";
-import { applyEvent, initLearner, type OnboardingAnswers } from "@/lib/learner/model";
+import { applyEvent, initLearner, noChanges, type OnboardingAnswers } from "@/lib/learner/model";
+import type { VoiceId } from "@/lib/audio/voices";
 import { emptyLearner, type LearnerState } from "@/lib/learner/types";
 import { LOCAL_ACCOUNT, ensureSession, sendEmailLink, signOut, toAccount, type Account, type LinkMode } from "@/lib/store/auth";
 import { getSupabase } from "@/lib/store/client";
@@ -18,6 +19,7 @@ type LearnerContext = {
   /** Record an interaction: updates learner state and queues it for sync. */
   track: (event: EventInput) => void;
   completeOnboarding: (answers: OnboardingAnswers) => void;
+  setVoice: (voice: VoiceId) => void;
   sendLink: (email: string, mode: LinkMode) => Promise<void>;
   signOutToGuest: () => Promise<void>;
   resetProgress: () => Promise<void>;
@@ -109,6 +111,15 @@ export function LearnerProvider({ children }: { children: React.ReactNode }) {
     syncRef.current?.recordAll(state);
   }, []);
 
+  const setVoice = useCallback((voice: VoiceId) => {
+    const prev = learnerRef.current;
+    if (!prev.profile) return;
+    const state = { ...prev, profile: { ...prev.profile, voice, updatedAt: Date.now() } };
+    learnerRef.current = state;
+    setLearner(state);
+    syncRef.current?.record(state, { ...noChanges(), profile: true });
+  }, []);
+
   const sendLink = useCallback(async (email: string, mode: LinkMode) => {
     const client = getSupabase();
     if (!client) throw new Error("Accounts aren't configured in this build.");
@@ -138,8 +149,8 @@ export function LearnerProvider({ children }: { children: React.ReactNode }) {
   }, [account, start]);
 
   const value = useMemo(
-    () => ({ boot, learner, account, track, completeOnboarding, sendLink, signOutToGuest, resetProgress, syncError }),
-    [boot, learner, account, track, completeOnboarding, sendLink, signOutToGuest, resetProgress, syncError],
+    () => ({ boot, learner, account, track, completeOnboarding, setVoice, sendLink, signOutToGuest, resetProgress, syncError }),
+    [boot, learner, account, track, completeOnboarding, setVoice, sendLink, signOutToGuest, resetProgress, syncError],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

@@ -47,7 +47,6 @@ export function AudioButton({
       onClick={onClick}
       disabled={status === "unsupported"}
       aria-label={label ?? `Play audio: ${sentence.korean}`}
-      title={status === "no-korean-voice" ? "No Korean voice found on this device" : undefined}
       className={`${dims} inline-flex shrink-0 items-center justify-center gap-1 rounded-full transition-colors ${
         active ? "bg-accent text-accent-ink" : "bg-white/8 text-ink hover:bg-white/14"
       } disabled:opacity-40`}

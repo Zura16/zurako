@@ -192,12 +192,18 @@ const sentences = [
   ]),
 
   // ---- 2 a.m. convenience store
-  s("cs-1", "새벽 2시에 너무 배고팠어요.", "At 2 a.m. I was starving.", { level: "A2", sp: "POLITE" }, [
-    w("새벽", "early morning (small hours)"),
-    w("2시에", "at 2 o'clock", { note: "Read 두 시.", c: ["g.place-e"] }),
-    w("너무", "so", { c: ["v.너무"] }),
-    w("배고팠어요", "was hungry", { base: "배고프다", c: ["v.배고프다", "g.past"] }),
-  ]),
+  s(
+    "cs-1",
+    "새벽 2시에 너무 배고팠어요.",
+    "At 2 a.m. I was starving.",
+    { level: "A2", sp: "POLITE", spoken: "새벽 두 시에 너무 배고팠어요." },
+    [
+      w("새벽", "early morning (small hours)"),
+      w("2시에", "at 2 o'clock", { note: "Read 두 시.", c: ["g.place-e"] }),
+      w("너무", "so", { c: ["v.너무"] }),
+      w("배고팠어요", "was hungry", { base: "배고프다", c: ["v.배고프다", "g.past"] }),
+    ],
+  ),
   s("cs-2", "그래서 편의점에 갔어요.", "So I went to the convenience store.", { level: "A1", sp: "POLITE" }, [
     w("그래서", "so"),
     w("편의점에", "to the convenience store", { c: ["v.편의점", "g.place-e"] }),

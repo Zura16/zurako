@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import type { Goal, SelfLevel } from "@/lib/learner/types";
+import { DEFAULT_VOICE, type VoiceId } from "@/lib/audio/voices";
+import { VoicePicker } from "./VoicePicker";
 import { useLearner } from "@/components/providers/LearnerProvider";
 
 const LEVELS: { value: SelfLevel; label: string; hint: string }[] = [
@@ -31,14 +33,16 @@ const COMFORT: { value: 0 | 1 | 2; label: string; hint: string }[] = [
   { value: 2, label: "Comfortable", hint: "I use it with friends" },
 ];
 
-/** Three questions, then straight into the feed. */
+/** Three questions and a voice, then straight into the feed. */
 export function Onboarding() {
   const { completeOnboarding } = useLearner();
   const [step, setStep] = useState(0);
   const [level, setLevel] = useState<SelfLevel | null>(null);
   const [goals, setGoals] = useState<Goal[]>([]);
+  const [comfort, setComfort] = useState<0 | 1 | 2>(1);
+  const [voice, setVoice] = useState<VoiceId>(DEFAULT_VOICE);
 
-  const finish = (casualComfort: 0 | 1 | 2) => completeOnboarding({ selfLevel: level ?? "beginner", goals, casualComfort });
+  const finish = () => completeOnboarding({ selfLevel: level ?? "beginner", goals, casualComfort: comfort, voice });
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col px-6 pt-[max(env(safe-area-inset-top),2.5rem)] pb-10">
@@ -52,8 +56,8 @@ export function Onboarding() {
             눈치
           </span>
         )}
-        <div className="flex gap-1.5" aria-label={`Step ${step + 1} of 3`}>
-          {[0, 1, 2].map((i) => (
+        <div className="flex gap-1.5" aria-label={`Step ${step + 1} of 4`}>
+          {[0, 1, 2, 3].map((i) => (
             <span key={i} className={`h-1.5 w-6 rounded-full ${i <= step ? "bg-accent" : "bg-white/12"}`} />
           ))}
         </div>
@@ -63,7 +67,7 @@ export function Onboarding() {
         <section className="rise mt-10 flex-1 space-y-6">
           <div className="space-y-2">
             <h1 className="text-3xl leading-tight font-bold">Korean the way people actually say it.</h1>
-            <p className="text-muted">Three quick questions to set up your feed.</p>
+            <p className="text-muted">A few quick questions to set up your feed.</p>
           </div>
           <h2 className="pt-2 text-lg font-semibold">How much Korean do you know?</h2>
           <ul className="space-y-2.5">
@@ -133,10 +137,31 @@ export function Onboarding() {
           <ul className="space-y-2.5">
             {COMFORT.map((c) => (
               <li key={c.value}>
-                <OptionButton selected={false} onClick={() => finish(c.value)} label={c.label} hint={c.hint} />
+                <OptionButton
+                  selected={comfort === c.value && step > 2}
+                  onClick={() => {
+                    setComfort(c.value);
+                    setStep(3);
+                  }}
+                  label={c.label}
+                  hint={c.hint}
+                />
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {step === 3 && (
+        <section className="rise mt-10 flex flex-1 flex-col">
+          <h2 className="text-2xl font-bold">Pick a voice</h2>
+          <p className="mt-2 text-muted">Tap ▶ to hear each one. You can change it anytime in Me → Settings.</p>
+          <div className="mt-6">
+            <VoicePicker value={voice} onChange={setVoice} />
+          </div>
+          <button onClick={finish} className="mt-auto w-full rounded-2xl bg-accent py-4 font-semibold text-accent-ink">
+            Start learning
+          </button>
         </section>
       )}
 

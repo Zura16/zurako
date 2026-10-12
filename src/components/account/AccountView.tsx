@@ -7,7 +7,8 @@ import { getSupabase } from "@/lib/store/client";
 import type { LinkMode } from "@/lib/store/auth";
 import { useLearner } from "@/components/providers/LearnerProvider";
 import { useSettings, type Settings } from "@/components/providers/SettingsProvider";
-import { useAudio } from "@/components/providers/AudioProvider";
+import { VoicePicker } from "@/components/VoicePicker";
+import { DEFAULT_VOICE } from "@/lib/audio/voices";
 
 export function AccountView() {
   const { account, learner, signOutToGuest, resetProgress, syncError } = useLearner();
@@ -78,7 +79,7 @@ export function AccountView() {
 
       <p className="text-xs leading-relaxed text-faint">
         Nunchi&apos;s Korean content is hand-written and checked for structure, but it hasn&apos;t been reviewed by a native speaker yet.
-        Audio uses your device&apos;s built-in Korean voice.
+        Audio is Google Cloud speech (Chirp 3 HD), generated for every sentence.
       </p>
     </div>
   );
@@ -141,7 +142,7 @@ function EmailLink({ mode, title, cta }: { mode: LinkMode; title: string; cta: s
 
 function SettingsSection() {
   const { settings, update } = useSettings();
-  const { status } = useAudio();
+  const { learner, setVoice } = useLearner();
   const rows: { key: keyof Settings; label: string; hint: string }[] = [
     { key: "translations", label: "Show translations", hint: "Off: tap to reveal English" },
     { key: "autoplay", label: "Autoplay audio", hint: "Play each sentence when its card appears" },
@@ -170,13 +171,9 @@ function SettingsSection() {
           </li>
         ))}
       </ul>
-      {status !== "ready" && (
-        <p className="text-sm text-bad">
-          {status === "unsupported"
-            ? "This browser can't play speech."
-            : "No Korean voice found. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices → Korean."}
-        </p>
-      )}
+      <h3 className="pt-4 text-xs font-semibold tracking-wider text-faint uppercase">Voice</h3>
+      <VoicePicker value={learner.profile?.voice ?? DEFAULT_VOICE} onChange={setVoice} />
+      <p className="text-xs text-faint">Dialogues pair your voice with one of the other gender, so speakers sound different.</p>
     </section>
   );
 }
