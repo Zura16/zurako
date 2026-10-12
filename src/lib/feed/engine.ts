@@ -279,6 +279,9 @@ export function scoreCard(c: Candidate, bucket: Bucket, ctx: FeedContext): numbe
   const last = recent.at(-1);
   if (last?.type === card.type) score -= 0.7;
   if (recent.at(-2)?.type === card.type) score -= 0.3;
+  // Over a longer stretch, no single card type should crowd the feed.
+  const sameTypeLately = ctx.session.slice(-8).filter((e) => ctx.catalog.cards.get(e.cardId)?.type === card.type).length;
+  score -= 0.3 * Math.max(0, sameTypeLately - 1);
   if (last?.topic === card.topic) score -= 0.3;
   if (card.story && last?.story && last.story.id !== card.story.id) score -= 0.5;
 
