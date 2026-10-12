@@ -93,3 +93,18 @@ export function matchTiles(tiles: string[], accepted: Sentence[]): Sentence | nu
   const built = normalize(tiles.join(" "));
   return accepted.find((s) => normalize(s.korean) === built) ?? null;
 }
+
+/**
+ * Free-form speaking check against plain model texts (Learn-tab prompts,
+ * which have no catalog sentence or required forms).
+ */
+export function evaluateAgainst(transcripts: string[], models: string[]): { grade: SpeakingGrade; heard: string; similarity: number } {
+  let best = { heard: transcripts[0] ?? "", similarity: 0 };
+  for (const t of transcripts)
+    for (const m of models) {
+      const sim = similarity(t, m);
+      if (sim > best.similarity) best = { heard: t, similarity: sim };
+    }
+  const grade: SpeakingGrade = best.similarity >= 0.85 ? "good" : best.similarity >= 0.6 ? "close" : "miss";
+  return { grade, ...best };
+}

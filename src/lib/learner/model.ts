@@ -91,7 +91,7 @@ export const noChanges = (): Changes => ({ profile: false, concepts: new Set(), 
 export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalog): { state: LearnerState; changes: Changes } {
   const card = catalog.cards.get(event.cardId);
   const changes = noChanges();
-  if (!card) return { state, changes };
+  if (!card) return applyItemEvent(state, event, catalog, changes);
 
   const next: LearnerState = {
     profile: state.profile,
@@ -273,6 +273,49 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       break;
   }
 
+  return { state: next, changes };
+}
+
+/**
+ * Lessons and word-bank words aren't feed cards, but they're tracked in the
+ * same per-item state (card_states), keyed by "lesson.…" or "word.…" ids.
+ */
+function applyItemEvent(state: LearnerState, event: AppEvent, catalog: Catalog, changes: Changes) {
+  const id = event.cardId;
+  if (!id.startsWith("lesson.") && !id.startsWith("word.")) return { state, changes };
+  const now = event.at;
+  const next: LearnerState = { ...state, concepts: { ...state.concepts }, cards: { ...state.cards } };
+  const prev = next.cards[id] ?? blankCard(id);
+  const touch = (patch: Partial<CardState>) => {
+    next.cards[id] = { ...prev, ...patch, updatedAt: now };
+    changes.cards.add(id);
+  };
+
+  switch (event.type) {
+    case "lesson_finished":
+      touch({ completions: prev.completions + 1, lastSeenAt: now });
+      // A lesson introduces its concepts; reviews in the feed then test them.
+      for (const cid of event.conceptIds) {
+        if (!catalog.concepts.has(cid)) continue;
+        const c = next.concepts[cid];
+        next.concepts[cid] = c
+          ? { ...c, exposures: c.exposures + 1, updatedAt: now }
+          : { ...blankConcept(cid, now), stability: 0.5, nextReviewAt: now + 0.5 * DAY, exposures: 1 };
+        changes.concepts.add(cid);
+      }
+      break;
+    case "word_learned":
+      touch({ known: true, lastSeenAt: now });
+      break;
+    case "word_unlearned":
+      touch({ known: false });
+      break;
+    case "lesson_viewed":
+      touch({ views: prev.views + 1, lastSeenAt: now });
+      break;
+    default:
+      return { state, changes };
+  }
   return { state: next, changes };
 }
 

@@ -3,6 +3,13 @@ import { CONCEPTS } from "./concepts";
 import { cultureUnit } from "./units/culture";
 import { daily } from "./units/daily";
 import { food } from "./units/food";
+import { lesson001Sentences } from "./units/lesson-001";
+import { lesson002Sentences } from "./units/lesson-002";
+import { lesson003Sentences } from "./units/lesson-003";
+import { lesson004Sentences } from "./units/lesson-004";
+import { lesson005Sentences } from "./units/lesson-005";
+import { lesson006Sentences } from "./units/lesson-006";
+import { lesson007Sentences } from "./units/lesson-007";
 import { foundations1 } from "./units/foundations-1";
 import { foundations2 } from "./units/foundations-2";
 import { foundations3 } from "./units/foundations-3";
@@ -23,6 +30,13 @@ export const UNITS = [
   foundations2,
   foundations3,
   foundations4,
+  lesson007Sentences,
+  lesson001Sentences,
+  lesson002Sentences,
+  lesson003Sentences,
+  lesson004Sentences,
+  lesson005Sentences,
+  lesson006Sentences,
   daily,
   speech,
   natural,

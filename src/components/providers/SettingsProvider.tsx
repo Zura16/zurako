@@ -3,8 +3,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 /** Per-device display preferences. Learning progress lives in LearnerProvider. */
-export type Settings = { translations: boolean; autoplay: boolean; slowAudio: boolean };
-const DEFAULTS: Settings = { translations: true, autoplay: false, slowAudio: false };
+/** romanization: shown in Learn lessons and the word bank only; off by default. */
+export type Settings = { translations: boolean; autoplay: boolean; slowAudio: boolean; romanization: boolean };
+const DEFAULTS: Settings = { translations: true, autoplay: false, slowAudio: false, romanization: false };
 const KEY = "nunchi:settings";
 
 type SettingsContext = { settings: Settings; update: (patch: Partial<Settings>) => void };

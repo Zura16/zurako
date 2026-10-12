@@ -65,8 +65,7 @@ export function ListeningCard({ card, active }: { card: Card; active: boolean })
           <KoreanSentence sentence={s} cardId={card.id} size="lg" />
           <Translation text={s.translation} />
           <div className="flex items-center gap-2">
-            <AudioButton sentence={s} cardId={card.id} rate={1} label="Normal speed" />
-            <AudioButton sentence={s} cardId={card.id} rate={0.65} size="sm" label="Slow" />
+            <AudioButton sentence={s} cardId={card.id} />
             {s.speechLevel && (
               <span className="ml-auto">
                 <SpeechTag level={s.speechLevel} />

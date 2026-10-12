@@ -250,7 +250,8 @@ export function payloadOf<T extends CardType>(_type: T, payload: unknown): Paylo
 /** Strip punctuation so segments can be compared with the sentence text. */
 export function stripPunctuation(text: string): string {
   return text
-    .replace(/[?.!,…~"“”]/g, "")
+    .replace(/[?.!…~"“”]/g, "")
+    .replace(/(?<!\d),|,(?!\d)/g, "") // keep digit-group commas: 4,500
     .replace(/\s+/g, " ")
     .trim();
 }

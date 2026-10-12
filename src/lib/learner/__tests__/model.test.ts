@@ -107,6 +107,20 @@ describe("applyEvent", () => {
     expect(s.cards["k.today-doing"]).toMatchObject({ toLearn: false, known: true });
   });
 
+  it("finishing a lesson introduces its concepts for review", () => {
+    const s = apply(fresh(), { type: "lesson_finished", cardId: "lesson.007", at: T0, conceptIds: ["g.hon-subject", "g.nope"] });
+    expect(s.cards["lesson.007"].completions).toBe(1);
+    expect(s.concepts["g.hon-subject"].nextReviewAt).toBe(T0 + 0.5 * DAY);
+    expect(s.concepts["g.nope"]).toBeUndefined();
+  });
+
+  it("tracks learned word-bank words", () => {
+    let s = apply(fresh(), { type: "word_learned", cardId: "word.행복해요", at: T0 });
+    expect(s.cards["word.행복해요"].known).toBe(true);
+    s = apply(s, { type: "word_unlearned", cardId: "word.행복해요", at: T0 + 1 });
+    expect(s.cards["word.행복해요"].known).toBe(false);
+  });
+
   it("ignores events for unknown cards", () => {
     const s0 = fresh();
     const { state, changes } = applyEvent(s0, { type: "lesson_saved", cardId: "k.nope", at: T0 }, catalog);

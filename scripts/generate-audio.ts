@@ -3,7 +3,8 @@
  *
  *   GOOGLE_TTS_API_KEY=... npm run audio
  *
- * Writes public/audio/<voice>/<hash>.mp3 for every sentence in every offered
+ * Writes public/audio/<voice>/<hash>.mp3 for every sentence, lesson line and
+ * word-bank word in every offered
  * voice, plus a preview clip per voice. Files are named by the spoken text,
  * so the script only calls the API for new or edited sentences. Stale files
  * from edited sentences are deleted.
@@ -11,6 +12,9 @@
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { catalog } from "../src/content";
+import { LESSONS } from "../src/content/lessons";
+import { lessonKorean } from "../src/content/lessons/schema";
+import { WORDS } from "../src/content/wordbank";
 import { PREVIEW_TEXT, VOICES, audioFileName, speakableText, type VoiceId } from "../src/lib/audio/voices";
 
 const KEY = process.env.GOOGLE_TTS_API_KEY;
@@ -39,7 +43,13 @@ async function synthesize(text: string, voice: VoiceId): Promise<Buffer> {
 }
 
 async function main() {
-  const texts = [...new Set([...catalog.sentences.values()].map(speakableText))];
+  const texts = [
+    ...new Set([
+      ...[...catalog.sentences.values()].map(speakableText),
+      ...LESSONS.flatMap(lessonKorean).map((korean) => speakableText({ korean })),
+      ...WORDS.map((w) => speakableText({ korean: w.ko })),
+    ]),
+  ];
   const jobs: { voice: VoiceId; text: string; file: string }[] = [];
   for (const { id: voice } of VOICES) {
     const dir = path.join(OUT, voice);

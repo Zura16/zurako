@@ -1,0 +1,3460 @@
+[
+  {
+    "ko": "좋아요",
+    "rom": "jo-a-yo",
+    "en": "good; like it",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "싫어요",
+    "rom": "si-reo-yo",
+    "en": "dislike it; don't like it",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "행복해요",
+    "rom": "haeng-bok-hae-yo",
+    "en": "happy",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "기뻐요",
+    "rom": "gi-ppeo-yo",
+    "en": "glad; happy",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "슬퍼요",
+    "rom": "seul-peo-yo",
+    "en": "sad",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "우울해요",
+    "rom": "u-ul-hae-yo",
+    "en": "feeling down",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "화나요",
+    "rom": "hwa-na-yo",
+    "en": "angry",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "짜증 나요",
+    "rom": "jja-jeung na-yo",
+    "en": "annoyed; irritated",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "걱정돼요",
+    "rom": "geok-jeong-dwae-yo",
+    "en": "worried",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "긴장돼요",
+    "rom": "gin-jang-dwae-yo",
+    "en": "nervous",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "편해요",
+    "rom": "pyeon-hae-yo",
+    "en": "comfortable; convenient",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "불편해요",
+    "rom": "bul-pyeon-hae-yo",
+    "en": "uncomfortable; inconvenient",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "피곤해요",
+    "rom": "pi-gon-hae-yo",
+    "en": "tired",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "졸려요",
+    "rom": "jol-lyeo-yo",
+    "en": "sleepy",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "아파요",
+    "rom": "a-pa-yo",
+    "en": "sick; painful",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "건강해요",
+    "rom": "geon-gang-hae-yo",
+    "en": "healthy",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "괜찮아요",
+    "rom": "gwaen-cha-na-yo",
+    "en": "okay; fine",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "바빠요",
+    "rom": "ba-ppa-yo",
+    "en": "busy",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "한가해요",
+    "rom": "han-ga-hae-yo",
+    "en": "free; not busy",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "심심해요",
+    "rom": "sim-sim-hae-yo",
+    "en": "bored",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "재미있어요",
+    "rom": "jae-mi-i-sseo-yo",
+    "en": "interesting; fun",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "재미없어요",
+    "rom": "jae-mi-eop-seo-yo",
+    "en": "boring; not fun",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "즐거워요",
+    "rom": "jeul-geo-wo-yo",
+    "en": "pleasant; enjoyable",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "외로워요",
+    "rom": "oe-ro-wo-yo",
+    "en": "lonely",
+    "category": "Feelings & condition",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "커요",
+    "rom": "keo-yo",
+    "en": "big",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "작아요",
+    "rom": "ja-ga-yo",
+    "en": "small",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "길어요",
+    "rom": "gi-reo-yo",
+    "en": "long",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "짧아요",
+    "rom": "jjal-ba-yo",
+    "en": "short",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "높아요",
+    "rom": "no-pa-yo",
+    "en": "high; tall",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "낮아요",
+    "rom": "na-ja-yo",
+    "en": "low",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "넓어요",
+    "rom": "neol-beo-yo",
+    "en": "wide; spacious",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "좁아요",
+    "rom": "jo-ba-yo",
+    "en": "narrow; cramped",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "두꺼워요",
+    "rom": "du-kkeo-wo-yo",
+    "en": "thick",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "얇아요",
+    "rom": "yal-ba-yo",
+    "en": "thin",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "무거워요",
+    "rom": "mu-geo-wo-yo",
+    "en": "heavy",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "가벼워요",
+    "rom": "ga-byeo-wo-yo",
+    "en": "lightweight",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "많아요",
+    "rom": "ma-na-yo",
+    "en": "many; much",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "적어요",
+    "rom": "jeo-geo-yo",
+    "en": "few; little",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "가득해요",
+    "rom": "ga-deuk-hae-yo",
+    "en": "full; filled",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "비어 있어요",
+    "rom": "bi-eo i-sseo-yo",
+    "en": "empty",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "둥글어요",
+    "rom": "dung-geu-reo-yo",
+    "en": "round",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "네모나요",
+    "rom": "ne-mo-na-yo",
+    "en": "square-shaped",
+    "category": "Size, shape & amount",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "예뻐요",
+    "rom": "ye-ppeo-yo",
+    "en": "pretty",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "아름다워요",
+    "rom": "a-reum-da-wo-yo",
+    "en": "beautiful",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "잘생겼어요",
+    "rom": "jal-saeng-gyeo-sseo-yo",
+    "en": "handsome",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "귀여워요",
+    "rom": "gwi-yeo-wo-yo",
+    "en": "cute",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "멋있어요",
+    "rom": "meo-si-sseo-yo",
+    "en": "cool; stylish",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "못생겼어요",
+    "rom": "mot-saeng-gyeo-sseo-yo",
+    "en": "unattractive",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "친절해요",
+    "rom": "chin-jeol-hae-yo",
+    "en": "kind; friendly",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "상냥해요",
+    "rom": "sang-nyang-hae-yo",
+    "en": "gentle; sweet",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "착해요",
+    "rom": "cha-kae-yo",
+    "en": "kind-hearted",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "똑똑해요",
+    "rom": "ttok-ttok-hae-yo",
+    "en": "smart",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "재미있어요",
+    "rom": "jae-mi-i-sseo-yo",
+    "en": "fun; interesting",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "조용해요",
+    "rom": "jo-yong-hae-yo",
+    "en": "quiet",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "시끄러워요",
+    "rom": "si-kkeu-reo-wo-yo",
+    "en": "noisy",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "활발해요",
+    "rom": "hwal-bal-hae-yo",
+    "en": "outgoing; lively",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "부지런해요",
+    "rom": "bu-ji-reon-hae-yo",
+    "en": "diligent",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "게을러요",
+    "rom": "ge-eul-leo-yo",
+    "en": "lazy",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "솔직해요",
+    "rom": "sol-jjik-hae-yo",
+    "en": "honest",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "웃겨요",
+    "rom": "ut-gyeo-yo",
+    "en": "funny",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "이상해요",
+    "rom": "i-sang-hae-yo",
+    "en": "strange; weird",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "평범해요",
+    "rom": "pyeong-beom-hae-yo",
+    "en": "ordinary",
+    "category": "Appearance & personality",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "맛있어요",
+    "rom": "ma-si-sseo-yo",
+    "en": "delicious",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "맛없어요",
+    "rom": "ma-deop-seo-yo",
+    "en": "not tasty",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "매워요",
+    "rom": "mae-wo-yo",
+    "en": "spicy",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "안 매워요",
+    "rom": "an mae-wo-yo",
+    "en": "not spicy",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "달아요",
+    "rom": "da-ra-yo",
+    "en": "sweet",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "짜요",
+    "rom": "jja-yo",
+    "en": "salty",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "써요",
+    "rom": "sseo-yo",
+    "en": "bitter",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "셔요",
+    "rom": "syeo-yo",
+    "en": "sour",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "고소해요",
+    "rom": "go-so-hae-yo",
+    "en": "nutty; savory",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "담백해요",
+    "rom": "dam-baek-hae-yo",
+    "en": "light and not greasy",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "느끼해요",
+    "rom": "neu-kki-hae-yo",
+    "en": "greasy; rich",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "싱거워요",
+    "rom": "sing-geo-wo-yo",
+    "en": "bland; not salty enough",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "뜨거워요",
+    "rom": "tteu-geo-wo-yo",
+    "en": "hot (temperature)",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "따뜻해요",
+    "rom": "tta-tteu-tae-yo",
+    "en": "warm",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "차가워요",
+    "rom": "cha-ga-wo-yo",
+    "en": "cold to the touch",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "시원해요",
+    "rom": "si-won-hae-yo",
+    "en": "cool; refreshing",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "신선해요",
+    "rom": "sin-seon-hae-yo",
+    "en": "fresh",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "부드러워요",
+    "rom": "bu-deu-reo-wo-yo",
+    "en": "soft; tender",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "딱딱해요",
+    "rom": "ttak-ttak-hae-yo",
+    "en": "hard",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "바삭해요",
+    "rom": "ba-sak-hae-yo",
+    "en": "crispy",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "쫄깃해요",
+    "rom": "jjol-git-hae-yo",
+    "en": "chewy; pleasantly springy",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "촉촉해요",
+    "rom": "chok-chok-hae-yo",
+    "en": "moist",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "익었어요",
+    "rom": "i-geo-sseo-yo",
+    "en": "cooked; ripe",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "탔어요",
+    "rom": "ta-sseo-yo",
+    "en": "burnt",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "비싸요",
+    "rom": "bi-ssa-yo",
+    "en": "expensive",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "싸요",
+    "rom": "ssa-yo",
+    "en": "cheap",
+    "category": "Food & taste",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "더워요",
+    "rom": "deo-wo-yo",
+    "en": "hot (weather/feeling hot)",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "추워요",
+    "rom": "chu-wo-yo",
+    "en": "cold (weather/feeling cold)",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "시원해요",
+    "rom": "si-won-hae-yo",
+    "en": "cool; refreshing",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "따뜻해요",
+    "rom": "tta-tteu-tae-yo",
+    "en": "warm",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "선선해요",
+    "rom": "seon-seon-hae-yo",
+    "en": "pleasantly cool",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "습해요",
+    "rom": "seu-pae-yo",
+    "en": "humid",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "건조해요",
+    "rom": "geon-jo-hae-yo",
+    "en": "dry",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "맑아요",
+    "rom": "mal-ga-yo",
+    "en": "clear (weather)",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "흐려요",
+    "rom": "heu-ryeo-yo",
+    "en": "cloudy",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "비가 와요",
+    "rom": "bi-ga wa-yo",
+    "en": "It's raining.",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "눈이 와요",
+    "rom": "nu-ni wa-yo",
+    "en": "It's snowing.",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "바람이 불어요",
+    "rom": "ba-ra-mi bu-reo-yo",
+    "en": "It's windy.",
+    "category": "Weather & temperature",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "쉬워요",
+    "rom": "swi-wo-yo",
+    "en": "easy",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "어려워요",
+    "rom": "eo-ryeo-wo-yo",
+    "en": "difficult",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "간단해요",
+    "rom": "gan-dan-hae-yo",
+    "en": "simple",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "복잡해요",
+    "rom": "bok-jap-hae-yo",
+    "en": "complicated; crowded",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "빨라요",
+    "rom": "ppal-la-yo",
+    "en": "fast",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "느려요",
+    "rom": "neu-ryeo-yo",
+    "en": "slow",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "새로워요",
+    "rom": "sae-ro-wo-yo",
+    "en": "new; novel",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "오래됐어요",
+    "rom": "o-rae-dwae-sseo-yo",
+    "en": "old; has been around a long time",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "깨끗해요",
+    "rom": "kkae-kkeu-tae-yo",
+    "en": "clean",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "더러워요",
+    "rom": "deo-reo-wo-yo",
+    "en": "dirty",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "안전해요",
+    "rom": "an-jeon-hae-yo",
+    "en": "safe",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "위험해요",
+    "rom": "wi-heom-hae-yo",
+    "en": "dangerous",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "중요해요",
+    "rom": "jung-yo-hae-yo",
+    "en": "important",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "필요해요",
+    "rom": "pi-ryo-hae-yo",
+    "en": "necessary",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "가능해요",
+    "rom": "ga-neung-hae-yo",
+    "en": "possible",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "불가능해요",
+    "rom": "bul-ga-neung-hae-yo",
+    "en": "impossible",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "정확해요",
+    "rom": "jeong-hwak-hae-yo",
+    "en": "accurate",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "틀려요",
+    "rom": "teul-lyeo-yo",
+    "en": "wrong; incorrect",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "맞아요",
+    "rom": "ma-ja-yo",
+    "en": "correct; right",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "유명해요",
+    "rom": "yu-myeong-hae-yo",
+    "en": "famous",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "특별해요",
+    "rom": "teuk-byeol-hae-yo",
+    "en": "special",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "비슷해요",
+    "rom": "bi-seu-tae-yo",
+    "en": "similar",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "달라요",
+    "rom": "dal-la-yo",
+    "en": "different",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "같아요",
+    "rom": "ga-ta-yo",
+    "en": "same; seems like",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "편리해요",
+    "rom": "pyeol-li-hae-yo",
+    "en": "convenient",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "불편해요",
+    "rom": "bul-pyeon-hae-yo",
+    "en": "inconvenient",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "완벽해요",
+    "rom": "wan-byeok-hae-yo",
+    "en": "perfect",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "충분해요",
+    "rom": "chung-bun-hae-yo",
+    "en": "enough; sufficient",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "부족해요",
+    "rom": "bu-jok-hae-yo",
+    "en": "insufficient; lacking",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "아쉬워요",
+    "rom": "a-swi-wo-yo",
+    "en": "a little disappointing; a shame",
+    "category": "Difficulty, quality & value",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "가까워요",
+    "rom": "ga-kka-wo-yo",
+    "en": "near",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "멀어요",
+    "rom": "meo-reo-yo",
+    "en": "far",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "늦어요",
+    "rom": "neu-jeo-yo",
+    "en": "late",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "일러요",
+    "rom": "il-leo-yo",
+    "en": "early",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "빠듯해요",
+    "rom": "ppa-deu-tae-yo",
+    "en": "tight (schedule/budget)",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "저렴해요",
+    "rom": "jeo-ryeom-hae-yo",
+    "en": "affordable",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "비싸요",
+    "rom": "bi-ssa-yo",
+    "en": "expensive",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "무료예요",
+    "rom": "mu-ryo-ye-yo",
+    "en": "free of charge",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "복잡해요",
+    "rom": "bok-jap-hae-yo",
+    "en": "busy; congested",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "한적해요",
+    "rom": "han-jeok-hae-yo",
+    "en": "quiet; uncrowded",
+    "category": "Price, time & distance",
+    "part": "Common adjectives and descriptive words"
+  },
+  {
+    "ko": "사람",
+    "rom": "sa-ram",
+    "en": "person",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "친구",
+    "rom": "chin-gu",
+    "en": "friend",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가족",
+    "rom": "ga-jok",
+    "en": "family",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "부모님",
+    "rom": "bu-mo-nim",
+    "en": "parents",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "엄마",
+    "rom": "eom-ma",
+    "en": "mom",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아빠",
+    "rom": "a-ppa",
+    "en": "dad",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "언니",
+    "rom": "eon-ni",
+    "en": "older sister (used by a female)",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "누나",
+    "rom": "nu-na",
+    "en": "older sister (used by a male)",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "오빠",
+    "rom": "o-ppa",
+    "en": "older brother (used by a female)",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "형",
+    "rom": "hyeong",
+    "en": "older brother (used by a male)",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "동생",
+    "rom": "dong-saeng",
+    "en": "younger sibling",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "남자친구",
+    "rom": "nam-ja-chin-gu",
+    "en": "boyfriend",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "여자친구",
+    "rom": "yeo-ja-chin-gu",
+    "en": "girlfriend",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "선생님",
+    "rom": "seon-saeng-nim",
+    "en": "teacher",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "학생",
+    "rom": "hak-saeng",
+    "en": "student",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "손님",
+    "rom": "son-nim",
+    "en": "customer; guest",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "직원",
+    "rom": "ji-gwon",
+    "en": "staff member",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사장님",
+    "rom": "sa-jang-nim",
+    "en": "boss; owner",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "동료",
+    "rom": "dong-nyo",
+    "en": "colleague",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "이웃",
+    "rom": "i-ut",
+    "en": "neighbor",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아기",
+    "rom": "a-gi",
+    "en": "baby",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아이",
+    "rom": "a-i",
+    "en": "child",
+    "category": "People & relationships",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "집",
+    "rom": "jip",
+    "en": "home; house",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "학교",
+    "rom": "hak-gyo",
+    "en": "school",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "회사",
+    "rom": "hoe-sa",
+    "en": "company; workplace",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사무실",
+    "rom": "sa-mu-sil",
+    "en": "office",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "식당",
+    "rom": "sik-ttang",
+    "en": "restaurant",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "카페",
+    "rom": "ka-pe",
+    "en": "café",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "편의점",
+    "rom": "pyeon-ui-jeom",
+    "en": "convenience store",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "마트",
+    "rom": "ma-teu",
+    "en": "supermarket",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "시장",
+    "rom": "si-jang",
+    "en": "market",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "병원",
+    "rom": "byeong-won",
+    "en": "hospital",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "약국",
+    "rom": "yak-kkuk",
+    "en": "pharmacy",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "은행",
+    "rom": "eun-haeng",
+    "en": "bank",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "우체국",
+    "rom": "u-che-guk",
+    "en": "post office",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "경찰서",
+    "rom": "gyeong-chal-seo",
+    "en": "police station",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "도서관",
+    "rom": "do-seo-gwan",
+    "en": "library",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "공원",
+    "rom": "gong-won",
+    "en": "park",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "화장실",
+    "rom": "hwa-jang-sil",
+    "en": "restroom",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "역",
+    "rom": "yeok",
+    "en": "station",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "공항",
+    "rom": "gong-hang",
+    "en": "airport",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "호텔",
+    "rom": "ho-tel",
+    "en": "hotel",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "숙소",
+    "rom": "suk-so",
+    "en": "accommodation",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "건물",
+    "rom": "geon-mul",
+    "en": "building",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "층",
+    "rom": "cheung",
+    "en": "floor; story",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "입구",
+    "rom": "ip-kku",
+    "en": "entrance",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "출구",
+    "rom": "chul-gu",
+    "en": "exit",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "근처",
+    "rom": "geun-cheo",
+    "en": "nearby area",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "거리",
+    "rom": "geo-ri",
+    "en": "street; distance",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주소",
+    "rom": "ju-so",
+    "en": "address",
+    "category": "Places & buildings",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "오늘",
+    "rom": "o-neul",
+    "en": "today",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "내일",
+    "rom": "nae-il",
+    "en": "tomorrow",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "어제",
+    "rom": "eo-je",
+    "en": "yesterday",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "지금",
+    "rom": "ji-geum",
+    "en": "now",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "나중에",
+    "rom": "na-jung-e",
+    "en": "later",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아까",
+    "rom": "a-kka",
+    "en": "a little while ago",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "방금",
+    "rom": "bang-geum",
+    "en": "just now",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아침",
+    "rom": "a-chim",
+    "en": "morning; breakfast",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "점심",
+    "rom": "jeom-sim",
+    "en": "lunch; noon",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "저녁",
+    "rom": "jeo-nyeok",
+    "en": "evening; dinner",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "밤",
+    "rom": "bam",
+    "en": "night",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "새벽",
+    "rom": "sae-byeok",
+    "en": "dawn; very early morning",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주말",
+    "rom": "ju-mal",
+    "en": "weekend",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "평일",
+    "rom": "pyeong-il",
+    "en": "weekday",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "이번 주",
+    "rom": "i-beon ju",
+    "en": "this week",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "다음 주",
+    "rom": "da-eum ju",
+    "en": "next week",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "지난주",
+    "rom": "ji-nan-ju",
+    "en": "last week",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "매일",
+    "rom": "mae-il",
+    "en": "every day",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "자주",
+    "rom": "ja-ju",
+    "en": "often",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가끔",
+    "rom": "ga-kkeum",
+    "en": "sometimes",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "항상",
+    "rom": "hang-sang",
+    "en": "always",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "보통",
+    "rom": "bo-tong",
+    "en": "usually; normally",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "벌써",
+    "rom": "beol-sseo",
+    "en": "already",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아직",
+    "rom": "a-jik",
+    "en": "still; yet",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "먼저",
+    "rom": "meon-jeo",
+    "en": "first",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "다시",
+    "rom": "da-si",
+    "en": "again",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "곧",
+    "rom": "got",
+    "en": "soon",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "잠깐",
+    "rom": "jam-kkan",
+    "en": "for a moment",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "시간",
+    "rom": "si-gan",
+    "en": "time; hour",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "약속",
+    "rom": "yak-sok",
+    "en": "appointment; plan",
+    "category": "Time & frequency",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "밥",
+    "rom": "bap",
+    "en": "rice; meal",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "물",
+    "rom": "mul",
+    "en": "water",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "커피",
+    "rom": "keo-pi",
+    "en": "coffee",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "차",
+    "rom": "cha",
+    "en": "tea; car (context-dependent)",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "우유",
+    "rom": "u-yu",
+    "en": "milk",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주스",
+    "rom": "ju-seu",
+    "en": "juice",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "빵",
+    "rom": "ppang",
+    "en": "bread",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "과일",
+    "rom": "gwa-il",
+    "en": "fruit",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사과",
+    "rom": "sa-gwa",
+    "en": "apple",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "바나나",
+    "rom": "ba-na-na",
+    "en": "banana",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "채소",
+    "rom": "chae-so",
+    "en": "vegetables",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "고기",
+    "rom": "go-gi",
+    "en": "meat",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "닭고기",
+    "rom": "dak-kko-gi",
+    "en": "chicken",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "소고기",
+    "rom": "so-go-gi",
+    "en": "beef",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "돼지고기",
+    "rom": "dwae-ji-go-gi",
+    "en": "pork",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "생선",
+    "rom": "saeng-seon",
+    "en": "fish",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "계란",
+    "rom": "gye-ran",
+    "en": "egg",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "김치",
+    "rom": "gim-chi",
+    "en": "kimchi",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "국",
+    "rom": "guk",
+    "en": "soup",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "찌개",
+    "rom": "jjigae",
+    "en": "stew",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "면",
+    "rom": "myeon",
+    "en": "noodles",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "라면",
+    "rom": "ra-myeon",
+    "en": "ramen",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "샐러드",
+    "rom": "sael-leo-deu",
+    "en": "salad",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "메뉴",
+    "rom": "me-nyu",
+    "en": "menu",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주문",
+    "rom": "ju-mun",
+    "en": "order",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "계산",
+    "rom": "gye-san",
+    "en": "payment; bill",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "영수증",
+    "rom": "yeong-su-jeung",
+    "en": "receipt",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "포장",
+    "rom": "po-jang",
+    "en": "takeout; packaging",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "배달",
+    "rom": "bae-dal",
+    "en": "delivery",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "반찬",
+    "rom": "ban-chan",
+    "en": "side dishes",
+    "category": "Food & drinks",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "돈",
+    "rom": "don",
+    "en": "money",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "현금",
+    "rom": "hyeon-geum",
+    "en": "cash",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "카드",
+    "rom": "ka-deu",
+    "en": "card",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가격",
+    "rom": "ga-gyeok",
+    "en": "price",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "할인",
+    "rom": "ha-rin",
+    "en": "discount",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "세일",
+    "rom": "se-il",
+    "en": "sale",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "영수증",
+    "rom": "yeong-su-jeung",
+    "en": "receipt",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "봉투",
+    "rom": "bong-tu",
+    "en": "bag",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사이즈",
+    "rom": "sa-i-jeu",
+    "en": "size",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "색깔",
+    "rom": "saek-kkal",
+    "en": "color",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "옷",
+    "rom": "ot",
+    "en": "clothes",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "신발",
+    "rom": "sin-bal",
+    "en": "shoes",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가방",
+    "rom": "ga-bang",
+    "en": "bag",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "선물",
+    "rom": "seon-mul",
+    "en": "gift",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "현금영수증",
+    "rom": "hyeon-geum-yeong-su-jeung",
+    "en": "cash receipt",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "교환",
+    "rom": "gyo-hwan",
+    "en": "exchange",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "환불",
+    "rom": "hwan-bul",
+    "en": "refund",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "재고",
+    "rom": "jae-go",
+    "en": "stock; inventory",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "품절",
+    "rom": "pum-jeol",
+    "en": "sold out",
+    "category": "Shopping & money",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "자동차 / 차",
+    "rom": "ja-dong-cha / cha",
+    "en": "car",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "버스",
+    "rom": "beo-seu",
+    "en": "bus",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "지하철",
+    "rom": "ji-ha-cheol",
+    "en": "subway",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "택시",
+    "rom": "taek-si",
+    "en": "taxi",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "기차",
+    "rom": "gi-cha",
+    "en": "train",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "비행기",
+    "rom": "bi-haeng-gi",
+    "en": "airplane",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "자전거",
+    "rom": "ja-jeon-geo",
+    "en": "bicycle",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "정류장",
+    "rom": "jeong-nyu-jang",
+    "en": "bus stop",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "승강장",
+    "rom": "seung-gang-jang",
+    "en": "platform",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "환승",
+    "rom": "hwan-seung",
+    "en": "transfer",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "교통카드",
+    "rom": "gyo-tong-ka-deu",
+    "en": "transit card",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "길",
+    "rom": "gil",
+    "en": "road; way",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "도로",
+    "rom": "do-ro",
+    "en": "road",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "교차로",
+    "rom": "gyo-cha-ro",
+    "en": "intersection",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "신호등",
+    "rom": "sin-ho-deung",
+    "en": "traffic light",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "좌회전",
+    "rom": "jwa-hoe-jeon",
+    "en": "left turn",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "우회전",
+    "rom": "u-hoe-jeon",
+    "en": "right turn",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "직진",
+    "rom": "jik-jin",
+    "en": "go straight",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "유턴",
+    "rom": "yu-teon",
+    "en": "U-turn",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "차선",
+    "rom": "cha-seon",
+    "en": "lane",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주차장",
+    "rom": "ju-cha-jang",
+    "en": "parking lot",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주차",
+    "rom": "ju-cha",
+    "en": "parking",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "운전",
+    "rom": "un-jeon",
+    "en": "driving",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "운전면허증",
+    "rom": "un-jeon-myeon-heo-jeung",
+    "en": "driver's license",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "내비게이션",
+    "rom": "nae-bi-ge-i-syeon",
+    "en": "GPS navigation",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "길이 막혀요",
+    "rom": "gi-ri ma-kyeo-yo",
+    "en": "There is traffic.",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사고",
+    "rom": "sa-go",
+    "en": "accident",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "보험",
+    "rom": "bo-heom",
+    "en": "insurance",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "안전벨트",
+    "rom": "an-jeon-bel-teu",
+    "en": "seat belt",
+    "category": "Transportation & driving",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "머리",
+    "rom": "meo-ri",
+    "en": "head; hair",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "얼굴",
+    "rom": "eol-gul",
+    "en": "face",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "눈",
+    "rom": "nun",
+    "en": "eye; snow",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "코",
+    "rom": "ko",
+    "en": "nose",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "입",
+    "rom": "ip",
+    "en": "mouth",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "귀",
+    "rom": "gwi",
+    "en": "ear",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "손",
+    "rom": "son",
+    "en": "hand",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "발",
+    "rom": "bal",
+    "en": "foot",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "다리",
+    "rom": "da-ri",
+    "en": "leg",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "팔",
+    "rom": "pal",
+    "en": "arm",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "배",
+    "rom": "bae",
+    "en": "stomach; pear; boat",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "등",
+    "rom": "deung",
+    "en": "back",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "목",
+    "rom": "mok",
+    "en": "neck; throat",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "감기",
+    "rom": "gam-gi",
+    "en": "cold (illness)",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "열",
+    "rom": "yeol",
+    "en": "fever",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "기침",
+    "rom": "gi-chim",
+    "en": "cough",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "약",
+    "rom": "yak",
+    "en": "medicine",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "증상",
+    "rom": "jeung-sang",
+    "en": "symptom",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "알레르기",
+    "rom": "al-le-reu-gi",
+    "en": "allergy",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "예약",
+    "rom": "ye-yak",
+    "en": "appointment; reservation",
+    "category": "Body & health",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "공부",
+    "rom": "gong-bu",
+    "en": "study",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "숙제",
+    "rom": "suk-jje",
+    "en": "homework",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "시험",
+    "rom": "si-heom",
+    "en": "exam",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "수업",
+    "rom": "su-eop",
+    "en": "class; lesson",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "과제",
+    "rom": "gwa-je",
+    "en": "assignment",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "책",
+    "rom": "chaek",
+    "en": "book",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "공책",
+    "rom": "gong-chaek",
+    "en": "notebook",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "펜",
+    "rom": "pen",
+    "en": "pen",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "컴퓨터",
+    "rom": "keom-pyu-teo",
+    "en": "computer",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "휴대폰",
+    "rom": "hyu-dae-pon",
+    "en": "mobile phone",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "이메일",
+    "rom": "i-me-il",
+    "en": "email",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "회의",
+    "rom": "hoe-ui",
+    "en": "meeting",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "일",
+    "rom": "il",
+    "en": "work; task; day",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "월급",
+    "rom": "wol-geup",
+    "en": "salary",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "일정",
+    "rom": "il-jeong",
+    "en": "schedule",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "마감",
+    "rom": "ma-gam",
+    "en": "deadline",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "자료",
+    "rom": "ja-ryo",
+    "en": "materials; data",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "질문",
+    "rom": "jil-mun",
+    "en": "question",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "대답",
+    "rom": "dae-dap",
+    "en": "answer",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "설명",
+    "rom": "seol-myeong",
+    "en": "explanation",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "연습",
+    "rom": "yeon-seup",
+    "en": "practice",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "발표",
+    "rom": "bal-pyo",
+    "en": "presentation",
+    "category": "Study & work",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "인터넷",
+    "rom": "in-teo-net",
+    "en": "internet",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "와이파이",
+    "rom": "wa-i-pa-i",
+    "en": "Wi-Fi",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "비밀번호",
+    "rom": "bi-mil-beon-ho",
+    "en": "password",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사진",
+    "rom": "sa-jin",
+    "en": "photo",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "영상",
+    "rom": "yeong-sang",
+    "en": "video",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "메시지",
+    "rom": "me-si-ji",
+    "en": "message",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "전화",
+    "rom": "jeon-hwa",
+    "en": "phone call",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "통화",
+    "rom": "tong-hwa",
+    "en": "call; conversation by phone",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "충전기",
+    "rom": "chung-jeon-gi",
+    "en": "charger",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "배터리",
+    "rom": "bae-teo-ri",
+    "en": "battery",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "앱",
+    "rom": "aep",
+    "en": "app",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "화면",
+    "rom": "hwa-myeon",
+    "en": "screen",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "파일",
+    "rom": "pa-il",
+    "en": "file",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "링크",
+    "rom": "ring-keu",
+    "en": "link",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "검색",
+    "rom": "geom-saek",
+    "en": "search",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "다운로드",
+    "rom": "da-un-ro-deu",
+    "en": "download",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "로그인",
+    "rom": "ro-geu-in",
+    "en": "log in",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "연결",
+    "rom": "yeon-gyeol",
+    "en": "connection",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "고장",
+    "rom": "go-jang",
+    "en": "breakdown; malfunction",
+    "category": "Technology & communication",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "하다",
+    "rom": "ha-da",
+    "en": "to do",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "되다",
+    "rom": "doe-da",
+    "en": "to become; to work out",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "있다",
+    "rom": "it-tta",
+    "en": "to exist; to have",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "없다",
+    "rom": "eop-tta",
+    "en": "to not exist; to not have",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가다",
+    "rom": "ga-da",
+    "en": "to go",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "오다",
+    "rom": "o-da",
+    "en": "to come",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "먹다",
+    "rom": "meok-tta",
+    "en": "to eat",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "마시다",
+    "rom": "ma-si-da",
+    "en": "to drink",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "보다",
+    "rom": "bo-da",
+    "en": "to see; watch",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "듣다",
+    "rom": "deut-tta",
+    "en": "to listen; hear",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "말하다",
+    "rom": "mal-ha-da",
+    "en": "to speak",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "이야기하다",
+    "rom": "i-ya-gi-ha-da",
+    "en": "to talk",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "알다",
+    "rom": "al-da",
+    "en": "to know",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "모르다",
+    "rom": "mo-reu-da",
+    "en": "to not know",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "생각하다",
+    "rom": "saeng-gak-ha-da",
+    "en": "to think",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "좋아하다",
+    "rom": "jo-a-ha-da",
+    "en": "to like",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "싫어하다",
+    "rom": "si-reo-ha-da",
+    "en": "to dislike",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "원하다",
+    "rom": "won-ha-da",
+    "en": "to want",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "필요하다",
+    "rom": "pi-ryo-ha-da",
+    "en": "to need",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주다",
+    "rom": "ju-da",
+    "en": "to give",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "받다",
+    "rom": "bat-tta",
+    "en": "to receive",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사다",
+    "rom": "sa-da",
+    "en": "to buy",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "팔다",
+    "rom": "pal-da",
+    "en": "to sell",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "찾다",
+    "rom": "chat-tta",
+    "en": "to find; look for",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "기다리다",
+    "rom": "gi-da-ri-da",
+    "en": "to wait",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "만나다",
+    "rom": "man-na-da",
+    "en": "to meet",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "살다",
+    "rom": "sal-da",
+    "en": "to live",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "일하다",
+    "rom": "il-ha-da",
+    "en": "to work",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "공부하다",
+    "rom": "gong-bu-ha-da",
+    "en": "to study",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "배우다",
+    "rom": "bae-u-da",
+    "en": "to learn",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가르치다",
+    "rom": "ga-reu-chi-da",
+    "en": "to teach",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "읽다",
+    "rom": "ik-tta",
+    "en": "to read",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "쓰다",
+    "rom": "sseu-da",
+    "en": "to write; use",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "만들다",
+    "rom": "man-deul-da",
+    "en": "to make",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "열다",
+    "rom": "yeol-da",
+    "en": "to open",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "닫다",
+    "rom": "dat-tta",
+    "en": "to close",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "시작하다",
+    "rom": "si-jak-ha-da",
+    "en": "to start",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "끝나다",
+    "rom": "kkeun-na-da",
+    "en": "to end",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "끝내다",
+    "rom": "kkeun-nae-da",
+    "en": "to finish something",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "보내다",
+    "rom": "bo-nae-da",
+    "en": "to send; spend time",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "전화하다",
+    "rom": "jeon-hwa-ha-da",
+    "en": "to call",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "연락하다",
+    "rom": "yeol-lak-ha-da",
+    "en": "to contact",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "사용하다",
+    "rom": "sa-yong-ha-da",
+    "en": "to use",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "켜다",
+    "rom": "kyeo-da",
+    "en": "to turn on",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "끄다",
+    "rom": "kkeu-da",
+    "en": "to turn off",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "씻다",
+    "rom": "ssit-tta",
+    "en": "to wash",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "입다",
+    "rom": "ip-tta",
+    "en": "to wear (clothes)",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "신다",
+    "rom": "sin-tta",
+    "en": "to wear (shoes)",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "타다",
+    "rom": "ta-da",
+    "en": "to ride; take transport",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "내리다",
+    "rom": "nae-ri-da",
+    "en": "to get off; descend",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "걷다",
+    "rom": "geot-tta",
+    "en": "to walk",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "뛰다",
+    "rom": "ttwi-da",
+    "en": "to run",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "운전하다",
+    "rom": "un-jeon-ha-da",
+    "en": "to drive",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주차하다",
+    "rom": "ju-cha-ha-da",
+    "en": "to park",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "요리하다",
+    "rom": "yo-ri-ha-da",
+    "en": "to cook",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "청소하다",
+    "rom": "cheong-so-ha-da",
+    "en": "to clean",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "정리하다",
+    "rom": "jeong-ni-ha-da",
+    "en": "to organize; tidy",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "자다",
+    "rom": "ja-da",
+    "en": "to sleep",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "일어나다",
+    "rom": "i-reo-na-da",
+    "en": "to get up",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "쉬다",
+    "rom": "swi-da",
+    "en": "to rest",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "놀다",
+    "rom": "nol-da",
+    "en": "to hang out; play",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "웃다",
+    "rom": "ut-tta",
+    "en": "to laugh; smile",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "울다",
+    "rom": "ul-da",
+    "en": "to cry",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "웃기다",
+    "rom": "ut-gi-da",
+    "en": "to make someone laugh",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "도와주다",
+    "rom": "do-wa-ju-da",
+    "en": "to help",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "물어보다",
+    "rom": "mu-reo-bo-da",
+    "en": "to ask",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "대답하다",
+    "rom": "dae-dap-ha-da",
+    "en": "to answer",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "설명하다",
+    "rom": "seol-myeong-ha-da",
+    "en": "to explain",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "예약하다",
+    "rom": "ye-yak-ha-da",
+    "en": "to reserve; book",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "주문하다",
+    "rom": "ju-mun-ha-da",
+    "en": "to order",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "계산하다",
+    "rom": "gye-san-ha-da",
+    "en": "to pay; calculate",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "고르다",
+    "rom": "go-reu-da",
+    "en": "to choose",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "바꾸다",
+    "rom": "ba-kku-da",
+    "en": "to change; exchange",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "빌리다",
+    "rom": "bil-li-da",
+    "en": "to borrow; rent",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "돌려주다",
+    "rom": "dol-lyeo-ju-da",
+    "en": "to return something",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "잊어버리다",
+    "rom": "i-jeo-beo-ri-da",
+    "en": "to forget",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "기억하다",
+    "rom": "gi-eok-ha-da",
+    "en": "to remember",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "걱정하다",
+    "rom": "geok-jeong-ha-da",
+    "en": "to worry",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "준비하다",
+    "rom": "jun-bi-ha-da",
+    "en": "to prepare",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "출발하다",
+    "rom": "chul-bal-ha-da",
+    "en": "to depart",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "도착하다",
+    "rom": "do-chak-ha-da",
+    "en": "to arrive",
+    "category": "Everyday verbs",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "네",
+    "rom": "ne",
+    "en": "yes",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아니요",
+    "rom": "a-ni-yo",
+    "en": "no",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아마",
+    "rom": "a-ma",
+    "en": "maybe; probably",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "정말",
+    "rom": "jeong-mal",
+    "en": "really",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "진짜",
+    "rom": "jin-jja",
+    "en": "really (casual)",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "너무",
+    "rom": "neo-mu",
+    "en": "very; too",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아주",
+    "rom": "a-ju",
+    "en": "very",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "조금",
+    "rom": "jo-geum",
+    "en": "a little",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "좀",
+    "rom": "jom",
+    "en": "a little; softener in requests",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "많이",
+    "rom": "ma-ni",
+    "en": "a lot",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "더",
+    "rom": "deo",
+    "en": "more",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "덜",
+    "rom": "deol",
+    "en": "less",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "가장",
+    "rom": "ga-jang",
+    "en": "the most",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "제일",
+    "rom": "je-il",
+    "en": "the most",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "거의",
+    "rom": "geo-ui",
+    "en": "almost",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "완전",
+    "rom": "wan-jeon",
+    "en": "totally; completely (casual)",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아직도",
+    "rom": "a-jik-do",
+    "en": "still",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "이미",
+    "rom": "i-mi",
+    "en": "already",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "그냥",
+    "rom": "geu-nyang",
+    "en": "just; for no particular reason",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "물론",
+    "rom": "mul-lon",
+    "en": "of course",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "혹시",
+    "rom": "hok-ssi",
+    "en": "by any chance",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "아마도",
+    "rom": "a-ma-do",
+    "en": "probably",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "그래서",
+    "rom": "geu-rae-seo",
+    "en": "so; therefore",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "그런데",
+    "rom": "geu-reon-de",
+    "en": "by the way; however",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "그리고",
+    "rom": "geu-ri-go",
+    "en": "and",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "하지만",
+    "rom": "ha-ji-man",
+    "en": "but",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "그러면",
+    "rom": "geu-reo-myeon",
+    "en": "then; if so",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "왜",
+    "rom": "wae",
+    "en": "why",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "어떻게",
+    "rom": "eo-tteo-ke",
+    "en": "how",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "언제",
+    "rom": "eon-je",
+    "en": "when",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "어디",
+    "rom": "eo-di",
+    "en": "where",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "누구",
+    "rom": "nu-gu",
+    "en": "who",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "무엇 / 뭐",
+    "rom": "mu-eot / mwo",
+    "en": "what",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "어느",
+    "rom": "eo-neu",
+    "en": "which",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "얼마",
+    "rom": "eol-ma",
+    "en": "how much",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "몇",
+    "rom": "myeot",
+    "en": "how many; what number",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "무슨",
+    "rom": "mu-seun",
+    "en": "what kind of",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "어떤",
+    "rom": "eo-tteon",
+    "en": "what kind of; which",
+    "category": "Useful conversational words",
+    "part": "High-frequency everyday words"
+  },
+  {
+    "ko": "이거 좋아요.",
+    "rom": "i-geo jo-a-yo.",
+    "en": "I like this. / This is good.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "오늘 너무 바빠요.",
+    "rom": "o-neul neo-mu ba-ppa-yo.",
+    "en": "I'm very busy today.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "조금 어려워요.",
+    "rom": "jo-geum eo-ryeo-wo-yo.",
+    "en": "It's a little difficult.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "근처에 있어요?",
+    "rom": "geun-cheo-e i-sseo-yo?",
+    "en": "Is it nearby? / Is there one nearby?",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "이거 얼마예요?",
+    "rom": "i-geo eol-ma-ye-yo?",
+    "en": "How much is this?",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "천천히 말해 주세요.",
+    "rom": "cheon-cheon-hi mal-hae ju-se-yo.",
+    "en": "Please speak slowly.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "다시 말해 주세요.",
+    "rom": "da-si mal-hae ju-se-yo.",
+    "en": "Please say that again.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "잘 모르겠어요.",
+    "rom": "jal mo-reu-ge-sseo-yo.",
+    "en": "I'm not sure. / I don't really know.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "도와주실 수 있어요?",
+    "rom": "do-wa-ju-sil su i-sseo-yo?",
+    "en": "Could you help me?",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "잠깐만요.",
+    "rom": "jam-kkan-man-yo.",
+    "en": "Just a moment, please.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "괜찮아요.",
+    "rom": "gwaen-cha-na-yo.",
+    "en": "It's okay. / No problem.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "그냥 구경하고 있어요.",
+    "rom": "geu-nyang gu-gyeong-ha-go i-sseo-yo.",
+    "en": "I'm just looking around.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "예약했어요.",
+    "rom": "ye-yak-hae-sseo-yo.",
+    "en": "I have a reservation.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "포장해 주세요.",
+    "rom": "po-jang-hae ju-se-yo.",
+    "en": "Please make it to go.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "여기서 내려 주세요.",
+    "rom": "yeo-gi-seo nae-ryeo ju-se-yo.",
+    "en": "Please let me off here.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  },
+  {
+    "ko": "다음 신호등에서 우회전하세요.",
+    "rom": "da-eum sin-ho-deung-e-seo u-hoe-jeon-ha-se-yo.",
+    "en": "Turn right at the next traffic light.",
+    "category": "Useful sentence frames",
+    "part": "Useful sentence frames"
+  }
+]

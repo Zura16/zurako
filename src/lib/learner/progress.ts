@@ -63,6 +63,6 @@ export function overview(catalog: Catalog, learner: LearnerState, now: number) {
     if (status === "mastered") mastered++;
     if (status === "due" || status === "weak") due++;
   }
-  const cardsSeen = Object.values(learner.cards).filter((c) => c.views > 0).length;
+  const cardsSeen = Object.values(learner.cards).filter((c) => c.views > 0 && catalog.cards.has(c.cardId)).length;
   return { introduced, mastered, due, cardsSeen, totalCards: catalog.cards.size };
 }

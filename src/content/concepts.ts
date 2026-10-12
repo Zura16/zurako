@@ -81,6 +81,11 @@ const GRAMMAR: Concept[] = [
     pattern: "Verb stem + (으)시 + ending: 가세요, 하셨어요",
     explanation: "Shows respect to the subject, not the listener. You never use it about yourself.",
   }),
+  grammar("hon-to", "께", "to (someone you respect)", "B1", "Honorifics", {
+    skill: "honorifics",
+    pre: ["g.to-person"],
+    explanation: "Honorific version of 에게/한테: 할머니께 선물을 드렸어요. Pairs with humble verbs like 드리다 and 여쭙다.",
+  }),
   grammar("hon-vocab", "높임말 words", "special honorific verbs and nouns", "B1", "Honorifics", {
     skill: "honorifics",
     pre: ["g.honorific-si"],
@@ -253,6 +258,8 @@ const VOCAB: Concept[] = [
   vocab("누나", "older sister / older female friend (said by men)", "A2", "People", "noun", { frequency: "common" }),
   vocab("선배", "senior (school/work)", "B1", "People", "noun", { frequency: "common" }),
   vocab("팀장님", "team leader (with honorific 님)", "B1", "People", "noun", { frequency: "common" }),
+  vocab("교수님", "professor (with honorific 님)", "A2", "People", "noun", { frequency: "common" }),
+  vocab("사장님", "boss; business owner (with 님)", "A2", "People", "noun", { frequency: "common" }),
   vocab("학생", "student", "A1", "People", "noun", { frequency: "core" }),
 
   // Places

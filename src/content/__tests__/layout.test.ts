@@ -15,6 +15,10 @@ describe("layoutSegments", () => {
     expect(layout("s.text-ok")).toEqual(["ㅇㅇ", "알겠어", "ㅎㅎ"]);
   });
 
+  it("keeps commas inside numbers", () => {
+    expect(layout("s.l4-price")).toEqual(["4,500원입니다."]);
+  });
+
   it("rebuilds every sentence in the catalog exactly", () => {
     for (const s of catalog.sentences.values()) {
       expect(

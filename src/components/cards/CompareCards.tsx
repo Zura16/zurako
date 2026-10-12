@@ -112,7 +112,6 @@ export function PronunciationCard({ card }: { card: Card }) {
           <Translation text={s.translation} className="text-sm" />
         </div>
         <AudioButton sentence={s} cardId={card.id} />
-        <AudioButton sentence={s} cardId={card.id} rate={0.6} size="sm" label="Play slowly" />
       </div>
       {p.more.length > 0 && (
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3" aria-label="More examples">

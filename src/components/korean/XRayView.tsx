@@ -55,8 +55,7 @@ export function XRayView({ cardId, sentenceId, focus }: { cardId: string; senten
         <p className="text-muted">{sentence.translation}</p>
         {sentence.literal && <p className="text-sm text-faint">Literally: {sentence.literal}</p>}
         <div className="flex items-center gap-2">
-          <AudioButton sentence={sentence} cardId={cardId} rate={1} label="Play at normal speed" />
-          <AudioButton sentence={sentence} cardId={cardId} rate={0.65} label="Play slowly" size="sm" />
+          <AudioButton sentence={sentence} cardId={cardId} />
         </div>
         {sentence.context && <p className="rounded-xl bg-white/4 px-3 py-2 text-sm text-muted">{sentence.context}</p>}
       </div>

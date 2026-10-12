@@ -34,6 +34,8 @@ GitHub Pages serves static files only, so the app is a static Next.js export. Th
 
 ```
 src/content/          curriculum: typed, validated, shipped with the site
+  lessons/            Learn-tab lessons (schema + one file per lesson)
+  wordbank.json       word bank data
   schema.ts           Zod schemas for concepts, sentences, segments, 16 card payloads
   concepts.ts         grammar, vocabulary, expressions, culture (287 concepts)
   units/*.ts          sentences and cards by theme (434 sentences, 388 cards)
@@ -70,6 +72,14 @@ Interactions are events (`lesson_viewed`, `lesson_swiped`, `answer_correct`, `wo
 - **Profile**: onboarding answers, a difficulty offset nudged by "too easy" / "too hard", and topic and card-type affinities learned from saves, long dwell times and quick swipes.
 
 Onboarding marks concepts well below the learner's stated level as "assumed known" and schedules light check-in reviews for them.
+
+### Learn tab
+
+Alongside the feed, the **Learn** tab holds structured lessons converted from the course documents, in teaching order: 007 Honorific Expressions first, then 001–006 (`src/content/lessons/`). A lesson is typed data, not prose: phrase tables, plain → honorific pairs, grammar tables, callouts, dialogues, a speaking challenge (microphone or typing), matching, pick-one and fill-in exercises with answer checking. Full sentences link to catalog sentences, so they're tappable for the word-by-word breakdown. Romanization is hidden by default with a per-device toggle. Finishing a lesson feeds its concepts into spaced repetition, so the feed starts reviewing them. Each lesson lists the corrections made to its source document.
+
+The tab also has a searchable **Word bank** of 494 everyday words (`src/content/wordbank.json`, imported with `scripts/import-wordbank.py`) and a **Word of the Day** that's the same for everyone on a given date and cycles through every word before repeating. Learned words, lesson progress and finished lessons sync with the rest of the learner state.
+
+Every play button has a slow-motion partner (🐌) that plays at 60% speed.
 
 ### Learning path
 
