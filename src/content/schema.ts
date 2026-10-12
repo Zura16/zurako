@@ -223,6 +223,8 @@ export const PayloadSchemas = {
 export type CardType = keyof typeof PayloadSchemas;
 export const CARD_TYPES = Object.keys(PayloadSchemas) as CardType[];
 export type Payload<T extends CardType> = z.infer<(typeof PayloadSchemas)[T]>;
+/** What authors write: fields with schema defaults are optional. */
+export type PayloadInput<T extends CardType> = z.input<(typeof PayloadSchemas)[T]>;
 
 const CardBaseSchema = z.object({
   id: z.string().regex(/^k\./),

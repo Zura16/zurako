@@ -3,7 +3,7 @@ import type {
   CardType,
   Concept,
   LevelName,
-  Payload,
+  PayloadInput,
   PartSchema,
   Segment,
   Sentence,
@@ -90,7 +90,7 @@ function concept(
   level: LevelName,
   category: string,
   defaultSkill: Skill,
-  opts: ConceptOpts & Partial<Concept["details"]>,
+  opts: ConceptOpts & Partial<Omit<Concept["details"], "examples">>,
 ): Concept {
   return {
     id,
@@ -161,7 +161,7 @@ type CardInput<T extends CardType> = {
   teaches?: string[];
   interest?: number;
   story?: { id: string; part: number };
-  payload: Payload<T>;
+  payload: PayloadInput<T>;
 };
 
 /** Typed card constructor: `card("PHRASE", {...})`. */
