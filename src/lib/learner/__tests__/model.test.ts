@@ -80,6 +80,29 @@ describe("applyEvent", () => {
     expect(s.profile!.topicAffinity["Daily life"]).toBeLessThan(0);
   });
 
+  it("keeps a too-hard card on the To learn list until it's answered right on two different days", () => {
+    const card = "k.fill-eseo";
+    let s = apply(fresh(), { type: "marked_difficult", cardId: card, at: T0 });
+    expect(s.cards[card].toLearn).toBe(true);
+
+    s = apply(s, { type: "answer_correct", cardId: card, at: T0 + 1000, mode: "quiz" });
+    s = apply(s, { type: "answer_correct", cardId: card, at: T0 + 2000, mode: "quiz" });
+    expect(s.cards[card]).toMatchObject({ toLearn: true, recoveries: 1 }); // same day counts once
+
+    s = apply(s, { type: "answer_incorrect", cardId: card, at: T0 + 2 * DAY, mode: "quiz" });
+    expect(s.cards[card]).toMatchObject({ toLearn: true, recoveries: 0 }); // a miss resets progress
+
+    s = apply(s, { type: "answer_correct", cardId: card, at: T0 + 3 * DAY, mode: "quiz" });
+    s = apply(s, { type: "answer_correct", cardId: card, at: T0 + 5 * DAY, mode: "quiz" });
+    expect(s.cards[card].toLearn).toBe(false);
+  });
+
+  it("'I know this' takes a card off the To learn list", () => {
+    let s = apply(fresh(), { type: "marked_difficult", cardId: "k.today-doing", at: T0 });
+    s = apply(s, { type: "marked_known", cardId: "k.today-doing", at: T0 + 1000 });
+    expect(s.cards["k.today-doing"]).toMatchObject({ toLearn: false, known: true });
+  });
+
   it("ignores events for unknown cards", () => {
     const s0 = fresh();
     const { state, changes } = applyEvent(s0, { type: "lesson_saved", cardId: "k.nope", at: T0 }, catalog);

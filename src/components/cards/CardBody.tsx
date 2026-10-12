@@ -22,7 +22,7 @@ export function CardBody({ card, pick, active }: { card: Card; pick: FeedPick; a
     case "GRAMMAR":
       return <GrammarCard card={card} />;
     case "EXPRESSION":
-      return <ExpressionCard card={card} />;
+      return <ExpressionCard card={card} pick={pick} active={active} />;
     case "CULTURE":
       return <CultureCard card={card} />;
     case "LISTENING":

@@ -118,7 +118,7 @@ export function Feed() {
         return (
           <section key={`${pick.cardId}:${i}`} data-index={i} className="h-dvh snap-start snap-always" inert={i !== active}>
             {near && (
-              <CardFrame card={card} pick={pick} active={i === active}>
+              <CardFrame card={card} pick={pick} active={i === active} onAdvance={() => goTo(i + 1)}>
                 <CardBody card={card} pick={pick} active={i === active} />
               </CardFrame>
             )}
@@ -126,7 +126,7 @@ export function Feed() {
         );
       })}
       {active === 0 && (
-        <p className="pointer-events-none fixed inset-x-0 bottom-20 text-center text-xs text-faint" aria-hidden>
+        <p className="pointer-events-none fixed inset-x-0 bottom-[8.5rem] text-center text-xs text-faint" aria-hidden>
           Swipe up · ↑↓ keys
         </p>
       )}

@@ -64,6 +64,11 @@ export function initLearner(answers: OnboardingAnswers, catalog: Catalog, now: n
   };
 }
 
+/** Correct answers on this many different days take a card off the To learn list. */
+export const TO_LEARN_DAYS = 2;
+
+const sameDay = (a: number, b: number) => new Date(a).toDateString() === new Date(b).toDateString();
+
 export const noChanges = (): Changes => ({ profile: false, concepts: new Set(), cards: new Set(), skills: new Set() });
 
 /**
@@ -121,6 +126,16 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       typeAffinity: bump(p.typeAffinity, card.type, delta),
     }));
 
+  /** Progress on the To learn list: correct answers on separate days clear it, a miss resets it. */
+  const toLearnOutcome = (ok: boolean) => {
+    const cs = next.cards[card.id];
+    if (!cs?.toLearn) return;
+    if (!ok) return touchCard({ recoveries: 0, lastRecoveryAt: null });
+    if (cs.lastRecoveryAt !== null && sameDay(cs.lastRecoveryAt, now)) return;
+    const recoveries = cs.recoveries + 1;
+    touchCard(recoveries >= TO_LEARN_DAYS ? { toLearn: false, recoveries: 0, lastRecoveryAt: null } : { recoveries, lastRecoveryAt: now });
+  };
+
   switch (event.type) {
     case "lesson_viewed": {
       touchCard({ views: (next.cards[card.id]?.views ?? 0) + 1, lastSeenAt: now });
@@ -150,6 +165,7 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       const g: Grade = ok ? (event.responseMs !== undefined && event.responseMs < 2500 ? "easy" : "good") : "again";
       grade(teach.length ? teach : all, g, event.responseMs);
       touchCard({ completions: (next.cards[card.id]?.completions ?? 0) + 1, lastSeenAt: now, lastOutcome: ok ? "correct" : "incorrect" });
+      toLearnOutcome(ok);
       updateSkills(next, card, ok ? 1 : 0, now, changes);
       break;
     }
@@ -161,6 +177,7 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
         lastSeenAt: now,
         lastOutcome: event.grade === "miss" ? "incorrect" : "correct",
       });
+      if (event.grade !== "close") toLearnOutcome(event.grade === "good");
       updateSkills(next, card, outcome.score, now, changes);
       break;
     }
@@ -178,7 +195,7 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
           };
         });
       }
-      touchCard({ known: true, lastSeenAt: now });
+      touchCard({ known: true, lastSeenAt: now, toLearn: false, recoveries: 0, lastRecoveryAt: null });
       updateSkills(next, card, 1, now, changes, 0.5);
       break;
     }
@@ -197,6 +214,13 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       nudgeProfile((p) => ({ difficultyOffset: clamp(p.difficultyOffset - 0.3, -1.5, 1.5) }));
       grade(teach, "hard");
       for (const id of teach) touchConcept(id, () => ({ difficult: true }));
+      touchCard({
+        toLearn: true,
+        toLearnSince: next.cards[card.id]?.toLearnSince ?? now,
+        known: false,
+        recoveries: 0,
+        lastRecoveryAt: null,
+      });
       shiftSkill(next, card.skills[0], -0.25, now, changes);
       break;
     case "word_tapped":
@@ -282,7 +306,20 @@ export function blankConcept(conceptId: string, now: number): ConceptState {
 }
 
 export function blankCard(cardId: string): CardState {
-  return { cardId, views: 0, completions: 0, saved: false, known: false, lastSeenAt: null, lastOutcome: null, updatedAt: 0 };
+  return {
+    cardId,
+    views: 0,
+    completions: 0,
+    saved: false,
+    known: false,
+    lastSeenAt: null,
+    lastOutcome: null,
+    toLearn: false,
+    toLearnSince: null,
+    recoveries: 0,
+    lastRecoveryAt: null,
+    updatedAt: 0,
+  };
 }
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));

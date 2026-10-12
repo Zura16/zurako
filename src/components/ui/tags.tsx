@@ -17,11 +17,11 @@ export function SpeechTag({ level, showKorean = false }: { level: SpeechLevel; s
   );
 }
 
-export function Tag({ children, tone = "plain" }: { children: React.ReactNode; tone?: "plain" | "accent" }) {
+export function Tag({ children, tone = "plain" }: { children: React.ReactNode; tone?: "plain" | "accent" | "bad" }) {
   return (
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-        tone === "accent" ? "bg-accent/15 text-accent" : "bg-white/6 text-muted"
+        tone === "accent" ? "bg-accent/15 text-accent" : tone === "bad" ? "bg-bad/15 text-bad" : "bg-white/6 text-muted"
       }`}
     >
       {children}

@@ -43,6 +43,10 @@ export type CardRow = {
   known: boolean;
   last_seen_at: string | null;
   last_outcome: CardState["lastOutcome"];
+  to_learn: boolean;
+  to_learn_since: string | null;
+  recoveries: number;
+  last_recovery_at: string | null;
   updated_at: string;
 };
 export type EventRow = { user_id: string; card_id: string; type: string; data: Record<string, unknown>; client_at: string };
@@ -122,6 +126,10 @@ export const cardToRow = (userId: string, c: CardState): CardRow => ({
   known: c.known,
   last_seen_at: c.lastSeenAt === null ? null : iso(c.lastSeenAt),
   last_outcome: c.lastOutcome,
+  to_learn: c.toLearn,
+  to_learn_since: c.toLearnSince === null ? null : iso(c.toLearnSince),
+  recoveries: c.recoveries,
+  last_recovery_at: c.lastRecoveryAt === null ? null : iso(c.lastRecoveryAt),
   updated_at: iso(c.updatedAt),
 });
 export const cardFromRow = (r: CardRow): CardState => ({
@@ -132,6 +140,10 @@ export const cardFromRow = (r: CardRow): CardState => ({
   known: r.known,
   lastSeenAt: r.last_seen_at === null ? null : ms(r.last_seen_at),
   lastOutcome: r.last_outcome,
+  toLearn: r.to_learn ?? false,
+  toLearnSince: r.to_learn_since ? ms(r.to_learn_since) : null,
+  recoveries: r.recoveries ?? 0,
+  lastRecoveryAt: r.last_recovery_at ? ms(r.last_recovery_at) : null,
   updatedAt: ms(r.updated_at),
 });
 

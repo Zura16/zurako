@@ -100,8 +100,9 @@ function RecallCard({ card, sentenceId, active }: { card: Card; sentenceId: stri
   );
 }
 
-export function ExpressionCard({ card }: { card: Card }) {
+export function ExpressionCard({ card, pick, active }: { card: Card; pick: FeedPick; active: boolean }) {
   const p = payloadOf("EXPRESSION", card.payload);
+  if (pick.bucket === "review") return <RecallCard card={card} sentenceId={p.sentence} active={active} />;
   const c = concept(p.concept);
   return (
     <div className="space-y-6">

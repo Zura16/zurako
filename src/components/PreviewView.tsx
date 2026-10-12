@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { catalog } from "@/content";
 import { CARD_TYPES } from "@/content/schema";
-import { CardBody } from "@/components/cards/CardBody";
-import { CardFrame } from "@/components/feed/CardFrame";
+import { SingleCard } from "@/components/SingleCard";
 import { TYPE_LABEL } from "@/components/feed/cardMeta";
 import { WithoutTracking } from "@/components/providers/LearnerProvider";
 
@@ -20,14 +19,7 @@ export function PreviewView() {
   if (card) {
     return (
       <WithoutTracking>
-        <div className="h-dvh">
-          <CardFrame card={card} pick={{ cardId: card.id, bucket: "familiar", reason: "Preview", score: 0 }} active>
-            <CardBody card={card} pick={{ cardId: card.id, bucket: "familiar", reason: "Preview", score: 0 }} active />
-          </CardFrame>
-        </div>
-        <Link href="/preview/" className="fixed top-3 right-3 z-30 rounded-full bg-surface px-3 py-1.5 text-xs text-muted">
-          All cards
-        </Link>
+        <SingleCard card={card} bucket="familiar" backHref="/preview/" backLabel="All cards" />
       </WithoutTracking>
     );
   }

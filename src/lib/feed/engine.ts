@@ -15,6 +15,8 @@ import type { CardOutcome, LearnerState } from "@/lib/learner/types";
  *      fit, review urgency, goals, learned topic/type affinity, editorial
  *      interest, and variety penalties against the last few cards.
  *
+ * Cards the learner marked "too hard" return as reviews until learnt.
+ *
  * Every pick carries a human-readable reason so behaviour is explainable.
  */
 
@@ -116,6 +118,11 @@ function classify(ctx: FeedContext): Candidate[] {
     const coolingDown = cs?.lastSeenAt != null && now - cs.lastSeenAt < COOLDOWN_MS;
     const reviewable = urgency > 0 && card.type !== "STORY" && (teach.length > 0 || card.sentenceIds.length > 0);
     if (reviewable && !coolingDown && gap <= MAX_STRETCH + 0.5) buckets.set("review", `Review: ${dueLabel}`);
+    // Cards marked "too hard" come back until learnt, whatever their concepts' schedule.
+    if (cs?.toLearn && !coolingDown) {
+      urgency = Math.max(urgency, 3); // flagged by the learner: ahead of automatic reviews
+      buckets.set("review", "To learn");
+    }
 
     const seen = (cs?.views ?? 0) > 0;
     if (!coolingDown && !cs?.known) {
@@ -141,6 +148,7 @@ function classify(ctx: FeedContext): Candidate[] {
       }
     }
 
+    if (cs?.toLearn) for (const b of [...buckets.keys()]) if (b !== "review") buckets.delete(b);
     if (buckets.size > 0) out.push({ card, buckets, urgency });
   }
   return out;
@@ -158,6 +166,9 @@ function bucketWeights(ctx: FeedContext, candidates: Candidate[]): Map<Bucket, n
     w.set("new", (w.get("new") ?? 0) * 0.3);
     w.set("familiar", (w.get("familiar") ?? 0) + 0.15);
   }
+
+  // Cards the learner flagged as too hard are waiting: give reviews a bigger share.
+  if (candidates.some((c) => c.buckets.get("review") === "To learn")) w.set("review", Math.max(w.get("review") ?? 0, 0.4));
 
   // Curiosity: continue a story right after its previous part.
   const last = ctx.session.at(-1);

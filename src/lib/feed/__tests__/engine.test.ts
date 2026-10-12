@@ -79,6 +79,15 @@ describe("feed engine", () => {
     expect(review?.reason).toMatch(/Review/);
   });
 
+  it("brings a too-hard card back as a review after its cooldown", () => {
+    let s = learner();
+    s = applyEvent(s, { type: "marked_difficult", cardId: "k.today-doing", at: T0 - 2 * DAY }, catalog).state;
+    for (const seed of [1, 2, 3, 4, 5]) {
+      const { picks } = scroll(s, 15, seed);
+      expect(picks.find((p) => p.cardId === "k.today-doing")?.reason, `seed ${seed}`).toBe("To learn");
+    }
+  });
+
   it("does not show cards marked as known", () => {
     let s = learner();
     s = applyEvent(s, { type: "marked_known", cardId: "k.today-doing", at: T0 - DAY }, catalog).state;

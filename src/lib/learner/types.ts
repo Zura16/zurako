@@ -30,6 +30,12 @@ export type CardState = {
   known: boolean;
   lastSeenAt: number | null;
   lastOutcome: CardOutcome | null;
+  /** Marked "too hard": listed under To learn until learnt (see TO_LEARN_DAYS). */
+  toLearn: boolean;
+  toLearnSince: number | null;
+  /** Distinct days with a correct answer since the card was marked too hard. */
+  recoveries: number;
+  lastRecoveryAt: number | null;
   updatedAt: number;
 };
 

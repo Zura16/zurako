@@ -64,6 +64,7 @@ Interactions are events (`lesson_viewed`, `lesson_swiped`, `answer_correct`, `wo
 
 - **Concept state** for spaced repetition. Recall is modelled as `R(t) = 0.9^(t / S)`, so stability `S` (days) is the interval at which recall drops to 90%, and a concept is due `S` days after its last review. A correct answer grows `S`, more so when it was recalled late. A miss shrinks it to 30%. Tapping a word you'd already learned shortens its interval. Passively viewing a card introduces what it teaches but doesn't count as a recall test.
 - **Skill ability** per skill (vocabulary, grammar, reading, listening, speaking, honorifics, conversation, slang) on the same 0–6 scale as content levels (Beginner … Native nuance), updated Elo-style. A learner can be B1 in reading and A1 in listening.
+- **To learn list**: every card has three buttons at the bottom: "I know this", "Too easy" and "Too hard". "Too hard" puts the card on the To learn list (Saved → To learn), lowers the difficulty offset, and flags the card's concepts as weak. The card leaves the list after correct answers on 2 different days (a miss resets the count), or when the learner taps "I know this". Cards without a question leave only through "I know this".
 - **Profile**: onboarding answers, a difficulty offset nudged by "too easy" / "too hard", and topic and card-type affinities learned from saves, long dwell times and quick swipes.
 
 Onboarding marks concepts well below the learner's stated level as "assumed known" and schedules light check-in reviews for them.
@@ -75,7 +76,7 @@ Onboarding marks concepts well below the learner's stated level as "assumed know
 1. **Pick a bucket** by weighted lottery: familiar 40%, new 25%, review 25%, explore 10%. Empty buckets drop out. Two new-concept cards in a row block a third. Two recent mistakes shift weight from new to familiar. A story whose previous part was just read gets priority.
 2. **Pick the best card in the bucket.** The score combines level fit (peaking slightly above current ability), review urgency (how overdue the concept is), goal match, learned topic and type affinity, editorial interest, and variety penalties for repeating the last card's type or topic.
 
-Hard rules: no card repeats within a session; nothing more than 1.6 levels above the learner's ability is introduced; exercises never introduce a concept, only practise one already met; cards marked "I know this" stop appearing outside reviews. Every pick carries a reason ("Review: 에서", "New: -고 있다", "Story continues") that the card shows as a small tag.
+Hard rules: no card repeats within a session; nothing more than 1.6 levels above the learner's ability is introduced; exercises never introduce a concept, only practise one already met; cards marked "I know this" stop appearing outside reviews. Cards on the To learn list come back as top-priority reviews, and reviews get a bigger share of the feed while any are waiting. Every pick carries a reason ("Review: 에서", "New: -고 있다", "Story continues") that the card shows as a small tag.
 
 ### Speech levels
 
