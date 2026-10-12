@@ -12,9 +12,9 @@ describe("evaluateSpeaking", () => {
     expect(evaluateSpeaking(["어제 학교 갔어요."], payload, catalog.sentences).grade).toBe("good");
   });
 
-  it("gives credit for the right forms even when wording differs, and flags the speech level", () => {
+  it("credits the right forms but marks the wrong speech level as close, with a note", () => {
     const r = evaluateSpeaking(["어제 학교 갔어"], payload, catalog.sentences);
-    expect(r.grade).toBe("good");
+    expect(r.grade).toBe("close");
     expect(r.checks.every((c) => c.passed)).toBe(true);
     expect(r.levelNote).toMatch(/반말/);
   });

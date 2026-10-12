@@ -41,9 +41,7 @@ class BrowserSpeech {
   constructor() {
     if (!this.supported()) return;
     const load = () => {
-      this.voices = speechSynthesis
-        .getVoices()
-        .filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith("ko"));
+      this.voices = speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith("ko"));
       // Prefer higher-quality voices when the OS offers them.
       this.voices.sort((a, b) => quality(b) - quality(a));
     };

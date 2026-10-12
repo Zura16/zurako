@@ -2,16 +2,7 @@ import type { Card, Catalog } from "@/content/catalog";
 import { SKILLS, levelValue, type Skill } from "@/content/schema";
 import { QUICK_SWIPE_MS, type AppEvent, type SpeakingGrade } from "./events";
 import { DAY, review, type Grade } from "./srs";
-import type {
-  CardState,
-  Changes,
-  ConceptState,
-  Goal,
-  LearnerState,
-  Profile,
-  SelfLevel,
-  SkillState,
-} from "./types";
+import type { CardState, Changes, ConceptState, Goal, LearnerState, Profile, SelfLevel, SkillState } from "./types";
 
 /** Starting ability for each onboarding answer, on the 0–6 level scale. */
 const SELF_LEVEL_ABILITY: Record<SelfLevel, number> = {
@@ -79,11 +70,7 @@ export const noChanges = (): Changes => ({ profile: false, concepts: new Set(), 
  * Apply one interaction to the learner state. Pure: returns a new state and
  * the set of records that changed. Unknown cards are ignored.
  */
-export function applyEvent(
-  state: LearnerState,
-  event: AppEvent,
-  catalog: Catalog,
-): { state: LearnerState; changes: Changes } {
+export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalog): { state: LearnerState; changes: Changes } {
   const card = catalog.cards.get(event.cardId);
   const changes = noChanges();
   if (!card) return { state, changes };
@@ -97,7 +84,6 @@ export function applyEvent(
   const now = event.at;
   const teach = card.concepts.filter((c) => c.role === "TEACH").map((c) => c.id);
   const all = card.concepts.map((c) => c.id);
-
 
   const touchCard = (patch: Partial<CardState>) => {
     const prev = next.cards[card.id] ?? blankCard(card.id);
@@ -117,8 +103,10 @@ export function applyEvent(
         exposures: (prev?.exposures ?? 0) + 1,
         correct: (prev?.correct ?? 0) + (g === "again" ? 0 : 1),
         incorrect: (prev?.incorrect ?? 0) + (g === "again" ? 1 : 0),
-        difficult: g === "again" ? prev?.difficult ?? false : false,
-        avgResponseMs: responseMs ? runningAvg(prev?.avgResponseMs ?? null, responseMs, prev?.exposures ?? 0) : prev?.avgResponseMs ?? null,
+        difficult: g === "again" ? (prev?.difficult ?? false) : false,
+        avgResponseMs: responseMs
+          ? runningAvg(prev?.avgResponseMs ?? null, responseMs, prev?.exposures ?? 0)
+          : (prev?.avgResponseMs ?? null),
       }));
     }
   };
@@ -168,7 +156,11 @@ export function applyEvent(
     case "speaking_completed": {
       const outcome = SPEAKING_OUTCOME[event.grade];
       grade(teach.length ? teach : all, outcome.grade);
-      touchCard({ completions: (next.cards[card.id]?.completions ?? 0) + 1, lastSeenAt: now, lastOutcome: event.grade === "miss" ? "incorrect" : "correct" });
+      touchCard({
+        completions: (next.cards[card.id]?.completions ?? 0) + 1,
+        lastSeenAt: now,
+        lastOutcome: event.grade === "miss" ? "incorrect" : "correct",
+      });
       updateSkills(next, card, outcome.score, now, changes);
       break;
     }
@@ -176,7 +168,14 @@ export function applyEvent(
       for (const id of teach) {
         touchConcept(id, (prev) => {
           const stability = Math.max(30, (prev?.stability ?? 0) * 3);
-          return { stability, lastSeenAt: now, nextReviewAt: now + stability * DAY, assumed: false, difficult: false, exposures: (prev?.exposures ?? 0) + 1 };
+          return {
+            stability,
+            lastSeenAt: now,
+            nextReviewAt: now + stability * DAY,
+            assumed: false,
+            difficult: false,
+            exposures: (prev?.exposures ?? 0) + 1,
+          };
         });
       }
       touchCard({ known: true, lastSeenAt: now });
@@ -205,7 +204,11 @@ export function applyEvent(
       for (const id of event.conceptIds) {
         touchConcept(id, (prev) =>
           prev && !prev.assumed
-            ? { lookups: prev.lookups + 1, stability: Math.max(0.2, prev.stability * 0.7), nextReviewAt: Math.min(prev.nextReviewAt, now + prev.stability * 0.7 * DAY) }
+            ? {
+                lookups: prev.lookups + 1,
+                stability: Math.max(0.2, prev.stability * 0.7),
+                nextReviewAt: Math.min(prev.nextReviewAt, now + prev.stability * 0.7 * DAY),
+              }
             : { lookups: (prev?.lookups ?? 0) + 1, assumed: false, stability: 0.3, lastSeenAt: now, nextReviewAt: now + 0.3 * DAY },
         );
       }

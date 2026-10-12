@@ -74,7 +74,12 @@ export const skillToRow = (userId: string, s: SkillState): SkillRow => ({
   evidence: s.evidence,
   updated_at: iso(s.updatedAt),
 });
-export const skillFromRow = (r: SkillRow): SkillState => ({ skill: r.skill, ability: r.ability, evidence: r.evidence, updatedAt: ms(r.updated_at) });
+export const skillFromRow = (r: SkillRow): SkillState => ({
+  skill: r.skill,
+  ability: r.ability,
+  evidence: r.evidence,
+  updatedAt: ms(r.updated_at),
+});
 
 export const conceptToRow = (userId: string, c: ConceptState): ConceptRow => ({
   user_id: userId,

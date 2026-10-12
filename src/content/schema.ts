@@ -29,24 +29,14 @@ export const TOPIK_FOR_LEVEL: Record<LevelName, string | null> = {
   NATIVE: null,
 };
 export const levelValue = (l: LevelName): number => LEVELS.indexOf(l);
-export const levelName = (v: number): LevelName =>
-  LEVELS[Math.max(0, Math.min(LEVELS.length - 1, Math.round(v)))];
+export const levelName = (v: number): LevelName => LEVELS[Math.max(0, Math.min(LEVELS.length - 1, Math.round(v)))];
 
 export const SPEECH_LEVELS = ["CASUAL", "POLITE", "FORMAL"] as const;
 export type SpeechLevel = (typeof SPEECH_LEVELS)[number];
 
 export const NATURALNESS = ["TEXTBOOK", "NATURAL", "COLLOQUIAL", "SLANG"] as const;
 
-export const SKILLS = [
-  "vocabulary",
-  "grammar",
-  "reading",
-  "listening",
-  "speaking",
-  "honorifics",
-  "conversation",
-  "slang",
-] as const;
+export const SKILLS = ["vocabulary", "grammar", "reading", "listening", "speaking", "honorifics", "conversation", "slang"] as const;
 export type Skill = (typeof SKILLS)[number];
 
 export const CONCEPT_KINDS = ["GRAMMAR", "VOCAB", "EXPRESSION", "CULTURE"] as const;
@@ -133,15 +123,11 @@ export const PayloadSchemas = {
   PHRASE: z.object({ sentence: sentenceRef, tip: z.string().optional() }),
   SPEECH_LEVELS: z.object({
     situation: z.string(),
-    variants: z
-      .array(z.object({ level: z.enum(SPEECH_LEVELS), sentence: sentenceRef, when: z.string() }))
-      .min(2),
+    variants: z.array(z.object({ level: z.enum(SPEECH_LEVELS), sentence: sentenceRef, when: z.string() })).min(2),
     takeaway: z.string(),
   }),
   NATURAL_VS_TEXTBOOK: z.object({
-    rows: z
-      .array(z.object({ label: z.string(), sentence: sentenceRef, note: z.string() }))
-      .min(2),
+    rows: z.array(z.object({ label: z.string(), sentence: sentenceRef, note: z.string() })).min(2),
     points: z.array(z.string()).min(1),
   }),
   VOCAB: z.object({ concept: id, examples: z.array(sentenceRef).min(1), memoryHook: z.string().optional() }),
@@ -259,7 +245,10 @@ export function payloadOf<T extends CardType>(_type: T, payload: unknown): Paylo
 
 /** Strip punctuation so segments can be compared with the sentence text. */
 export function stripPunctuation(text: string): string {
-  return text.replace(/[?.!,…~"“”]/g, "").replace(/\s+/g, " ").trim();
+  return text
+    .replace(/[?.!,…~"“”]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** Every sentence id a card payload references, in display order. */
@@ -273,4 +262,27 @@ export function sentenceRefs(card: CardDef): string[] {
   };
   visit(p);
   return [...new Set(refs)];
+}
+
+/**
+ * Lay segments back onto the original sentence so punctuation survives:
+ * each segment gets the punctuation that follows it (e.g. the comma in
+ * "아니요, 괜찮아요."), and anything before the first segment is kept too.
+ */
+export function layoutSegments(sentence: Pick<Sentence, "korean" | "segments">): { segment: Segment; before: string; after: string }[] {
+  const text = sentence.korean;
+  let cursor = 0;
+  const placed = sentence.segments.map((segment) => {
+    const at = text.indexOf(segment.text, cursor);
+    const start = at < 0 ? cursor : at;
+    const gap = text.slice(cursor, start);
+    cursor = at < 0 ? cursor : start + segment.text.length;
+    return { segment, gap };
+  });
+  const tail = text.slice(cursor);
+  return placed.map(({ segment, gap }, i) => ({
+    segment,
+    before: i === 0 ? gap.trim() : "",
+    after: (i + 1 < placed.length ? placed[i + 1].gap : tail).trim(),
+  }));
 }

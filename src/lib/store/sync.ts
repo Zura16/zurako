@@ -114,14 +114,22 @@ export class LearnerSync {
     try {
       // Profile first: it's the record other tables' existence is checked against on load.
       if (dirty.profile && latest.profile) await upsert(client, "profiles", [profileToRow(userId, latest.profile)], "user_id");
-      const skills = [...dirty.skills].flatMap((k) => (latest.skills[k as keyof typeof latest.skills] ? [skillToRow(userId, latest.skills[k as keyof typeof latest.skills]!)] : []));
+      const skills = [...dirty.skills].flatMap((k) =>
+        latest.skills[k as keyof typeof latest.skills] ? [skillToRow(userId, latest.skills[k as keyof typeof latest.skills]!)] : [],
+      );
       const concepts = [...dirty.concepts].flatMap((id) => (latest.concepts[id] ? [conceptToRow(userId, latest.concepts[id])] : []));
       const cards = [...dirty.cards].flatMap((id) => (latest.cards[id] ? [cardToRow(userId, latest.cards[id])] : []));
       await Promise.all([
         skills.length ? upsert(client, "skill_states", skills, "user_id,skill") : null,
         concepts.length ? upsert(client, "concept_states", concepts, "user_id,concept_id") : null,
         cards.length ? upsert(client, "card_states", cards, "user_id,card_id") : null,
-        events.length ? insert(client, "events", events.map((e) => eventToRow(userId, e))) : null,
+        events.length
+          ? insert(
+              client,
+              "events",
+              events.map((e) => eventToRow(userId, e)),
+            )
+          : null,
       ]);
       this.lastError = null;
       this.backoff = FLUSH_DELAY_MS;
@@ -140,9 +148,11 @@ export class LearnerSync {
 
   private markAllDirtyNewerThanRemote(local: LearnerState, remote: LearnerState) {
     if (local.profile && (!remote.profile || local.profile.updatedAt > remote.profile.updatedAt)) this.dirty.profile = true;
-    for (const [id, c] of Object.entries(local.concepts)) if ((remote.concepts[id]?.updatedAt ?? -1) < c.updatedAt) this.dirty.concepts.add(id);
+    for (const [id, c] of Object.entries(local.concepts))
+      if ((remote.concepts[id]?.updatedAt ?? -1) < c.updatedAt) this.dirty.concepts.add(id);
     for (const [id, c] of Object.entries(local.cards)) if ((remote.cards[id]?.updatedAt ?? -1) < c.updatedAt) this.dirty.cards.add(id);
-    for (const [id, s] of Object.entries(local.skills)) if (s && (remote.skills[id as keyof typeof remote.skills]?.updatedAt ?? -1) < s.updatedAt) this.dirty.skills.add(id);
+    for (const [id, s] of Object.entries(local.skills))
+      if (s && (remote.skills[id as keyof typeof remote.skills]?.updatedAt ?? -1) < s.updatedAt) this.dirty.skills.add(id);
     if (this.pendingCount > 0) this.schedule(0);
   }
 }

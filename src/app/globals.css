@@ -1,26 +1,101 @@
 @import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+
+/* Navy theme. Yellow is the brand/action color; speech levels have their own
+   three colors, used everywhere a speech level appears. */
+@theme {
+  --color-bg: #0b1530;
+  --color-bg-2: #0f1c3e;
+  --color-surface: #15254d;
+  --color-surface-2: #1c2f5e;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-ink: #f5f2ea;
+  --color-muted: #aab4cf;
+  --color-faint: #7380a6;
+  --color-accent: #fdbe02;
+  --color-accent-ink: #0b1530;
+  --color-casual: #4fd8cc;
+  --color-polite: #7cc4ff;
+  --color-formal: #c3a8ff;
+  --color-good: #9be27f;
+  --color-bad: #ff8a80;
+
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Korean wraps at word boundaries, never mid-word. */
+.ko {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  font-feature-settings: "ss06";
+  letter-spacing: -0.01em;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
+.rise {
+  animation: rise 0.35s var(--ease-snap) both;
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop {
+  animation: pop 0.3s var(--ease-snap);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

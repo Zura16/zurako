@@ -20,7 +20,13 @@ describe("row mapping", () => {
 
   it("stores event-specific fields in data", () => {
     const row = eventToRow("u", { type: "word_tapped", cardId: "k.x", at: T0, text: "친구랑", conceptIds: ["v.친구"] });
-    expect(row).toEqual({ user_id: "u", card_id: "k.x", type: "word_tapped", data: { text: "친구랑", conceptIds: ["v.친구"] }, client_at: "2026-01-01T00:00:00.000Z" });
+    expect(row).toEqual({
+      user_id: "u",
+      card_id: "k.x",
+      type: "word_tapped",
+      data: { text: "친구랑", conceptIds: ["v.친구"] },
+      client_at: "2026-01-01T00:00:00.000Z",
+    });
   });
 });
 

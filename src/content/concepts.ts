@@ -135,7 +135,8 @@ const GRAMMAR: Concept[] = [
   }),
   grammar("but-jiman", "-지만", "but", "A2", "Connectors"),
   grammar("background-neunde", "-는데/(으)ㄴ데", "…, and/but (background)", "B1", "Connectors", {
-    explanation: "Sets up context for what comes next. Ending a sentence with it softens it: 시간이 없는데… 'I don't really have time, so…'",
+    explanation:
+      "Sets up context for what comes next. Ending a sentence with it softens it: 시간이 없는데… 'I don't really have time, so…'",
   }),
   grammar("because-nikka", "-(으)니까", "because (with commands/suggestions)", "B1", "Connectors", {
     pre: ["g.because-aseo"],

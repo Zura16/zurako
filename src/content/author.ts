@@ -1,15 +1,5 @@
 import type { z } from "zod";
-import type {
-  CardType,
-  Concept,
-  LevelName,
-  PayloadInput,
-  PartSchema,
-  Segment,
-  Sentence,
-  Skill,
-  SpeechLevel,
-} from "./schema";
+import type { CardType, Concept, LevelName, PayloadInput, PartSchema, Segment, Sentence, Skill, SpeechLevel } from "./schema";
 
 /**
  * Compact authoring helpers. Content files read close to a bilingual script;
@@ -52,13 +42,7 @@ type SentenceOpts = {
   rom?: string;
 };
 
-export function s(
-  id: string,
-  korean: string,
-  translation: string,
-  opts: SentenceOpts,
-  segments: Segment[],
-): Sentence {
+export function s(id: string, korean: string, translation: string, opts: SentenceOpts, segments: Segment[]): Sentence {
   return {
     id: `s.${id}`,
     korean,
@@ -112,14 +96,8 @@ function concept(
   };
 }
 
-export const grammar = (
-  id: string,
-  label: string,
-  meaning: string,
-  level: LevelName,
-  category: string,
-  opts: ConceptOpts = {},
-) => concept("GRAMMAR", `g.${id}`, label, meaning, level, category, "grammar", opts);
+export const grammar = (id: string, label: string, meaning: string, level: LevelName, category: string, opts: ConceptOpts = {}) =>
+  concept("GRAMMAR", `g.${id}`, label, meaning, level, category, "grammar", opts);
 
 export const vocab = (
   word: string,
@@ -135,22 +113,11 @@ export const vocab = (
     partOfSpeech,
   });
 
-export const expression = (
-  id: string,
-  label: string,
-  meaning: string,
-  level: LevelName,
-  category: string,
-  opts: ConceptOpts = {},
-) => concept("EXPRESSION", `e.${id}`, label, meaning, level, category, "conversation", opts);
+export const expression = (id: string, label: string, meaning: string, level: LevelName, category: string, opts: ConceptOpts = {}) =>
+  concept("EXPRESSION", `e.${id}`, label, meaning, level, category, "conversation", opts);
 
-export const culture = (
-  id: string,
-  label: string,
-  meaning: string,
-  level: LevelName,
-  opts: ConceptOpts = {},
-) => concept("CULTURE", `c.${id}`, label, meaning, level, "Culture", "conversation", opts);
+export const culture = (id: string, label: string, meaning: string, level: LevelName, opts: ConceptOpts = {}) =>
+  concept("CULTURE", `c.${id}`, label, meaning, level, "Culture", "conversation", opts);
 
 type CardInput<T extends CardType> = {
   id: string;

@@ -224,7 +224,10 @@ export function scoreCard(c: Candidate, bucket: Bucket, ctx: FeedContext): numbe
   if (ctx.learner.cards[card.id]?.saved && bucket === "review") score += 0.2;
 
   // Variety: avoid the same card type or topic back to back.
-  const recent = ctx.session.slice(-3).map((e) => ctx.catalog.cards.get(e.cardId)).filter(Boolean) as Card[];
+  const recent = ctx.session
+    .slice(-3)
+    .map((e) => ctx.catalog.cards.get(e.cardId))
+    .filter(Boolean) as Card[];
   const last = recent.at(-1);
   if (last?.type === card.type) score -= 0.7;
   if (recent.at(-2)?.type === card.type) score -= 0.3;
@@ -260,7 +263,9 @@ function prerequisitesMet(ctx: FeedContext, conceptId: string): boolean {
 function storyPartSeen(ctx: FeedContext, storyId: string, part: number): boolean {
   for (const card of ctx.catalog.cards.values()) {
     if (card.story?.id === storyId && card.story.part === part) {
-      return (ctx.learner.cards[card.id]?.views ?? 0) > 0 || ctx.session.some((e) => e.cardId === card.id);
+      // Viewed, not merely queued: the next part arrives a few cards after
+      // the learner has read this one, which keeps some suspense.
+      return (ctx.learner.cards[card.id]?.views ?? 0) > 0;
     }
   }
   return false;

@@ -30,3 +30,7 @@ export type EventType = AppEvent["type"];
 
 /** Swipes faster than this count as "swiped away" rather than "viewed". */
 export const QUICK_SWIPE_MS = 1500;
+
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+/** An event as callers create it; the timestamp defaults to now. */
+export type EventInput = DistributiveOmit<AppEvent, "at"> & { at?: number };

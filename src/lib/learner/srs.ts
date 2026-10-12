@@ -35,10 +35,7 @@ export function nextStability(prev: ConceptState | undefined, grade: Grade, now:
   const R = recall(prev, now);
   const growth = 1.2 + 6 * (1 - R);
   const next =
-    grade === "again" ? Math.max(0.1, S * 0.3)
-    : grade === "hard" ? S * 1.2
-    : grade === "good" ? S * growth
-    : Math.max(4, S * growth * 1.6);
+    grade === "again" ? Math.max(0.1, S * 0.3) : grade === "hard" ? S * 1.2 : grade === "good" ? S * growth : Math.max(4, S * growth * 1.6);
   return Math.min(MAX_STABILITY, next);
 }
 

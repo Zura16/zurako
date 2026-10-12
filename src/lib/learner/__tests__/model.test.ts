@@ -65,7 +65,10 @@ describe("applyEvent", () => {
 
   it("viewing a sentence teaches its taught concept and words, not every grammar form in it", () => {
     const s = apply(initLearner({ selfLevel: "hangul", goals: [], casualComfort: 0 }, catalog, T0), {
-      type: "lesson_viewed", cardId: "k.study-cafe", at: T0, dwellMs: 5000,
+      type: "lesson_viewed",
+      cardId: "k.study-cafe",
+      at: T0,
+      dwellMs: 5000,
     });
     expect(s.concepts["g.place-eseo"]).toBeDefined(); // taught
     expect(s.concepts["v.카페"]).toBeDefined(); // word met in context
