@@ -173,11 +173,11 @@ enable_signup = true
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
 # If enabled, users need to confirm their email address before signing in.
-enable_confirmations = false
+enable_confirmations = true
 # If enabled, users will need to reauthenticate or have logged in recently to change their password.
 secure_password_change = false
 # Controls the minimum amount of time that must pass before sending another signup confirmation or password reset email.
-max_frequency = "1s"
+max_frequency = "1m0s"
 # Number of characters used in the email OTP.
 otp_length = 6
 # Number of seconds before the email OTP expires (defaults to 1 hour).
@@ -193,16 +193,8 @@ otp_expiry = 3600
 # admin_email = "admin@email.com"
 # sender_name = "Admin"
 
-# Sign-in emails carry a 6-digit code (and a link as a fallback), so sign-in
-# works the same on github.io and localhost without redirect setup.
-[auth.email.template.magic_link]
-subject = "Your Nunchi sign-in code"
-content_path = "./supabase/templates/code.html"
-
-[auth.email.template.email_change]
-subject = "Your Nunchi code to save your progress"
-content_path = "./supabase/templates/code.html"
-
+# Sign-in uses Supabase's default emails, which contain a link. Custom
+# templates (e.g. a 6-digit code) need a custom SMTP provider on the free plan.
 # [auth.email.template.invite]
 # subject = "You have been invited"
 # content_path = "./supabase/templates/invite.html"
@@ -253,8 +245,8 @@ max_enrolled_factors = 10
 
 # Control MFA via App Authenticator (TOTP)
 [auth.mfa.totp]
-enroll_enabled = false
-verify_enabled = false
+enroll_enabled = true
+verify_enabled = true
 
 # Configure MFA via Phone Messaging
 [auth.mfa.phone]

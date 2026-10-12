@@ -5,7 +5,7 @@ import { catalog } from "@/content";
 import type { AppEvent, EventInput } from "@/lib/learner/events";
 import { applyEvent, initLearner, type OnboardingAnswers } from "@/lib/learner/model";
 import { emptyLearner, type LearnerState } from "@/lib/learner/types";
-import { LOCAL_ACCOUNT, ensureSession, requestCode, signOut, verifyCode, type Account, type CodeMode } from "@/lib/store/auth";
+import { LOCAL_ACCOUNT, ensureSession, sendEmailLink, signOut, toAccount, type Account, type LinkMode } from "@/lib/store/auth";
 import { getSupabase } from "@/lib/store/client";
 import { LearnerSync } from "@/lib/store/sync";
 
@@ -18,8 +18,7 @@ type LearnerContext = {
   /** Record an interaction: updates learner state and queues it for sync. */
   track: (event: EventInput) => void;
   completeOnboarding: (answers: OnboardingAnswers) => void;
-  sendCode: (email: string, mode: CodeMode) => Promise<void>;
-  confirmCode: (email: string, code: string, mode: CodeMode) => Promise<void>;
+  sendLink: (email: string, mode: LinkMode) => Promise<void>;
   signOutToGuest: () => Promise<void>;
   resetProgress: () => Promise<void>;
   syncError: string | null;
@@ -34,8 +33,11 @@ export function LearnerProvider({ children }: { children: React.ReactNode }) {
   const [syncError, setSyncError] = useState<string | null>(null);
   const learnerRef = useRef(learner);
   const syncRef = useRef<LearnerSync | null>(null);
+  const accountRef = useRef<Account>(LOCAL_ACCOUNT);
+  const starting = useRef(false);
 
   const start = useCallback(async () => {
+    starting.current = true;
     setBoot({ status: "loading" });
     try {
       const client = getSupabase();
@@ -46,12 +48,33 @@ export function LearnerProvider({ children }: { children: React.ReactNode }) {
       syncRef.current = sync;
       learnerRef.current = state;
       setLearner(state);
+      accountRef.current = acct;
       setAccount(acct);
       setBoot({ status: "ready" });
     } catch (err) {
       setBoot({ status: "error", message: err instanceof Error ? err.message : "Something went wrong while loading." });
+    } finally {
+      starting.current = false;
     }
   }, []);
+
+  // An email link can confirm a guest's email (same user, now with an email)
+  // or sign in a different account (load that account's progress).
+  useEffect(() => {
+    const client = getSupabase();
+    if (!client) return;
+    const { data } = client.auth.onAuthStateChange((event, session) => {
+      const user = session?.user;
+      if (!user || starting.current || accountRef.current.userId === "local") return;
+      if (user.id === accountRef.current.userId) {
+        accountRef.current = toAccount(user);
+        setAccount(accountRef.current);
+      } else if (event === "SIGNED_IN") {
+        void start();
+      }
+    });
+    return () => data.subscription.unsubscribe();
+  }, [start]);
 
   useEffect(() => {
     void start();
@@ -86,23 +109,12 @@ export function LearnerProvider({ children }: { children: React.ReactNode }) {
     syncRef.current?.recordAll(state);
   }, []);
 
-  const sendCode = useCallback(async (email: string, mode: CodeMode) => {
+  const sendLink = useCallback(async (email: string, mode: LinkMode) => {
     const client = getSupabase();
     if (!client) throw new Error("Accounts aren't configured in this build.");
     await syncRef.current?.flush();
-    await requestCode(client, email, mode);
+    await sendEmailLink(client, email, mode);
   }, []);
-
-  const confirmCode = useCallback(
-    async (email: string, code: string, mode: CodeMode) => {
-      const client = getSupabase();
-      if (!client) throw new Error("Accounts aren't configured in this build.");
-      const acct = await verifyCode(client, email, code, mode);
-      if (mode === "save") setAccount(acct);
-      else await start(); // a different account: load its progress
-    },
-    [start],
-  );
 
   const signOutToGuest = useCallback(async () => {
     const client = getSupabase();
@@ -126,8 +138,8 @@ export function LearnerProvider({ children }: { children: React.ReactNode }) {
   }, [account, start]);
 
   const value = useMemo(
-    () => ({ boot, learner, account, track, completeOnboarding, sendCode, confirmCode, signOutToGuest, resetProgress, syncError }),
-    [boot, learner, account, track, completeOnboarding, sendCode, confirmCode, signOutToGuest, resetProgress, syncError],
+    () => ({ boot, learner, account, track, completeOnboarding, sendLink, signOutToGuest, resetProgress, syncError }),
+    [boot, learner, account, track, completeOnboarding, sendLink, signOutToGuest, resetProgress, syncError],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

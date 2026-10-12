@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Cloud, CloudOff, Mail } from "lucide-react";
 import { getSupabase } from "@/lib/store/client";
-import type { CodeMode } from "@/lib/store/auth";
+import type { LinkMode } from "@/lib/store/auth";
 import { useLearner } from "@/components/providers/LearnerProvider";
 import { useSettings, type Settings } from "@/components/providers/SettingsProvider";
 import { useAudio } from "@/components/providers/AudioProvider";
@@ -18,8 +18,12 @@ export function AccountView() {
       <h1 className="text-2xl font-bold">Me</h1>
 
       <section className="space-y-4 rounded-3xl border border-line p-5" aria-labelledby="acct-h">
-        <div className="flex items-center gap-3">
-          {account.remote ? <Cloud className="text-accent" size={22} /> : <CloudOff className="text-faint" size={22} />}
+        <div className="flex items-start gap-3">
+          {account.remote ? (
+            <Cloud className="mt-0.5 shrink-0 text-accent" size={22} />
+          ) : (
+            <CloudOff className="mt-0.5 shrink-0 text-faint" size={22} />
+          )}
           <div>
             <h2 id="acct-h" className="font-semibold">
               {!remoteConfigured ? "Saved on this device" : account.isGuest ? "Guest" : account.email}
@@ -40,12 +44,12 @@ export function AccountView() {
         )}
         {remoteConfigured && account.isGuest && (
           <>
-            <CodeFlow mode="save" title="Save your progress" cta="Email me a code" />
+            <EmailLink mode="save" title="Save your progress" cta="Email me a link" />
             <details className="text-sm">
               <summary className="cursor-pointer text-muted hover:text-ink">Already saved on another device? Sign in</summary>
               <div className="mt-3 space-y-2">
                 <p className="text-faint">Signing in loads that account&apos;s progress. This guest progress won&apos;t carry over.</p>
-                <CodeFlow mode="signin" title="Sign in" cta="Email me a sign-in code" />
+                <EmailLink mode="signin" title="Sign in" cta="Email me a sign-in link" />
               </div>
             </details>
           </>
@@ -80,82 +84,56 @@ export function AccountView() {
   );
 }
 
-function CodeFlow({ mode, title, cta }: { mode: CodeMode; title: string; cta: string }) {
-  const { sendCode, confirmCode } = useLearner();
+function EmailLink({ mode, title, cta }: { mode: LinkMode; title: string; cta: string }) {
+  const { sendLink } = useLearner();
   const [email, setEmail] = useState("");
-  const [code, setCode] = useState("");
-  const [stage, setStage] = useState<"email" | "code" | "done">("email");
+  const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const run = async (fn: () => Promise<void>) => {
-    setBusy(true);
-    setError(null);
-    try {
-      await fn();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong.");
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  if (stage === "done") return <p className="text-sm text-good">Done. Your progress is tied to {email}.</p>;
+  if (sent) {
+    return (
+      <p className="flex gap-2 rounded-2xl bg-white/5 px-4 py-3 text-sm text-muted" role="status">
+        <Mail size={16} className="mt-0.5 shrink-0 text-accent" />
+        <span>
+          Check {email}. Open the link on this device to finish{mode === "save" ? "; your progress stays as it is" : ""}. You can close this
+          tab afterwards.
+        </span>
+      </p>
+    );
+  }
 
   return (
     <form
       className="space-y-2.5"
       onSubmit={(e) => {
         e.preventDefault();
-        if (stage === "email")
-          void run(async () => {
-            await sendCode(email.trim(), mode);
-            setStage("code");
-          });
-        else
-          void run(async () => {
-            await confirmCode(email.trim(), code.trim(), mode);
-            setStage("done");
-          });
+        setBusy(true);
+        setError(null);
+        sendLink(email.trim(), mode)
+          .then(() => setSent(true))
+          .catch((err: unknown) => setError(err instanceof Error ? err.message : "Something went wrong."))
+          .finally(() => setBusy(false));
       }}
     >
       <p className="text-sm font-medium">{title}</p>
-      {stage === "email" ? (
-        <input
-          type="email"
-          required
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          aria-label="Email"
-          className="w-full rounded-2xl border border-line bg-white/5 px-4 py-3 outline-none focus:border-accent"
-        />
-      ) : (
-        <>
-          <p className="text-sm text-muted">
-            <Mail size={14} className="mr-1 inline" /> We sent a 6-digit code to {email}. You can also tap the link in that email.
-          </p>
-          <input
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            required
-            pattern="[0-9]{6}"
-            value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-            placeholder="123456"
-            aria-label="6-digit code"
-            className="w-full rounded-2xl border border-line bg-white/5 px-4 py-3 text-center text-2xl tracking-[0.4em] outline-none focus:border-accent"
-          />
-        </>
-      )}
+      <input
+        type="email"
+        required
+        autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@example.com"
+        aria-label="Email"
+        className="w-full rounded-2xl border border-line bg-white/5 px-4 py-3 outline-none focus:border-accent"
+      />
       {error && (
         <p className="text-sm text-bad" role="alert">
           {error}
         </p>
       )}
       <button disabled={busy} className="w-full rounded-2xl bg-accent py-3 font-semibold text-accent-ink disabled:opacity-50">
-        {busy ? "Working…" : stage === "email" ? cta : "Confirm code"}
+        {busy ? "Sending…" : cta}
       </button>
     </form>
   );

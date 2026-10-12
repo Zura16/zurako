@@ -254,12 +254,69 @@ const sentences = [
       w("맛있었어요", "was delicious", { base: "맛있다", c: ["v.맛있다", "g.past"] }),
     ],
   ),
+  // ---- Umbrella: a small coincidence
+  s("um-1", "갑자기 비가 왔어요.", "Suddenly it started raining.", { level: "A2", sp: "POLITE" }, [
+    w("갑자기", "suddenly"),
+    w("비가", "rain", { c: ["v.비", "g.subject"] }),
+    w("왔어요", "came", { base: "오다", c: ["v.오다", "g.past"] }),
+  ]),
+  s(
+    "um-2",
+    "우산이 없어서 편의점 앞에서 기다렸어요.",
+    "I didn't have an umbrella, so I waited outside a convenience store.",
+    { level: "A2", sp: "POLITE" },
+    [
+      w("우산이", "umbrella (subject)", { c: ["v.우산", "g.subject"] }),
+      w("없어서", "since there wasn't", { base: "없다", c: ["v.없다", "g.because-aseo"] }),
+      w("편의점", "convenience store", { c: ["v.편의점"] }),
+      w("앞에서", "in front of", { c: ["g.place-eseo"] }),
+      w("기다렸어요", "waited", { base: "기다리다", c: ["v.기다리다", "g.past"] }),
+    ],
+  ),
+  s("um-3", "저기요, 우산 같이 쓰실래요?", "Excuse me, want to share my umbrella?", { level: "B1", sp: "POLITE" }, [
+    w("저기요", "excuse me", { c: ["e.yeogiyo"] }),
+    w("우산", "umbrella", { c: ["v.우산"] }),
+    w("같이", "together", { c: ["v.같이"] }),
+    w("쓰실래요", "would you like to use (honorific)", {
+      base: "쓰다",
+      note: "You 'use' (쓰다) an umbrella in Korean.",
+      c: ["g.honorific-si", "g.will-eullae"],
+    }),
+  ]),
+  s("um-4", "아, 정말요? 감사합니다!", "Oh, really? Thank you!", { level: "A1", sp: "POLITE" }, [
+    w("아", "oh"),
+    w("정말요", "really?", { c: ["g.noun-iyo"] }),
+    w("감사합니다", "thank you", { c: ["g.hapsyo"] }),
+  ]),
+  s("um-5", "알고 보니 같은 회사 신입 사원이었어요.", "It turned out they were a new hire at my company.", { level: "B1", sp: "POLITE" }, [
+    w("알고", "knowing, and", { base: "알다", c: ["v.알다", "g.and-go"] }),
+    w("보니", "looking", { base: "보다", note: "알고 보니 is a set phrase: 'as it turned out'." }),
+    w("같은", "the same", { base: "같다" }),
+    w("회사", "company", { c: ["v.회사"] }),
+    w("신입", "new (recruit)"),
+    w("사원이었어요", "was an employee", { c: ["g.past"] }),
+  ]),
+  s(
+    "um-6",
+    "다음 날 회사에서 우리는 웃으면서 인사했어요.",
+    "The next day at work, we greeted each other with a smile.",
+    { level: "B1", sp: "POLITE" },
+    [
+      w("다음", "next", { c: ["v.다음"] }),
+      w("날", "day"),
+      w("회사에서", "at the office", { c: ["v.회사", "g.place-eseo"] }),
+      w("우리는", "we (topic)", { c: ["v.우리", "g.topic"] }),
+      w("웃으면서", "while smiling", { base: "웃다" }),
+      w("인사했어요", "greeted", { base: "인사하다", c: ["g.past"] }),
+    ],
+  ),
 ];
 
 const STORY_BD = "blind-date";
 const STORY_BUS = "wrong-bus";
 const STORY_GM = "grandma-kimchi";
 const STORY_CS = "store-2am";
+const STORY_UM = "umbrella";
 
 const cards = [
   card("STORY", {
@@ -432,6 +489,41 @@ const cards = [
           { text: "An elderly woman in the store", correct: true },
           { text: "The store clerk" },
           { text: "They went home to get their wallet" },
+        ],
+      },
+    },
+  }),
+  card("STORY", {
+    id: "story-um-1",
+    level: "A2",
+    topic: "Daily life",
+    skills: ["reading"],
+    interest: 0.9,
+    story: { id: STORY_UM, part: 1 },
+    teaches: ["v.우산"],
+    payload: {
+      title: "The umbrella",
+      lines: [{ sentence: "s.um-1" }, { sentence: "s.um-2" }, { speaker: "낯선 사람", sentence: "s.um-3" }],
+      cliffhanger: "Who is this stranger?",
+    },
+  }),
+  card("STORY", {
+    id: "story-um-2",
+    level: "B1",
+    topic: "Daily life",
+    skills: ["reading"],
+    interest: 0.9,
+    story: { id: STORY_UM, part: 2 },
+    teaches: ["v.회사"],
+    payload: {
+      title: "The umbrella",
+      lines: [{ speaker: "나", sentence: "s.um-4" }, { sentence: "s.um-5" }, { sentence: "s.um-6" }],
+      check: {
+        prompt: "Who was the stranger?",
+        options: [
+          { text: "A new hire at the narrator's company", correct: true },
+          { text: "The convenience store clerk" },
+          { text: "An old school friend" },
         ],
       },
     },

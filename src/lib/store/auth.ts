@@ -4,9 +4,14 @@ export type Account = { userId: string; email: string | null; isGuest: boolean; 
 
 export const LOCAL_ACCOUNT: Account = { userId: "local", email: null, isGuest: true, remote: false };
 
-const toAccount = (u: User): Account => ({ userId: u.id, email: u.email ?? null, isGuest: u.is_anonymous ?? !u.email, remote: true });
+export const toAccount = (u: User): Account => ({
+  userId: u.id,
+  email: u.email ?? null,
+  isGuest: u.is_anonymous ?? !u.email,
+  remote: true,
+});
 
-/** Resume the current session, or start a guest (anonymous) one. */
+/** Resume the current session (including one arriving via an email link), or start a guest session. */
 export async function ensureSession(client: SupabaseClient): Promise<Account> {
   const { data } = await client.auth.getSession();
   if (data.session?.user) return toAccount(data.session.user);
@@ -18,11 +23,12 @@ export async function ensureSession(client: SupabaseClient): Promise<Account> {
 /**
  * "save": attach an email to the current guest account, keeping its progress.
  * "signin": sign in to an existing account on this device.
+ * Both send an email with a link; opening it completes the step.
  */
-export type CodeMode = "save" | "signin";
+export type LinkMode = "save" | "signin";
 
-export async function requestCode(client: SupabaseClient, email: string, mode: CodeMode): Promise<void> {
-  const emailRedirectTo = typeof window !== "undefined" ? window.location.origin + window.location.pathname : undefined;
+export async function sendEmailLink(client: SupabaseClient, email: string, mode: LinkMode): Promise<void> {
+  const emailRedirectTo = window.location.origin + window.location.pathname;
   const { error } =
     mode === "save"
       ? await client.auth.updateUser({ email }, { emailRedirectTo })
@@ -30,21 +36,14 @@ export async function requestCode(client: SupabaseClient, email: string, mode: C
   if (error) throw new Error(friendlyAuthError(error.message, mode));
 }
 
-export async function verifyCode(client: SupabaseClient, email: string, token: string, mode: CodeMode): Promise<Account> {
-  const { data, error } = await client.auth.verifyOtp({ email, token, type: mode === "save" ? "email_change" : "email" });
-  if (error || !data.user) throw new Error(friendlyAuthError(error?.message ?? "That code didn't work.", mode));
-  return toAccount(data.user);
-}
-
 export async function signOut(client: SupabaseClient): Promise<void> {
   await client.auth.signOut();
 }
 
-function friendlyAuthError(message: string, mode: CodeMode): string {
+function friendlyAuthError(message: string, mode: LinkMode): string {
   const m = message.toLowerCase();
   if (m.includes("already") && mode === "save") return "That email already has an account. Use Sign in instead.";
   if (m.includes("signups not allowed") || m.includes("user not found")) return "No account uses that email yet. Save your progress first.";
   if (m.includes("rate limit") || m.includes("security purposes")) return "Too many emails were sent. Wait a few minutes and try again.";
-  if (m.includes("expired") || m.includes("invalid")) return "That code is wrong or expired.";
   return message;
 }
