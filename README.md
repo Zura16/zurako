@@ -35,8 +35,8 @@ GitHub Pages serves static files only, so the app is a static Next.js export. Th
 ```
 src/content/          curriculum: typed, validated, shipped with the site
   schema.ts           Zod schemas for concepts, sentences, segments, 16 card payloads
-  concepts.ts         grammar, vocabulary, expressions, culture (216 concepts)
-  units/*.ts          sentences and cards by theme (234 sentences, 170 cards)
+  concepts.ts         grammar, vocabulary, expressions, culture (287 concepts)
+  units/*.ts          sentences and cards by theme (434 sentences, 388 cards)
   catalog.ts          parses everything, derives card↔concept links, integrity checks
 src/lib/learner/      events, spaced repetition, learner-state reducer, progress summaries
 src/lib/feed/         the recommender

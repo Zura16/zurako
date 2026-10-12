@@ -207,7 +207,7 @@ function bucketWeights(ctx: FeedContext, candidates: Candidate[]): Map<Bucket, n
   // Curiosity: continue a story right after its previous part.
   const last = ctx.session.at(-1);
   const lastCard = last ? ctx.catalog.cards.get(last.cardId) : undefined;
-  w.set("story", lastCard?.story ? 2 : 0.15);
+  w.set("story", lastCard?.story ? 10 : 0.15);
 
   for (const bucket of w.keys()) {
     if (!candidates.some((c) => c.buckets.has(bucket))) w.set(bucket, 0);
