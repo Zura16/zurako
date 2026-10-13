@@ -1,60 +1,44 @@
 "use client";
 
-import { Check, ChevronsUp, Lock } from "lucide-react";
-import { catalog } from "@/content";
-import { STAGES, STAGE_PASS, currentStage, stageProgress } from "@/lib/learner/stages";
+import Link from "next/link";
+import { Check, ChevronRight, Lock } from "lucide-react";
+import { LEVEL_PASS, chaptersToNext, currentLevel, pathProgress } from "@/lib/learner/path";
 import type { LearnerState } from "@/lib/learner/types";
 
-/** The learning path: each stage, where the learner is, and how close the next stage is. */
+/** The levels: where the learner is, and how close the next level is. */
 export function PathSection({ learner }: { learner: LearnerState }) {
-  const current = currentStage(catalog, learner);
-  const progress = stageProgress(catalog, learner);
+  const current = currentLevel(learner);
   return (
     <section className="mt-6 space-y-2" aria-labelledby="path-h">
       <h2 id="path-h" className="text-xs font-semibold tracking-wider text-faint uppercase">
-        Your path
+        Your levels
       </h2>
       <ol className="space-y-2">
-        {STAGES.map((stage, i) => {
-          const p = progress[i];
-          const passed = i < current && p.fraction >= STAGE_PASS;
-          const skipped = i < current && !passed;
-          const done = passed;
-          const here = i === current;
-          const toNext = Math.max(0, Math.ceil(p.total * STAGE_PASS) - p.learned);
+        {pathProgress(learner).map((p) => {
+          const n = p.level.number;
+          const here = n === current;
+          const hasNext = n < 5;
+          const toNext = chaptersToNext(p);
           return (
             <li
-              key={stage.name}
+              key={p.level.id}
               aria-current={here ? "step" : undefined}
-              className={`rounded-2xl border px-4 py-3 ${here ? "border-accent bg-accent/8" : "border-line"} ${i > current ? "opacity-55" : ""}`}
+              className={`rounded-2xl border px-4 py-3 ${here ? "border-accent bg-accent/8" : "border-line"} ${p.unlocked ? "" : "opacity-55"}`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                    done
-                      ? "bg-good text-bg"
-                      : here
-                        ? "bg-accent text-accent-ink"
-                        : skipped
-                          ? "bg-white/12 text-muted"
-                          : "bg-white/8 text-faint"
+                    p.passed && hasNext ? "bg-good text-bg" : p.unlocked ? "bg-accent text-accent-ink" : "bg-white/8 text-faint"
                   }`}
                   aria-hidden
                 >
-                  {done ? (
-                    <Check size={14} strokeWidth={3} />
-                  ) : skipped ? (
-                    <ChevronsUp size={13} />
-                  ) : i > current ? (
-                    <Lock size={11} />
-                  ) : (
-                    i + 1
-                  )}
+                  {p.passed && hasNext ? <Check size={14} strokeWidth={3} /> : p.unlocked ? n : <Lock size={11} />}
                 </span>
-                <span className="flex-1 font-semibold">{stage.name}</span>
-                {skipped && <span className="text-xs text-faint">Skipped</span>}
+                <span className="flex-1 font-semibold">
+                  Level {n} · {p.level.title}
+                </span>
                 <span className="text-xs text-muted">
-                  {p.learned}/{p.total}
+                  {p.done + p.testedOut}/{p.total}
                 </span>
               </div>
               {here && (
@@ -64,15 +48,16 @@ export function PathSection({ learner }: { learner: LearnerState }) {
                       className="h-full rounded-full bg-accent transition-[width] duration-500"
                       style={{ width: `${p.fraction * 100}%` }}
                     />
-                    <div className="absolute inset-y-0 w-0.5 bg-ink/60" style={{ left: `${STAGE_PASS * 100}%` }} aria-hidden />
+                    {hasNext && <div className="absolute inset-y-0 w-0.5 bg-ink/60" style={{ left: `${LEVEL_PASS * 100}%` }} aria-hidden />}
                   </div>
-                  <p className="mt-1.5 text-xs text-muted">
-                    {i === STAGES.length - 1
-                      ? "The last stage. Keep going for nuance."
+                  <Link href="/" className="mt-1.5 flex items-center gap-1 text-xs text-muted hover:text-ink">
+                    {!hasNext
+                      ? "The last level. More chapters are on the way."
                       : toNext > 0
-                        ? `Learn ${toNext} more ${toNext === 1 ? "concept" : "concepts"} to open ${STAGES[i + 1].short}. Tap "Too easy" to skip ahead.`
-                        : `${STAGES[i + 1].short} is open.`}
-                  </p>
+                        ? `Finish ${toNext} more ${toNext === 1 ? "chapter" : "chapters"} to open Level ${n + 1}, or test out.`
+                        : `Level ${n + 1} is open.`}
+                    <ChevronRight size={13} />
+                  </Link>
                 </>
               )}
             </li>

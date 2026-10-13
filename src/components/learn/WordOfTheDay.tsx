@@ -10,7 +10,9 @@ import { AudioButton } from "@/components/ui/AudioButton";
 export function WordOfTheDay() {
   // Picked on the client so it follows the learner's local date.
   const [word, setWord] = useState<Word | null>(null);
-  useEffect(() => setWord(wordOfTheDay(new Date())), []);
+  useEffect(() => {
+    setWord(wordOfTheDay(new Date()));
+  }, []);
   if (!word) return <div className="h-40 rounded-3xl bg-white/4" aria-hidden />;
   return <WordCard word={word} label="Word of the day" />;
 }

@@ -74,8 +74,8 @@ export function Feed() {
     activeSince.current = now;
   }, [active, picks, track]);
 
-  // Celebrate a newly opened stage, whether earned or skipped to.
-  const stage = currentStage(catalog, learner);
+  // Celebrate a newly opened level, whether earned or tested out of.
+  const stage = currentStage(learner);
   const lastStage = useRef(stage);
   const [banner, setBanner] = useState<string | null>(null);
   useEffect(() => {
@@ -113,9 +113,11 @@ export function Feed() {
     return (
       <div className="flex h-dvh flex-col items-center justify-center gap-3 px-8 text-center">
         <p className="text-lg font-semibold">You&apos;re all caught up</p>
-        <p className="text-muted">Nothing new fits your level right now. Reviews will come due soon.</p>
-        <Link href="/progress/" className="mt-2 rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-ink">
-          See your progress
+        <p className="text-muted">
+          Nothing new is open right now. Finish chapters in Learn to open the next level. Reviews will come due soon.
+        </p>
+        <Link href="/" className="mt-2 rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-ink">
+          Go to Learn
         </Link>
       </div>
     );

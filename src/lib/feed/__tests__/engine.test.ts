@@ -3,6 +3,7 @@ import { catalog } from "@/content";
 import { applyEvent, initLearner } from "@/lib/learner/model";
 import { DAY } from "@/lib/learner/srs";
 import type { LearnerState } from "@/lib/learner/types";
+import { openLevels } from "@/lib/learner/__tests__/helpers";
 import { levelGap, nextCards, seededRandom, type FeedPick, type SessionEntry } from "../engine";
 
 const T0 = Date.UTC(2026, 0, 1);
@@ -97,14 +98,14 @@ describe("feed engine", () => {
 
   it("serves harder cards after repeated 'too easy'", () => {
     const avgLevel = (picks: FeedPick[]) => picks.reduce((a, p) => a + catalog.cards.get(p.cardId)!.levelValue, 0) / picks.length;
-    const base = learner();
+    const base = openLevels(learner(), 3);
     let easy = base;
     for (let i = 0; i < 4; i++) easy = applyEvent(easy, { type: "marked_easy", cardId: "k.study-cafe", at: T0 }, catalog).state;
     expect(avgLevel(scroll(easy, 20).picks)).toBeGreaterThan(avgLevel(scroll(base, 20).picks));
   });
 
   it("continues a story right after its previous part", () => {
-    const s = learner("intermediate");
+    const s = openLevels(learner("intermediate"), 3);
     const { picks } = scroll(s, 80, 5);
     const ids = picks.map((p) => p.cardId);
     const p1 = ids.indexOf("k.story-bd-1");

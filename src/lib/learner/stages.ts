@@ -1,65 +1,25 @@
+import { catalog as defaultCatalog } from "@/content";
 import type { Card, Catalog } from "@/content/catalog";
-import type { ConceptState, LearnerState } from "./types";
+import { cardStage } from "@/content/path/build";
+import { LEVEL_SPECS } from "@/content/path/levels";
+import { currentLevel } from "./path";
+import type { LearnerState } from "./types";
 
 /**
- * The learning path. New content comes only from the learner's current stage
- * or earlier; the current stage is derived from what they've learned, so it
- * can't drift out of sync with their progress.
+ * Feed stages, one per path level (stage 0 is Level 1, Foundations). New
+ * feed content comes only from open levels; levels open by finishing
+ * chapters in the Learn tab (see path.ts).
  */
-export const STAGES = [
-  { name: "Foundations", short: "Foundations", maxLevel: 0 },
-  { name: "A1 · Everyday basics", short: "A1", maxLevel: 1 },
-  { name: "A2 · Getting around", short: "A2", maxLevel: 2 },
-  { name: "B1 · Real conversations", short: "B1", maxLevel: 3 },
-  { name: "B2 and beyond", short: "B2+", maxLevel: 6 },
-] as const;
+export const STAGES = LEVEL_SPECS.map((l) => ({
+  name: `Level ${l.number} · ${l.title}`,
+  short: `Level ${l.number}`,
+  maxLevel: l.maxLevel,
+}));
 
-/** Share of a stage's core concepts to learn before the next stage opens. */
-export const STAGE_PASS = 0.7;
+export const stageOf = (card: Card, catalog: Catalog = defaultCatalog): number => cardStage(card, catalog);
 
-export const stageOf = (card: Pick<Card, "levelValue">): number => STAGES.findIndex((s) => card.levelValue <= s.maxLevel);
-
-/** Learned enough to build on: assumed at onboarding, answered right, or met across several cards. */
-export function isLearned(st: ConceptState | undefined): boolean {
-  if (!st || st.difficult) return false;
-  return st.assumed || st.correct >= 1 || st.exposures >= 3;
-}
-
-const coreCache = new WeakMap<Catalog, string[][]>();
-
-/** Concepts each stage exists to teach: taught by its cards, and not already taught earlier. */
-export function stageCoreConcepts(catalog: Catalog): string[][] {
-  const cached = coreCache.get(catalog);
-  if (cached) return cached;
-  const seen = new Set<string>();
-  const core = STAGES.map((_, i) => {
-    const ids = new Set<string>();
-    for (const card of catalog.cards.values()) {
-      if (stageOf(card) !== i) continue;
-      for (const c of card.concepts) if (c.role === "TEACH" && !seen.has(c.id)) ids.add(c.id);
-    }
-    ids.forEach((id) => seen.add(id));
-    return [...ids];
-  });
-  coreCache.set(catalog, core);
-  return core;
-}
-
-export type StageProgress = { index: number; learned: number; total: number; fraction: number };
-
-export function stageProgress(catalog: Catalog, learner: LearnerState): StageProgress[] {
-  return stageCoreConcepts(catalog).map((ids, index) => {
-    const learned = ids.filter((id) => isLearned(learner.concepts[id])).length;
-    return { index, learned, total: ids.length, fraction: ids.length ? learned / ids.length : 1 };
-  });
-}
-
-/** First stage not yet passed, never below the learner's skip-ahead floor. */
-export function currentStage(catalog: Catalog, learner: LearnerState): number {
-  const derived = stageProgress(catalog, learner).findIndex((p) => p.fraction < STAGE_PASS);
-  const stage = derived < 0 ? STAGES.length - 1 : derived;
-  return Math.max(stage, learner.profile?.minStage ?? 0);
-}
+/** The highest open stage. */
+export const currentStage = (learner: LearnerState): number => currentLevel(learner) - 1;
 
 /**
  * Within a stage, cards carry a module number (greetings before numbers).

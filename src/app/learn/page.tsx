@@ -1,7 +1,13 @@
-import { LearnView } from "@/components/learn/LearnView";
+"use client";
 
-export const metadata = { title: "Learn · Nunchi" };
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function LearnPage() {
-  return <LearnView />;
+/** The Learn tab moved to the home page; old links land there. */
+export default function LearnRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/");
+  }, [router]);
+  return null;
 }

@@ -1,5 +1,5 @@
-import { Feed } from "@/components/feed/Feed";
+import { LearnView } from "@/components/learn/LearnView";
 
-export default function FeedPage() {
-  return <Feed />;
+export default function HomePage() {
+  return <LearnView />;
 }

@@ -1,7 +1,6 @@
 import type { Card, Catalog } from "@/content/catalog";
 import { SKILLS, levelValue, type Skill } from "@/content/schema";
 import { DEFAULT_VOICE } from "@/lib/audio/voices";
-import { STAGES, currentStage } from "./stages";
 import { QUICK_SWIPE_MS, type AppEvent, type SpeakingGrade } from "./events";
 import { DAY, review, type Grade } from "./srs";
 import type { CardState, Changes, ConceptState, Goal, LearnerState, Profile, SelfLevel, SkillState } from "./types";
@@ -74,9 +73,6 @@ export function initLearner(answers: OnboardingAnswers, catalog: Catalog, now: n
   };
 }
 
-/** "Too easy" taps that move the learner up a stage. */
-export const EASY_TAPS_TO_SKIP = 3;
-
 /** Correct answers on this many different days take a card off the To learn list. */
 export const TO_LEARN_DAYS = 2;
 
@@ -141,12 +137,8 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
 
   /** Progress on the To learn list: correct answers on separate days clear it, a miss resets it. */
   const toLearnOutcome = (ok: boolean) => {
-    const cs = next.cards[card.id];
-    if (!cs?.toLearn) return;
-    if (!ok) return touchCard({ recoveries: 0, lastRecoveryAt: null });
-    if (cs.lastRecoveryAt !== null && sameDay(cs.lastRecoveryAt, now)) return;
-    const recoveries = cs.recoveries + 1;
-    touchCard(recoveries >= TO_LEARN_DAYS ? { toLearn: false, recoveries: 0, lastRecoveryAt: null } : { recoveries, lastRecoveryAt: now });
+    const patch = toLearnPatch(next.cards[card.id], ok, now);
+    if (patch) touchCard(patch);
   };
 
   switch (event.type) {
@@ -213,13 +205,8 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
       break;
     }
     case "marked_easy": {
-      // Three "too easy" taps in a stage skip ahead to the next one.
-      const stage = currentStage(catalog, next);
-      nudgeProfile((p) =>
-        p.difficultyOffset + 0.3 >= EASY_TAPS_TO_SKIP * 0.3 - 1e-9 && stage < STAGES.length - 1
-          ? { difficultyOffset: 0, minStage: stage + 1 }
-          : { difficultyOffset: clamp(p.difficultyOffset + 0.3, -1.5, 1.5) },
-      );
+      // Levels open through the Learn tab; "too easy" only nudges difficulty within them.
+      nudgeProfile((p) => ({ difficultyOffset: clamp(p.difficultyOffset + 0.3, -1.5, 1.5) }));
       for (const id of teach) {
         touchConcept(id, (prev) => {
           const stability = Math.max(10, prev?.stability ?? 0);
@@ -276,13 +263,24 @@ export function applyEvent(state: LearnerState, event: AppEvent, catalog: Catalo
   return { state: next, changes };
 }
 
+/** Progress on the To learn list: correct answers on separate days clear it, a miss resets it. */
+function toLearnPatch(cs: CardState | undefined, ok: boolean, now: number): Partial<CardState> | null {
+  if (!cs?.toLearn) return null;
+  if (!ok) return { recoveries: 0, lastRecoveryAt: null };
+  if (cs.lastRecoveryAt !== null && sameDay(cs.lastRecoveryAt, now)) return null;
+  const recoveries = cs.recoveries + 1;
+  return recoveries >= TO_LEARN_DAYS ? { toLearn: false, recoveries: 0, lastRecoveryAt: null } : { recoveries, lastRecoveryAt: now };
+}
+
+const TRACKED_ITEMS = ["lesson.", "word.", "chapter.", "level."];
+
 /**
  * Lessons and word-bank words aren't feed cards, but they're tracked in the
  * same per-item state (card_states), keyed by "lesson.…" or "word.…" ids.
  */
 function applyItemEvent(state: LearnerState, event: AppEvent, catalog: Catalog, changes: Changes) {
   const id = event.cardId;
-  if (!id.startsWith("lesson.") && !id.startsWith("word.")) return { state, changes };
+  if (!TRACKED_ITEMS.some((p) => id.startsWith(p))) return { state, changes };
   const now = event.at;
   const next: LearnerState = { ...state, concepts: { ...state.concepts }, cards: { ...state.cards } };
   const prev = next.cards[id] ?? blankCard(id);
@@ -290,22 +288,76 @@ function applyItemEvent(state: LearnerState, event: AppEvent, catalog: Catalog, 
     next.cards[id] = { ...prev, ...patch, updatedAt: now };
     changes.cards.add(id);
   };
+  // A lesson or chapter introduces its concepts; reviews in the feed then test them.
+  const introduce = (conceptIds: string[]) => {
+    for (const cid of conceptIds) {
+      if (!catalog.concepts.has(cid)) continue;
+      const c = next.concepts[cid];
+      next.concepts[cid] = c
+        ? { ...c, exposures: c.exposures + 1, updatedAt: now }
+        : { ...blankConcept(cid, now), stability: 0.5, nextReviewAt: now + 0.5 * DAY, exposures: 1 };
+      changes.concepts.add(cid);
+    }
+  };
 
   switch (event.type) {
     case "lesson_finished":
       touch({ completions: prev.completions + 1, lastSeenAt: now });
-      // A lesson introduces its concepts; reviews in the feed then test them.
-      for (const cid of event.conceptIds) {
-        if (!catalog.concepts.has(cid)) continue;
-        const c = next.concepts[cid];
-        next.concepts[cid] = c
-          ? { ...c, exposures: c.exposures + 1, updatedAt: now }
-          : { ...blankConcept(cid, now), stability: 0.5, nextReviewAt: now + 0.5 * DAY, exposures: 1 };
-        changes.concepts.add(cid);
+      introduce(event.conceptIds);
+      break;
+    case "quiz_finished": {
+      touch({
+        views: Math.max(prev.views, 1),
+        completions: prev.completions + (event.passed ? 1 : 0),
+        lastSeenAt: now,
+        lastOutcome: event.passed ? "correct" : "incorrect",
+      });
+      // Missed items go on the To learn list; right answers count toward clearing it.
+      for (const item of event.missed) {
+        const cs = next.cards[item] ?? blankCard(item);
+        next.cards[item] = {
+          ...cs,
+          toLearn: true,
+          toLearnSince: cs.toLearnSince ?? now,
+          known: false,
+          recoveries: 0,
+          lastRecoveryAt: null,
+          updatedAt: now,
+        };
+        changes.cards.add(item);
+      }
+      for (const item of event.right) {
+        const patch = toLearnPatch(next.cards[item], true, now);
+        if (!patch) continue;
+        next.cards[item] = { ...next.cards[item]!, ...patch, updatedAt: now };
+        changes.cards.add(item);
+      }
+      if (!event.passed) break;
+      if (event.chapterIds) {
+        // A passed level test: its chapters count as tested out, and what they teach as already known.
+        for (const cid of event.chapterIds) {
+          const cs = next.cards[cid] ?? blankCard(cid);
+          if (cs.completions > 0 || cs.known) continue;
+          next.cards[cid] = { ...cs, known: true, updatedAt: now };
+          changes.cards.add(cid);
+        }
+        for (const cid of event.conceptIds) {
+          if (!catalog.concepts.has(cid) || next.concepts[cid]) continue;
+          next.concepts[cid] = {
+            ...blankConcept(cid, now),
+            assumed: true,
+            stability: 14,
+            nextReviewAt: now + 14 * DAY * (0.5 + hash01(cid)),
+          };
+          changes.concepts.add(cid);
+        }
+      } else {
+        introduce(event.conceptIds);
       }
       break;
+    }
     case "word_learned":
-      touch({ known: true, lastSeenAt: now });
+      touch({ known: true, lastSeenAt: now, toLearn: false, recoveries: 0, lastRecoveryAt: null });
       break;
     case "word_unlearned":
       touch({ known: false });

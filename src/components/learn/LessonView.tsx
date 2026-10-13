@@ -25,7 +25,7 @@ export function LessonView({ lesson }: { lesson: Lesson }) {
   return (
     <article className="mx-auto max-w-xl px-5 pt-[max(env(safe-area-inset-top),1rem)] pb-32">
       <div className="sticky top-0 z-20 -mx-5 flex items-center justify-between bg-bg/90 px-5 py-3 backdrop-blur">
-        <Link href="/learn/" className="inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
           <ArrowLeft size={16} /> Learn
         </Link>
         <RomanizationToggle />

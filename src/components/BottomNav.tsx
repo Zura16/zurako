@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { BarChart3, Bookmark, GraduationCap, Layers, UserRound } from "lucide-react";
 
 const ITEMS = [
-  { href: "/", label: "Feed", icon: Layers },
-  { href: "/learn/", label: "Learn", icon: GraduationCap },
+  { href: "/", label: "Learn", icon: GraduationCap },
+  { href: "/feed/", label: "Feed", icon: Layers },
   { href: "/progress/", label: "Progress", icon: BarChart3 },
   { href: "/saved/", label: "Saved", icon: Bookmark },
   { href: "/account/", label: "Me", icon: UserRound },
@@ -14,7 +14,7 @@ const ITEMS = [
 
 export function BottomNav() {
   const path = usePathname() ?? "/";
-  const current = (href: string) => (href === "/" ? path === "/" : path.startsWith(href.replace(/\/$/, "")));
+  const current = (href: string) => (href === "/" ? path === "/" || path.startsWith("/learn") : path.startsWith(href.replace(/\/$/, "")));
   return (
     <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg/85 pb-[var(--safe-bottom)] backdrop-blur-lg">
       <ul className="mx-auto flex max-w-xl justify-around">

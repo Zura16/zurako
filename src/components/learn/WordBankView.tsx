@@ -29,7 +29,7 @@ export function WordBankView() {
   return (
     <div className="mx-auto max-w-xl px-5 pt-[max(env(safe-area-inset-top),1rem)] pb-28">
       <div className="flex items-center justify-between py-3">
-        <Link href="/learn/" className="inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-muted hover:text-ink">
           <ArrowLeft size={16} /> Learn
         </Link>
         <RomanizationToggle />

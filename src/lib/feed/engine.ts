@@ -1,7 +1,7 @@
 import type { Card, Catalog } from "@/content/catalog";
 import { GOAL_MATCH } from "@/lib/learner/model";
 import { DAY, recall } from "@/lib/learner/srs";
-import { STAGES, currentModule, currentStage, stageOf } from "@/lib/learner/stages";
+import { currentModule, currentStage, stageOf } from "@/lib/learner/stages";
 import type { CardOutcome, LearnerState } from "@/lib/learner/types";
 
 /**
@@ -16,9 +16,10 @@ import type { CardOutcome, LearnerState } from "@/lib/learner/types";
  *      fit, review urgency, goals, learned topic/type affinity, editorial
  *      interest, and variety penalties against the last few cards.
  *
- * New content is gated by the learning path (see stages.ts): only cards from
- * the learner's current stage or earlier, and within a stage, at most one
- * module ahead of the first unfinished one. Reviews ignore the gate.
+ * New content is gated by the learning path (see stages.ts and path.ts): only
+ * cards from levels the learner has opened in the Learn tab, and within a
+ * stage, at most one module ahead of the first unfinished one. Reviews ignore
+ * the gate.
  *
  * Cards the learner marked "too hard" return as reviews until learnt.
  *
@@ -110,13 +111,8 @@ function onPath(card: Card, path: Path): boolean {
 function classify(ctx: FeedContext): Candidate[] {
   const { catalog, learner, session } = ctx;
   const shownThisSession = new Set(session.map((e) => e.cardId));
-  const stage = currentStage(catalog, learner);
-  const path: Path = { stage, module: currentModule(catalog, learner, stage) };
-  const candidates = classifyOnPath(ctx, path, shownThisSession);
-  // Everything open on the path has been seen: let the next stage in rather than repeat cards.
-  const fresh = candidates.some((c) => c.buckets.has("new") || c.buckets.has("familiar") || c.buckets.has("explore"));
-  if (fresh || stage >= STAGES.length - 1) return candidates;
-  return classifyOnPath(ctx, { stage: stage + 1, module: null }, shownThisSession);
+  const stage = currentStage(learner);
+  return classifyOnPath(ctx, { stage, module: currentModule(catalog, learner, stage) }, shownThisSession);
 }
 
 function classifyOnPath(ctx: FeedContext, path: Path, shownThisSession: Set<string>): Candidate[] {

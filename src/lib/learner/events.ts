@@ -27,7 +27,23 @@ export type AppEvent =
   /** A Learn-tab lesson read to the end (cardId is the lesson id, e.g. "lesson.007"). */
   | (Base & { type: "lesson_finished"; conceptIds: string[] })
   /** A word-bank word marked as learned (cardId is the word id, e.g. "word.좋아요"). */
-  | (Base & { type: "word_learned" | "word_unlearned" });
+  | (Base & { type: "word_learned" | "word_unlearned" })
+  /**
+   * A chapter quiz (cardId "chapter.…") or level test (cardId "level.N") finished.
+   * `missed` and `right` list the tracked items behind each question (feed cards or words).
+   */
+  | (Base & {
+      type: "quiz_finished";
+      correct: number;
+      total: number;
+      passed: boolean;
+      missed: string[];
+      right: string[];
+      /** Concepts a pass introduces (chapter) or marks as known (level test). */
+      conceptIds: string[];
+      /** Level test only: the level's chapters, marked tested out on a pass. */
+      chapterIds?: string[];
+    });
 
 export type SpeakingGrade = "good" | "close" | "miss";
 export type EventType = AppEvent["type"];

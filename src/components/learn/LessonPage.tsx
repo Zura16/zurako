@@ -11,7 +11,7 @@ export function LessonPage() {
     return (
       <div className="flex h-dvh flex-col items-center justify-center gap-3 px-8 text-center">
         <p className="text-muted">That lesson couldn&apos;t be found.</p>
-        <Link href="/learn/" className="rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-ink">
+        <Link href="/" className="rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-ink">
           Back to Learn
         </Link>
       </div>

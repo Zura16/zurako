@@ -1,6 +1,6 @@
 # Nunchi (눈치)
 
-A vertical, swipeable feed for learning conversational Korean. Each card takes 10–30 seconds: a phrase, a casual/polite/formal comparison, a listening check, a speaking prompt, a slice of a story. A curriculum and a spaced-repetition model run underneath and decide what comes next.
+A Korean course in five levels, plus a vertical, swipeable feed for practice. Each card takes 10–30 seconds: a phrase, a casual/polite/formal comparison, a listening check, a speaking prompt, a slice of a story. A curriculum and a spaced-repetition model run underneath and decide what comes next.
 
 Live: <https://zura16.github.io/zurako/>
 
@@ -35,6 +35,7 @@ GitHub Pages serves static files only, so the app is a static Next.js export. Th
 ```
 src/content/          curriculum: typed, validated, shipped with the site
   lessons/            Learn-tab lessons (schema + one file per lesson)
+  path/               the five levels: chapter list (levels.ts) and the builder for points and quizzes
   wordbank.json       word bank data
   schema.ts           Zod schemas for concepts, sentences, segments, 16 card payloads
   concepts.ts         grammar, vocabulary, expressions, culture (287 concepts)
@@ -73,17 +74,36 @@ Interactions are events (`lesson_viewed`, `lesson_swiped`, `answer_correct`, `wo
 
 Onboarding marks concepts well below the learner's stated level as "assumed known" and schedules light check-in reviews for them.
 
-### Learn tab
+### Learn tab and levels
 
-Alongside the feed, the **Learn** tab holds structured lessons converted from the course documents, in teaching order: 007 Honorific Expressions first, then 001–006 (`src/content/lessons/`). A lesson is typed data, not prose: phrase tables, plain → honorific pairs, grammar tables, callouts, dialogues, a speaking challenge (microphone or typing), matching, pick-one and fill-in exercises with answer checking. Full sentences link to catalog sentences, so they're tappable for the word-by-word breakdown. Romanization is hidden by default with a per-device toggle. Finishing a lesson feeds its concepts into spaced repetition, so the feed starts reviewing them. Each lesson lists the corrections made to its source document.
+**Learn** is the home tab. It holds five levels, each an ordered list of chapters, modelled on Bunpo (`src/content/path/`):
 
-The tab also has a searchable **Word bank** of 494 everyday words (`src/content/wordbank.json`, imported with `scripts/import-wordbank.py`) and a **Word of the Day** that's the same for everyone on a given date and cycles through every word before repeating. Learned words, lesson progress and finished lessons sync with the rest of the learner state.
+| Level | Name | Built from |
+| --- | --- | --- |
+| 1 | Foundations | Foundations modules 1–20, the first two sections of lesson 007, and word-bank vocabulary |
+| 2 | Everyday basics | Lessons 001, 002-1, 002-2, 004, 005, the A1 feed cards, and vocabulary |
+| 3 | Building up | Lessons 003, 006, the rest of 007, the A2 feed cards, and vocabulary |
+| 4 | Real conversations | The B1 feed cards (connectors, slang, work, stories) and vocabulary |
+| 5 | Beyond | The B2+ feed cards and sentence frames. Thin for now |
+
+A chapter has a category tag (Hangul and sounds, Grammar, Vocabulary, Conversation, Culture), a few short points read one screen at a time, and a quiz. `levels.ts` lists the chapters and their sources, and `build.ts` assembles them:
+
+- A feed source becomes one reading point per card. Its quiz-type cards (multiple choice, fill the gap, listening, spot the mistake) and story checks become quiz questions.
+- A lesson source becomes one point per section, with long phrase lists split up. Its pick-one and fill-in exercises go to the quiz.
+- A word source becomes points of 7 words.
+- Every Korean line with a meaning also yields a "What does this mean?" question, with wrong answers drawn from the same chapter, then the level. Words also get the reverse question.
+
+Every chapter quiz draws up to 10 questions (`src/lib/learner/path.ts`), at most 60% of them hand-written. 80% passes. Missed feed cards and words go on the To learn list, and getting them right on 2 separate days clears them. Every chapter in an open level is available. The next level opens once 80% of a level's chapters are passed or tested out. A 15-question level test (80% to pass) skips a level: it marks the unfinished chapters "tested out" and their concepts as known. Learners who pick Elementary or higher at onboarding are offered the Level 1 test on the home tab. Chapter and test state live in `card_states` under `chapter.*` and `level.*` ids, so no new tables were needed. Lessons finished before the levels existed count as finished chapters.
+
+Lesson content is typed data, not prose: phrase tables, plain → honorific pairs, grammar tables, callouts, dialogues, a speaking challenge (microphone or typing), and exercises. Full sentences link to catalog sentences, so they're tappable for the word-by-word breakdown. Romanization is hidden by default with a per-device toggle. Each lesson lists the corrections made to its source document. The old lesson pages still work at `/learn/lesson/?id=…`.
+
+The tab also has a searchable **Word bank** of 494 everyday words (`src/content/wordbank.json`, imported with `scripts/import-wordbank.py`) and a **Word of the Day** that's the same for everyone on a given date and cycles through every word before repeating.
 
 Every play button has a slow-motion partner (🐌) that plays at 60% speed.
 
-### Learning path
+### Feed and levels
 
-New content is gated into five stages: Foundations, A1, A2, B1, and B2 and beyond (`src/lib/learner/stages.ts`). A learner's stage isn't stored. It's computed as the first stage where fewer than 70% of the stage's core concepts are learned, so it can't drift from their real progress. A concept counts as learned once it's answered correctly, met across 3 cards, or assumed at onboarding. Onboarding sets the starting point: "I can read Hangul" and "Beginner" start in Foundations with nothing assumed. Three "Too easy" taps skip ahead a stage, which is stored as `profiles.min_stage`. Inside a stage, cards carry a module number (greetings before numbers), and the feed stays within one module of the first unfinished one. If everything open on the path has been seen, the next stage spills over instead of cards repeating. The Progress page shows the path and how many concepts remain before the next stage.
+Each level is a feed stage (`src/lib/learner/stages.ts`). The feed serves new cards only from open levels, plus reviews from anywhere. It never spills into a locked level. When everything open has been seen, it brings back cards already met. A story belongs to the level of its first part, so it never stops at a locked level. Inside Level 1, cards carry a module number (greetings before numbers), and the feed stays within one module of the first unfinished one. "Too easy" now only nudges difficulty within the open levels. It no longer skips ahead, and `profiles.min_stage` is unused. Reading a card inside a chapter counts as seeing it in the feed.
 
 ### Feed algorithm
 

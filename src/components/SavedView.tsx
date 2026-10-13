@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { BookmarkX, Check, ScanText, X } from "lucide-react";
 import { catalog } from "@/content";
 import type { Card } from "@/content/catalog";
+import { UNIQUE_WORDS, wordId } from "@/content/wordbank";
 import { TO_LEARN_DAYS } from "@/lib/learner/model";
 import type { CardState } from "@/lib/learner/types";
 import { useLearner } from "@/components/providers/LearnerProvider";
@@ -13,6 +14,8 @@ import { AudioButton } from "@/components/ui/AudioButton";
 import { QUIZ_TYPES, TYPE_LABEL } from "@/components/feed/cardMeta";
 
 type Tab = "saved" | "learn";
+
+const WORD_BY_ID = new Map(UNIQUE_WORDS.map((w) => [wordId(w), w]));
 
 /** Cards with a question or recall step, so practising them can count as getting them right. */
 const answerable = (card: Card) =>
@@ -26,6 +29,10 @@ export function SavedView() {
   const all = Object.values(learner.cards).filter((c) => catalog.cards.has(c.cardId));
   const saved = all.filter((c) => c.saved).sort((a, b) => b.updatedAt - a.updatedAt);
   const toLearn = all.filter((c) => c.toLearn).sort((a, b) => (a.toLearnSince ?? 0) - (b.toLearnSince ?? 0));
+  // Words missed in chapter quizzes wait here too.
+  const words = Object.values(learner.cards)
+    .filter((c) => c.toLearn && WORD_BY_ID.has(c.cardId))
+    .sort((a, b) => (a.toLearnSince ?? 0) - (b.toLearnSince ?? 0));
 
   return (
     <div className="mx-auto max-w-xl px-5 pt-[max(env(safe-area-inset-top),1.5rem)] pb-28">
@@ -35,12 +42,12 @@ export function SavedView() {
           Saved {saved.length > 0 && <span className="opacity-70">{saved.length}</span>}
         </TabButton>
         <TabButton selected={tab === "learn"} onClick={() => router.replace("/saved/?tab=learn")}>
-          To learn {toLearn.length > 0 && <span className="opacity-70">{toLearn.length}</span>}
+          To learn {toLearn.length + words.length > 0 && <span className="opacity-70">{toLearn.length + words.length}</span>}
         </TabButton>
       </div>
 
       <div role="tabpanel" className="mt-5">
-        {tab === "saved" ? <SavedList items={saved} /> : <ToLearnList items={toLearn} />}
+        {tab === "saved" ? <SavedList items={saved} /> : <ToLearnList items={toLearn} words={words} />}
       </div>
     </div>
   );
@@ -65,7 +72,7 @@ function Empty({ children }: { children: React.ReactNode }) {
   return (
     <div className="mt-12 space-y-4 text-center">
       <p className="text-muted">{children}</p>
-      <Link href="/" className="inline-block rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-ink">
+      <Link href="/feed/" className="inline-block rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-ink">
         Back to the feed
       </Link>
     </div>
@@ -126,16 +133,65 @@ function SavedList({ items }: { items: CardState[] }) {
   );
 }
 
-function ToLearnList({ items }: { items: CardState[] }) {
+function RecoveryBar({ state }: { state: CardState }) {
+  return (
+    <>
+      <span className="flex gap-1" aria-hidden>
+        {Array.from({ length: TO_LEARN_DAYS }, (_, i) => (
+          <span key={i} className={`h-1.5 w-5 rounded-full ${i < state.recoveries ? "bg-good" : "bg-white/12"}`} />
+        ))}
+      </span>
+      <span>
+        {state.recoveries} of {TO_LEARN_DAYS} days right
+      </span>
+    </>
+  );
+}
+
+function ToLearnList({ items, words }: { items: CardState[]; words: CardState[] }) {
   const { track } = useLearner();
-  if (items.length === 0) {
-    return <Empty>Nothing here yet. Tap &ldquo;Too hard&rdquo; on any card and it waits here until you&apos;ve got it.</Empty>;
+  if (items.length === 0 && words.length === 0) {
+    return (
+      <Empty>
+        Nothing here yet. Tap &ldquo;Too hard&rdquo; on any card, or miss a question in a chapter quiz, and it waits here until you&apos;ve
+        got it.
+      </Empty>
+    );
   }
   return (
     <>
       <p className="mb-4 text-sm text-muted">
-        Get a card right on {TO_LEARN_DAYS} different days and it leaves this list. These cards also come back in your feed.
+        Get one right on {TO_LEARN_DAYS} different days and it leaves this list. Cards also come back in your feed, and words in chapter
+        quizzes.
       </p>
+      {words.length > 0 && (
+        <ul className="mb-2.5 divide-y divide-line rounded-2xl border border-bad/25">
+          {words.map((state) => {
+            const w = WORD_BY_ID.get(state.cardId)!;
+            return (
+              <li key={state.cardId} className="flex items-center gap-3 px-4 py-3">
+                <div className="min-w-0 flex-1">
+                  <p lang="ko" className="ko text-lg font-semibold">
+                    {w.ko}
+                  </p>
+                  <p className="text-sm text-muted">{w.en}</p>
+                  <p className="mt-1 flex items-center gap-2 text-xs text-faint">
+                    <RecoveryBar state={state} />
+                  </p>
+                </div>
+                <AudioButton sentence={{ korean: w.ko }} cardId={state.cardId} size="sm" />
+                <button
+                  onClick={() => track({ type: "word_learned", cardId: state.cardId })}
+                  aria-label={`I know ${w.ko}`}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-good/50 text-good hover:bg-good/10"
+                >
+                  <Check size={14} strokeWidth={3} />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       <ul className="space-y-2.5">
         {items.map((state) => {
           const card = catalog.cards.get(state.cardId)!;
@@ -147,16 +203,7 @@ function ToLearnList({ items }: { items: CardState[] }) {
                   <CardSummary card={card} />
                   <div className="mt-2.5 flex items-center gap-2 text-xs text-faint">
                     {answerable(card) ? (
-                      <>
-                        <span className="flex gap-1" aria-hidden>
-                          {Array.from({ length: TO_LEARN_DAYS }, (_, i) => (
-                            <span key={i} className={`h-1.5 w-5 rounded-full ${i < state.recoveries ? "bg-good" : "bg-white/12"}`} />
-                          ))}
-                        </span>
-                        <span>
-                          {state.recoveries} of {TO_LEARN_DAYS} days right
-                        </span>
-                      </>
+                      <RecoveryBar state={state} />
                     ) : (
                       <span>No question on this card. Mark it known once it sticks.</span>
                     )}
