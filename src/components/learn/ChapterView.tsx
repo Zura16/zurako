@@ -20,9 +20,13 @@ import { RomanizationToggle } from "./KoreanLine";
 import { DrawnQuiz, type QuizResult } from "./Quiz";
 
 export function ChapterPage() {
-  const chapter = chapterById(useSearchParams().get("id") ?? "");
+  const params = useSearchParams();
+  const chapter = chapterById(params.get("id") ?? "");
   if (!chapter) return <NotFound text="That chapter couldn't be found." />;
-  return <ChapterView key={chapter.id} chapter={chapter} />;
+  const start = params.get("start");
+  const first: Step =
+    start === "quiz" ? { kind: "quiz", attempt: 0 } : start === "points" ? { kind: "point", index: 0 } : { kind: "overview" };
+  return <ChapterView key={chapter.id} chapter={chapter} first={first} />;
 }
 
 export function NotFound({ text }: { text: string }) {
@@ -39,9 +43,9 @@ export function NotFound({ text }: { text: string }) {
 type Step = { kind: "overview" } | { kind: "point"; index: number } | { kind: "quiz"; attempt: number };
 
 /** A chapter: an overview, its points one screen at a time, then the quiz. */
-function ChapterView({ chapter }: { chapter: Chapter }) {
+function ChapterView({ chapter, first }: { chapter: Chapter; first: Step }) {
   const { learner, track } = useLearner();
-  const [step, setStep] = useState<Step>({ kind: "overview" });
+  const [step, setStep] = useState<Step>(first);
   const unlocked = isLevelUnlocked(chapter.level, learner);
   const status = chapterStatus(chapter, learner, unlocked);
   const opened = useRef(false);

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BookOpen, Check, ChevronDown, ChevronRight, ChevronsUp, Lock, X } from "lucide-react";
-import { CATEGORY_LABEL } from "@/content/path";
+import { CATEGORY_LABEL, type Chapter } from "@/content/path";
 import { UNIQUE_WORDS, wordId } from "@/content/wordbank";
 import {
   LEVEL_PASS,
@@ -93,7 +93,9 @@ function LevelCard({
   else note = `Finish ${toNext} more ${toNext === 1 ? "chapter" : "chapters"} to open Level ${level.number + 1}.`;
 
   return (
-    <li className={`rounded-3xl border ${isCurrent ? "border-accent/50 bg-accent/5" : "border-line"} ${p.unlocked ? "" : "opacity-60"}`}>
+    <li
+      className={`rounded-3xl border border-line transition-colors ${p.unlocked ? "has-[>button:hover]:border-accent/60 has-[>button:hover]:bg-white/3" : "opacity-60"}`}
+    >
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
@@ -133,42 +135,12 @@ function LevelCard({
       </button>
 
       {open && (
-        <div id={panel} className="border-t border-line px-2 pt-1 pb-3">
-          <ol>
-            {level.chapters.map((c) => {
-              const status = chapterStatus(c, learner, p.unlocked);
-              const row = (
-                <>
-                  <StatusIcon status={status} number={c.number} />
-                  <span className="min-w-0 flex-1">
-                    <span className="ko block truncate font-medium">{c.title}</span>
-                    <span className="block text-xs text-faint">
-                      {CATEGORY_LABEL[c.category]} · {c.points.length} {c.points.length === 1 ? "point" : "points"}
-                      {status === "tested-out" ? " · Tested out" : ""}
-                    </span>
-                  </span>
-                </>
-              );
-              return (
-                <li key={c.id}>
-                  {status === "locked" ? (
-                    <div className="flex items-center gap-3 rounded-2xl px-2 py-2.5" aria-disabled>
-                      {row}
-                    </div>
-                  ) : (
-                    <Link href={`/learn/chapter/?id=${c.id}`} className="flex items-center gap-3 rounded-2xl px-2 py-2.5 hover:bg-white/4">
-                      {row}
-                      <ChevronRight size={16} className="text-faint" />
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
+        <div id={panel} className="border-t border-line pt-3 pb-4">
+          <ChapterShelves chapters={level.chapters} learner={learner} unlocked={p.unlocked} />
           {p.unlocked && hasNext && !p.passed && (
             <Link
               href={`/learn/test/?level=${level.number}`}
-              className="mx-2 mt-2 flex items-center justify-center gap-2 rounded-2xl bg-white/6 py-3 text-sm font-semibold hover:bg-white/10"
+              className="mx-4 mt-4 flex items-center justify-center gap-2 rounded-2xl bg-white/6 py-3 text-sm font-semibold hover:bg-white/10"
             >
               <ChevronsUp size={16} /> Already know this? Test out of Level {level.number}
             </Link>
@@ -179,40 +151,132 @@ function LevelCard({
   );
 }
 
-function StatusIcon({ status, number }: { status: ChapterStatus; number: number }) {
-  const base = "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold";
-  switch (status) {
-    case "done":
-      return (
-        <span className={`${base} bg-good text-bg`} aria-label="Finished">
-          <Check size={16} strokeWidth={3} />
+/** A level's chapters, one sideways-scrolling shelf of cards per category, in the order the categories first appear. */
+function ChapterShelves({ chapters, learner, unlocked }: { chapters: Chapter[]; learner: LearnerState; unlocked: boolean }) {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const categories = [...new Set(chapters.map((c) => c.category))];
+  return (
+    <div className="space-y-5">
+      {categories.map((category) => {
+        const shelf = chapters.filter((c) => c.category === category);
+        const open = shelf.find((c) => c.id === openId);
+        return (
+          <section key={category} aria-label={CATEGORY_LABEL[category]}>
+            <h3 className="px-4 text-xs font-semibold tracking-wider text-faint uppercase">
+              {CATEGORY_LABEL[category]} <span className="font-normal">· {shelf.length}</span>
+            </h3>
+            <ul className="no-scrollbar mt-2 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pt-1 pb-2">
+              {shelf.map((c) => (
+                <li key={c.id} className="snap-start">
+                  <ChapterCard
+                    chapter={c}
+                    status={chapterStatus(c, learner, unlocked)}
+                    open={c.id === openId}
+                    onToggle={() => setOpenId(c.id === openId ? null : c.id)}
+                  />
+                </li>
+              ))}
+            </ul>
+            {open && <ChapterDetails chapter={open} />}
+          </section>
+        );
+      })}
+    </div>
+  );
+}
+
+const STATUS_BADGE: Record<ChapterStatus, { label: string; icon: React.ReactNode; className: string } | null> = {
+  new: null,
+  started: { label: "In progress", icon: <span className="h-2 w-2 rounded-full bg-accent" />, className: "" },
+  done: { label: "Finished", icon: <Check size={13} strokeWidth={3} />, className: "text-good" },
+  "tested-out": { label: "Tested out", icon: <ChevronsUp size={14} />, className: "text-muted" },
+  locked: { label: "Locked", icon: <Lock size={12} />, className: "text-faint" },
+};
+
+/** Every card looks the same; a small corner icon carries the status, and hover, focus or press highlights it. */
+function ChapterCard({
+  chapter: c,
+  status,
+  open,
+  onToggle,
+}: {
+  chapter: Chapter;
+  status: ChapterStatus;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const locked = status === "locked";
+  const badge = STATUS_BADGE[status];
+  return (
+    <button
+      onClick={onToggle}
+      disabled={locked}
+      aria-expanded={locked ? undefined : open}
+      aria-label={`Chapter ${c.number}: ${c.title}${badge ? `, ${badge.label.toLowerCase()}` : ""}`}
+      className={`relative flex h-36 w-[8.5rem] flex-col rounded-2xl border bg-white/4 p-3.5 text-left transition duration-150 ${
+        open ? "border-accent bg-white/8" : "border-line"
+      } ${
+        locked
+          ? "cursor-not-allowed opacity-60"
+          : "hover:-translate-y-0.5 hover:border-accent hover:bg-white/8 focus-visible:-translate-y-0.5 focus-visible:border-accent focus-visible:bg-white/8 focus-visible:outline-none active:-translate-y-0.5 active:border-accent active:bg-white/8"
+      }`}
+    >
+      <span className="text-xs font-semibold text-faint">{c.number}</span>
+      {badge && (
+        <span
+          className={`absolute top-3 right-3 flex h-5 w-5 items-center justify-center ${badge.className}`}
+          aria-hidden
+          title={badge.label}
+        >
+          {badge.icon}
         </span>
-      );
-    case "tested-out":
-      return (
-        <span className={`${base} bg-white/12 text-muted`} aria-label="Tested out">
-          <ChevronsUp size={16} />
-        </span>
-      );
-    case "locked":
-      return (
-        <span className={`${base} bg-white/6 text-faint`} aria-label="Locked">
-          <Lock size={13} />
-        </span>
-      );
-    case "started":
-      return (
-        <span className={`${base} border-2 border-accent text-accent`} aria-label="In progress">
-          {number}
-        </span>
-      );
-    case "new":
-      return (
-        <span className={`${base} border border-white/20 text-muted`} aria-label="Not started">
-          {number}
-        </span>
-      );
-  }
+      )}
+      <span className="ko mt-1.5 line-clamp-3 leading-snug font-semibold">{c.title}</span>
+      <span className="mt-auto text-xs text-faint">
+        {c.points.length} {c.points.length === 1 ? "point" : "points"}
+      </span>
+    </button>
+  );
+}
+
+/** The opened card: what the chapter covers, and ways in. */
+function ChapterDetails({ chapter: c }: { chapter: Chapter }) {
+  const href = `/learn/chapter/?id=${c.id}`;
+  return (
+    <div className="rise mx-4 mt-1 rounded-2xl border border-accent/40 bg-white/4 p-4">
+      <div className="flex flex-wrap items-baseline gap-x-2">
+        <h4 className="text-lg font-semibold">{c.title}</h4>
+        {c.korean && (
+          <span lang="ko" className="ko text-sm text-faint">
+            {c.korean}
+          </span>
+        )}
+      </div>
+      <p className="mt-1 text-sm text-muted">{c.summary}</p>
+      <ol className="mt-3 space-y-1 text-sm">
+        {c.points.map((pt, i) => (
+          <li key={i} className="flex gap-2.5">
+            <span className="w-4 shrink-0 text-right text-faint">{i + 1}</span>
+            <span className="ko min-w-0 truncate">{pt.title}</span>
+          </li>
+        ))}
+      </ol>
+      <div className="mt-4 flex gap-2">
+        <Link
+          href={`${href}&start=points`}
+          className="flex-1 rounded-xl bg-accent py-2.5 text-center text-sm font-semibold text-accent-ink"
+        >
+          Start
+        </Link>
+        <Link
+          href={`${href}&start=quiz`}
+          className="flex-1 rounded-xl bg-white/8 py-2.5 text-center text-sm font-semibold hover:bg-white/12"
+        >
+          Go to the quiz
+        </Link>
+      </div>
+    </div>
+  );
 }
 
 const DISMISS_KEY = "nunchi.skip-suggestion-dismissed";
