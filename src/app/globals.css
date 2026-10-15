@@ -31,7 +31,7 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* The background sits on html only, so the Learn tab's grid canvas (z-index -1) shows through body. */
+/* The background sits on html only, so the Learn tab's grid (z-index -1) shows through body. */
 html {
   background: var(--color-bg);
 }
@@ -159,11 +159,15 @@ body {
   }
 }
 
-.shape-grid {
-  animation: grid-in 1.6s ease-out both;
-}
-@keyframes grid-in {
-  from {
-    opacity: 0;
-  }
+/* A still square grid behind the Learn tab, faded toward the edges. */
+.grid-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(42 39 52 / 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(42 39 52 / 0.45) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 75%);
 }

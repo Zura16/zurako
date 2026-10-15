@@ -5,7 +5,6 @@ import Link from "next/link";
 import { BookOpen, Check, ChevronDown, ChevronRight, ChevronsUp, Lock, X } from "lucide-react";
 import { CATEGORY_LABEL, type Category, type Chapter } from "@/content/path";
 import { ChromaSpotlight } from "@/components/ui/Chroma";
-import { ShapeGrid } from "@/components/ui/ShapeGrid";
 import { UNIQUE_WORDS, wordId } from "@/content/wordbank";
 import {
   LEVEL_PASS,
@@ -30,7 +29,7 @@ export function LearnView() {
 
   return (
     <div className="mx-auto max-w-xl px-5 pt-[max(env(safe-area-inset-top),1.5rem)] pb-28">
-      <ShapeGrid lineColor="#2a2734" fillOpacity={0.15} cellSize={40} speed={0.5} trail={0.6} glow={0.35} strength={0.45} />
+      <div aria-hidden className="grid-backdrop" />
       <h1 className="text-2xl font-bold">Learn</h1>
       <p className="mt-1 text-muted">Work through each level&apos;s chapters. The feed gives you practice with whatever is open.</p>
 
