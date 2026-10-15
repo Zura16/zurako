@@ -78,13 +78,15 @@ Onboarding marks concepts well below the learner's stated level as "assumed know
 
 **Learn** is the home tab. It holds five levels, each an ordered list of chapters, modelled on Bunpo (`src/content/path/`):
 
-| Level | Name | Built from |
-| --- | --- | --- |
-| 1 | Foundations | Foundations modules 1–20, the first two sections of lesson 007, and word-bank vocabulary |
-| 2 | Everyday basics | Lessons 001, 002-1, 002-2, 004, 005, the A1 feed cards, and vocabulary |
-| 3 | Building up | Lessons 003, 006, the rest of 007, the A2 feed cards, and vocabulary |
-| 4 | Real conversations | The B1 feed cards (connectors, slang, work, stories) and vocabulary |
-| 5 | Beyond | The B2+ feed cards and sentence frames. Thin for now |
+| Level | Name               | Built from                                                                               |
+| ----- | ------------------ | ---------------------------------------------------------------------------------------- |
+| 1     | Foundations        | Foundations modules 1–20, the first two sections of lesson 007, and word-bank vocabulary |
+| 2     | Everyday basics    | Lessons 001, 002-1, 002-2, 004, 005, the A1 feed cards, and vocabulary                   |
+| 3     | Building up        | Lessons 003, 006, the rest of 007, the A2 feed cards, and vocabulary                     |
+| 4     | Real conversations | The B1 feed cards (connectors, slang, work, stories) and vocabulary                      |
+| 5     | Beyond             | The B2+ feed cards and sentence frames. Thin for now                                     |
+
+Each level shows its chapters as cards, one sideways-scrolling row per category. Every card has a small SVG illustration of its topic (`src/components/learn/ChapterArt.tsx`), still at rest. Hovering a card, or opening it on a phone, animates the picture and sweeps a band of light across the card. A test checks that every chapter has its own picture.
 
 A chapter has a category tag (Hangul and sounds, Grammar, Vocabulary, Conversation, Culture), a few short points read one screen at a time, and a quiz. `levels.ts` lists the chapters and their sources, and `build.ts` assembles them:
 

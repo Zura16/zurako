@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BookOpen, Check, ChevronDown, ChevronRight, ChevronsUp, Lock, X } from "lucide-react";
 import { CATEGORY_LABEL, type Category, type Chapter } from "@/content/path";
-import { ChromaSpotlight } from "@/components/ui/Chroma";
+import { ChapterArt } from "./ChapterArt";
 import { UNIQUE_WORDS, wordId } from "@/content/wordbank";
 import {
   LEVEL_PASS,
@@ -58,13 +58,11 @@ export function LearnView() {
         <h2 id="levels-h" className="text-xs font-semibold tracking-wider text-faint uppercase">
           Levels
         </h2>
-        <ChromaSpotlight>
-          <ol className="mt-3 space-y-3">
-            {progress.map((p, i) => (
-              <LevelCard key={p.level.id} p={p} learner={learner} isCurrent={p.level.number === current} previous={progress[i - 1]} />
-            ))}
-          </ol>
-        </ChromaSpotlight>
+        <ol className="mt-3 space-y-3">
+          {progress.map((p, i) => (
+            <LevelCard key={p.level.id} p={p} learner={learner} isCurrent={p.level.number === current} previous={progress[i - 1]} />
+          ))}
+        </ol>
       </section>
     </div>
   );
@@ -189,7 +187,7 @@ function ChapterShelves({ chapters, learner, unlocked }: { chapters: Chapter[]; 
   );
 }
 
-/** Each category's color for the chroma effect, from the theme. */
+/** Each category's color for its cards' tint and lit border, from the theme. */
 const CATEGORY_COLOR: Record<Category, string> = {
   hangul: "var(--color-casual)",
   grammar: "var(--color-polite)",
@@ -226,9 +224,13 @@ function ChapterCard({
       disabled={locked}
       aria-expanded={locked ? undefined : open}
       aria-label={`Chapter ${c.number}: ${c.title}${badge ? `, ${badge.label.toLowerCase()}` : ""}`}
-      data-chroma
+      onPointerMove={(e) => {
+        const box = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty("--sx", `${e.clientX - box.left}px`);
+        e.currentTarget.style.setProperty("--sy", `${e.clientY - box.top}px`);
+      }}
       style={{ "--chroma": CATEGORY_COLOR[c.category] } as React.CSSProperties}
-      className={`chroma-card flex h-36 w-[8.5rem] flex-col rounded-2xl border p-3.5 text-left transition duration-150 ${
+      className={`chapter-card flex h-36 w-[8.5rem] flex-col rounded-2xl border p-3.5 text-left transition duration-150 ${
         open ? "border-accent" : "border-line"
       } ${
         locked
@@ -236,6 +238,8 @@ function ChapterCard({
           : "hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:border-accent focus-visible:outline-none active:-translate-y-0.5 active:border-accent"
       }`}
     >
+      <ChapterArt id={c.id} category={c.category} />
+      <span className="card-fade" aria-hidden />
       <span className="text-xs font-semibold text-faint">{c.number}</span>
       {badge && (
         <span
@@ -250,7 +254,6 @@ function ChapterCard({
       <span className="mt-auto text-xs text-faint">
         {c.points.length} {c.points.length === 1 ? "point" : "points"}
       </span>
-      <span className="chroma-tint" aria-hidden />
     </button>
   );
 }

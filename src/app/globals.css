@@ -103,46 +103,41 @@ body {
   }
 }
 
-/* Chroma cards (see ChromaSpotlight): plain at rest; near the pointer each card
-   takes on its category color, with a glow and a lit border that follow the
-   pointer over a card. */
+/* Chapter cards: an illustration behind a dark fade, a faint category tint,
+   and on hover (or while open) the picture brightens, animates, and a band
+   of light sweeps across once. The border lights up around the pointer. */
 @layer components {
-  .chroma-card {
+  .chapter-card {
     --sx: -999px;
     --sy: -999px;
-    --sr: 0px;
     position: relative;
     isolation: isolate;
-    background: rgb(255 255 255 / 0.04);
+    overflow: hidden;
   }
-  .chroma-tint {
+  .chapter-card .chapter-art {
     position: absolute;
     inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(155deg, color-mix(in srgb, var(--chroma) 16%, transparent), transparent 70%);
+    z-index: -2;
+    width: 100%;
+    height: 100%;
     opacity: 0.5;
+    transition:
+      opacity 0.3s,
+      transform 0.4s var(--ease-snap);
   }
-  [data-chroma-active] .chroma-tint {
-    opacity: 1;
-    mask-image: radial-gradient(circle var(--sr) at var(--sx) var(--sy), #000 0, #000 calc(var(--sr) * 0.4), transparent 100%);
-  }
-  .chroma-card::after {
-    content: "";
+  .chapter-card .card-fade {
     position: absolute;
     inset: 0;
     z-index: -1;
-    border-radius: inherit;
     pointer-events: none;
-    background: radial-gradient(circle 140px at var(--sx) var(--sy), color-mix(in srgb, var(--chroma) 18%, transparent), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    background:
+      linear-gradient(to bottom, rgb(11 21 48 / 0.92) 0%, rgb(11 21 48 / 0.55) 45%, rgb(11 21 48 / 0.3) 72%, rgb(11 21 48 / 0.85) 100%),
+      linear-gradient(155deg, color-mix(in srgb, var(--chroma) 12%, transparent), transparent 70%);
   }
-  .chroma-card::before {
+  .chapter-card::before {
     content: "";
     position: absolute;
-    inset: -1px;
+    inset: 0;
     border-radius: inherit;
     padding: 1px;
     pointer-events: none;
@@ -153,9 +148,352 @@ body {
     opacity: 0;
     transition: opacity 0.3s;
   }
-  .chroma-card:hover::before,
-  .chroma-card:hover::after {
+  .chapter-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0.16) 50%, transparent 65%);
+    transform: translateX(-120%);
+  }
+  .chapter-card:hover::before {
     opacity: 1;
+  }
+  .chapter-card:is(:hover, [aria-expanded="true"]) .chapter-art {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  .chapter-card:hover::after {
+    animation: card-shine 0.9s var(--ease-snap) both;
+  }
+
+  /* Parts of a picture turn around their own center unless told otherwise. */
+  .chapter-art [class^="a-"] {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .chapter-art .a-draw {
+    stroke-dasharray: 100;
+  }
+  .chapter-card:is(:hover, [aria-expanded="true"]) .chapter-art {
+    .a-wave {
+      animation: art-wave 1.2s ease-in-out infinite;
+    }
+    .a-swing {
+      animation: art-swing 1.6s ease-in-out infinite;
+    }
+    .a-blink {
+      animation: art-blink 1.2s ease-in-out infinite;
+    }
+    .a-rise {
+      animation: art-rise 1.4s var(--ease-snap) infinite alternate;
+    }
+    .a-float {
+      animation: art-float 1.8s ease-in-out infinite;
+    }
+    .a-bob {
+      animation: art-bob 1.4s ease-in-out infinite;
+    }
+    .a-pop {
+      animation: art-pop 1.8s var(--ease-snap) infinite;
+    }
+    .a-pulse {
+      animation: art-pulse 1s ease-in-out infinite;
+    }
+    .a-flap {
+      animation: art-flap 1.2s ease-in-out infinite alternate;
+    }
+    .a-bounce {
+      animation: art-bounce 1s ease-in-out infinite;
+    }
+    .a-spin {
+      animation: art-spin 3s linear infinite;
+    }
+    .a-spin-rev {
+      animation: art-spin 3s linear infinite reverse;
+    }
+    .a-spin-slow {
+      animation: art-spin 9s linear infinite;
+    }
+    .a-shake {
+      animation: art-shake 0.9s ease-in-out infinite;
+    }
+    .a-steam {
+      animation: art-steam 1.8s ease-out infinite;
+    }
+    .a-page {
+      animation: art-page 2s ease-in-out infinite;
+    }
+    .a-eq {
+      animation: art-eq 0.8s ease-in-out infinite alternate;
+    }
+    .a-drive {
+      animation: art-drive 1.6s ease-in-out infinite alternate;
+    }
+    .a-road {
+      animation: art-road 0.8s linear infinite;
+    }
+    .a-twinkle {
+      animation: art-twinkle 1.4s ease-in-out infinite;
+    }
+    .a-drift {
+      animation: art-drift 3s ease-in-out infinite alternate;
+    }
+    .a-rain {
+      animation: art-rain 0.9s linear infinite;
+    }
+    .a-draw {
+      animation: art-draw 1.6s ease-in-out infinite;
+    }
+    .a-blink-eye {
+      animation: art-eye 2.4s ease-in-out infinite;
+    }
+    .a-flip {
+      animation: art-flip 1.8s ease-in-out infinite;
+    }
+    .a-drop {
+      animation: art-drop 1.6s var(--ease-snap) infinite;
+    }
+    .a-slide {
+      animation: art-slide 1.6s var(--ease-snap) infinite;
+    }
+    .a-bow {
+      animation: art-bow 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes card-shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+@keyframes art-wave {
+  0%,
+  100% {
+    rotate: -10deg;
+  }
+  50% {
+    rotate: 14deg;
+  }
+}
+@keyframes art-swing {
+  0%,
+  100% {
+    rotate: -6deg;
+  }
+  50% {
+    rotate: 6deg;
+  }
+}
+@keyframes art-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes art-rise {
+  from {
+    scale: 1 0.6;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+@keyframes art-float {
+  50% {
+    translate: 0 -7px;
+  }
+}
+@keyframes art-bob {
+  50% {
+    translate: 0 -3px;
+  }
+}
+@keyframes art-pop {
+  0% {
+    scale: 0.85;
+    opacity: 0.5;
+  }
+  25%,
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+@keyframes art-pulse {
+  50% {
+    scale: 1.1;
+  }
+}
+@keyframes art-flap {
+  to {
+    scale: 1 0.7;
+  }
+}
+@keyframes art-bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  40% {
+    translate: 0 -12px;
+  }
+  60% {
+    translate: 0 -12px;
+  }
+}
+@keyframes art-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes art-shake {
+  0%,
+  100% {
+    translate: 0;
+  }
+  25% {
+    translate: -3px;
+  }
+  75% {
+    translate: 3px;
+  }
+}
+@keyframes art-steam {
+  from {
+    translate: 0 4px;
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  to {
+    translate: 0 -10px;
+    opacity: 0;
+  }
+}
+@keyframes art-page {
+  0%,
+  100% {
+    scale: 1 1;
+  }
+  50% {
+    scale: 0.15 1;
+  }
+}
+@keyframes art-eq {
+  from {
+    scale: 1 0.4;
+  }
+  to {
+    scale: 1 1.15;
+  }
+}
+@keyframes art-drive {
+  from {
+    translate: -6px 0;
+  }
+  to {
+    translate: 6px 0;
+  }
+}
+@keyframes art-road {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+@keyframes art-twinkle {
+  50% {
+    scale: 1.25;
+    opacity: 0.6;
+  }
+}
+@keyframes art-drift {
+  to {
+    translate: 10px 0;
+  }
+}
+@keyframes art-rain {
+  from {
+    translate: 0 -6px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    translate: -2px 6px;
+    opacity: 0;
+  }
+}
+@keyframes art-draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  70%,
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes art-eye {
+  0%,
+  44%,
+  52%,
+  100% {
+    scale: 1 1;
+  }
+  48% {
+    scale: 1 0.1;
+  }
+}
+@keyframes art-flip {
+  0%,
+  60%,
+  100% {
+    scale: 1 1;
+  }
+  30% {
+    scale: -1 1;
+  }
+}
+@keyframes art-drop {
+  0% {
+    translate: 0 -12px;
+    opacity: 0;
+  }
+  30%,
+  100% {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+@keyframes art-slide {
+  0% {
+    translate: 14px 0;
+    opacity: 0;
+  }
+  35%,
+  100% {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+@keyframes art-bow {
+  0%,
+  20%,
+  100% {
+    rotate: 0deg;
+  }
+  50%,
+  70% {
+    rotate: 28deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-card::after,
+  .chapter-art * {
+    animation: none !important;
   }
 }
 
