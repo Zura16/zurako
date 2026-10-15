@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BookOpen, Check, ChevronDown, ChevronRight, ChevronsUp, Lock, X } from "lucide-react";
-import { CATEGORY_LABEL, type Chapter } from "@/content/path";
+import { CATEGORY_LABEL, type Category, type Chapter } from "@/content/path";
+import { ChromaSpotlight } from "@/components/ui/Chroma";
+import { ShapeGrid } from "@/components/ui/ShapeGrid";
 import { UNIQUE_WORDS, wordId } from "@/content/wordbank";
 import {
   LEVEL_PASS,
@@ -28,6 +30,7 @@ export function LearnView() {
 
   return (
     <div className="mx-auto max-w-xl px-5 pt-[max(env(safe-area-inset-top),1.5rem)] pb-28">
+      <ShapeGrid lineColor="#2a2734" fillOpacity={0.15} cellSize={40} speed={0.5} trail={0.6} glow={0.35} strength={0.45} />
       <h1 className="text-2xl font-bold">Learn</h1>
       <p className="mt-1 text-muted">Work through each level&apos;s chapters. The feed gives you practice with whatever is open.</p>
 
@@ -56,11 +59,13 @@ export function LearnView() {
         <h2 id="levels-h" className="text-xs font-semibold tracking-wider text-faint uppercase">
           Levels
         </h2>
-        <ol className="mt-3 space-y-3">
-          {progress.map((p, i) => (
-            <LevelCard key={p.level.id} p={p} learner={learner} isCurrent={p.level.number === current} previous={progress[i - 1]} />
-          ))}
-        </ol>
+        <ChromaSpotlight>
+          <ol className="mt-3 space-y-3">
+            {progress.map((p, i) => (
+              <LevelCard key={p.level.id} p={p} learner={learner} isCurrent={p.level.number === current} previous={progress[i - 1]} />
+            ))}
+          </ol>
+        </ChromaSpotlight>
       </section>
     </div>
   );
@@ -185,6 +190,15 @@ function ChapterShelves({ chapters, learner, unlocked }: { chapters: Chapter[]; 
   );
 }
 
+/** Each category's color for the chroma effect, from the theme. */
+const CATEGORY_COLOR: Record<Category, string> = {
+  hangul: "var(--color-casual)",
+  grammar: "var(--color-polite)",
+  vocabulary: "var(--color-accent)",
+  conversation: "var(--color-good)",
+  culture: "var(--color-formal)",
+};
+
 const STATUS_BADGE: Record<ChapterStatus, { label: string; icon: React.ReactNode; className: string } | null> = {
   new: null,
   started: { label: "In progress", icon: <span className="h-2 w-2 rounded-full bg-accent" />, className: "" },
@@ -213,12 +227,14 @@ function ChapterCard({
       disabled={locked}
       aria-expanded={locked ? undefined : open}
       aria-label={`Chapter ${c.number}: ${c.title}${badge ? `, ${badge.label.toLowerCase()}` : ""}`}
-      className={`relative flex h-36 w-[8.5rem] flex-col rounded-2xl border bg-white/4 p-3.5 text-left transition duration-150 ${
-        open ? "border-accent bg-white/8" : "border-line"
+      data-chroma
+      style={{ "--chroma": CATEGORY_COLOR[c.category] } as React.CSSProperties}
+      className={`chroma-card flex h-36 w-[8.5rem] flex-col rounded-2xl border p-3.5 text-left transition duration-150 ${
+        open ? "border-accent" : "border-line"
       } ${
         locked
           ? "cursor-not-allowed opacity-60"
-          : "hover:-translate-y-0.5 hover:border-accent hover:bg-white/8 focus-visible:-translate-y-0.5 focus-visible:border-accent focus-visible:bg-white/8 focus-visible:outline-none active:-translate-y-0.5 active:border-accent active:bg-white/8"
+          : "hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:border-accent focus-visible:outline-none active:-translate-y-0.5 active:border-accent"
       }`}
     >
       <span className="text-xs font-semibold text-faint">{c.number}</span>
@@ -235,6 +251,7 @@ function ChapterCard({
       <span className="mt-auto text-xs text-faint">
         {c.points.length} {c.points.length === 1 ? "point" : "points"}
       </span>
+      <span className="chroma-tint" aria-hidden />
     </button>
   );
 }

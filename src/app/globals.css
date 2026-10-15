@@ -31,9 +31,12 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* The background sits on html only, so the Learn tab's grid canvas (z-index -1) shows through body. */
+html {
+  background: var(--color-bg);
+}
 html,
 body {
-  background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -97,5 +100,70 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Chroma cards (see ChromaSpotlight): plain at rest; near the pointer each card
+   takes on its category color, with a glow and a lit border that follow the
+   pointer over a card. */
+@layer components {
+  .chroma-card {
+    --sx: -999px;
+    --sy: -999px;
+    --sr: 0px;
+    position: relative;
+    isolation: isolate;
+    background: rgb(255 255 255 / 0.04);
+  }
+  .chroma-tint {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(155deg, color-mix(in srgb, var(--chroma) 16%, transparent), transparent 70%);
+    opacity: 0.5;
+  }
+  [data-chroma-active] .chroma-tint {
+    opacity: 1;
+    mask-image: radial-gradient(circle var(--sr) at var(--sx) var(--sy), #000 0, #000 calc(var(--sr) * 0.4), transparent 100%);
+  }
+  .chroma-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(circle 140px at var(--sx) var(--sy), color-mix(in srgb, var(--chroma) 18%, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .chroma-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: radial-gradient(circle 120px at var(--sx) var(--sy), var(--chroma), transparent 70%);
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .chroma-card:hover::before,
+  .chroma-card:hover::after {
+    opacity: 1;
+  }
+}
+
+.shape-grid {
+  animation: grid-in 1.6s ease-out both;
+}
+@keyframes grid-in {
+  from {
+    opacity: 0;
   }
 }
